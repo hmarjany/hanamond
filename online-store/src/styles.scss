@@ -1,0 +1,24 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+
+$custom-typography: mat-typography-config($font-family: '"yekan", sans-serif;');
+@include mat-core($custom-typography);
+
+html, body{
+    margin: 0;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: yekan, "Helvetica Neue", sans-serif; }
+input, select, textarea, button{font-family:inherit;}
+@font-face {
+
+    font-family: "yekan";
+    
+    src: url(assets/font/Yekan.eot);
+    
+    src: url(assets/font/Yekan.eot?#iefix) format("embedded-opentype"), url(assets/font/Yekan.woff) format("woff"), url(assets/font/Yekan.ttf) format("truetype"), url(assets/font/Yekan.svg#BYekan) format("svg");
+    
+    font-weight: normal;
+    
+    font-style: normal
+}
