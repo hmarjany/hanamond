@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/service/auth.service';
+import { ProfileService } from 'src/app/service/profile.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
+  providers: [ProfileService],
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
@@ -13,7 +14,8 @@ export class ProfileComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder, public auth: AuthService) {}
+  constructor(private _formBuilder: FormBuilder,
+    private profileService: ProfileService) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -22,5 +24,11 @@ export class ProfileComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+  }
+
+  update(){
+    this.profileService
+    .update()
+    .subscribe(profile=>{});
   }
 }

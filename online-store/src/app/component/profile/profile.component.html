@@ -1,7 +1,3 @@
-<pre *ngIf="auth.userProfile$ | async as profile">
-  <code>{{ profile | json }}</code>
-</pre>
-
 <mat-vertical-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
@@ -11,7 +7,7 @@
         <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
       </mat-form-field>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext (click)="update">Next</button>
       </div>
     </form>
   </mat-step>

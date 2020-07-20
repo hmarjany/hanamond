@@ -1,8 +1,7 @@
-import { Component, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Component, ElementRef, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,8 @@ import { AuthService } from './service/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mahya-tavan';
+  title = 'hanamond';
+  showDropdownMenu = false;
 
   mobileQuery: MediaQueryList;
 
@@ -32,7 +32,7 @@ export class AppComponent {
   };
 
   constructor(@Inject(DOCUMENT) private document: Document, changeDetectorRef: ChangeDetectorRef, 
-  media: MediaMatcher, public auth: AuthService) {
+  media: MediaMatcher, private eRef: ElementRef) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -41,5 +41,22 @@ export class AppComponent {
   ngOnDestroy(): void {
     window.removeEventListener('scroll', this.scroll, true); 
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  toggleButton(){
+    if(this.showDropdownMenu){
+      this.showDropdownMenu = false;
+    }else{
+      this.showDropdownMenu = true;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.eRef.nativeElement.contains(event.target)) {
+      
+    } else {
+      this.showDropdownMenu = false;
+    }
   }
 }
