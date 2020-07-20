@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,11 +9,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
 
-  isLinear = false;
+  isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, public auth: AuthService) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({

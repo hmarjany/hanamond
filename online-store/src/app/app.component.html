@@ -15,13 +15,7 @@
   <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
 
     <div fxLayout="row" fxLayoutAlign="end center">
-      <span style="font-size: 12px;">info@mahyatavan.com</span>
-      <mat-icon style="color:#47c0ef;">email</mat-icon>&nbsp;
-    </div>
-
-    <div fxLayout="row" fxLayoutAlign="end center">
-      <span style="font-size: 12px;">02112345678</span>
-      <mat-icon style="color:#47c0ef;">phone</mat-icon>&nbsp;
+      <img [src]="'assets/logo/logo.png'"/>
     </div>
 
   </div>
@@ -53,7 +47,7 @@
 
   <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
     <div fxLayout="row" fxLayoutAlign="start center">
-      <a routerLink="/profile">
+      <a routerLink="/profile" *ngIf="auth.loggedIn">
         <button style="background-color: transparent;padding: 10px;border-radius: 1px;margin-left: 10px;
           margin-right: 10px;border: solid thin gray;color: gray;outline: none;cursor: pointer;">
           <div fxLayout="row" fxLayoutAlign="center center">
@@ -61,6 +55,8 @@
           </div>
         </button>
       </a>
+      <button (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>
+      <button (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button>
       <div style="font-size: 30px;padding: 14px; color: gray;">|</div>
       <mat-icon style="color: gray;">shopping_basket</mat-icon>
     </div>

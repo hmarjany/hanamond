@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,7 @@ export class AppComponent {
   };
 
   constructor(@Inject(DOCUMENT) private document: Document, changeDetectorRef: ChangeDetectorRef, 
-  media: MediaMatcher) {
+  media: MediaMatcher, public auth: AuthService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
