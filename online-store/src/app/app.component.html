@@ -28,32 +28,32 @@
   <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
     <div fxLayout="row" fxLayoutAlign="start center">
       <button (click)="toggleButton()" style="background-color: transparent;border: none;">
-        <mat-icon style="color: gray;">person_outline</mat-icon>
+        <mat-icon style="color: gray;margin-top: 8px;">person_outline</mat-icon>
       </button>
 
       <div [ngClass]="(showDropdownMenu==false)?'dropdown-content':'show'" class="dropdown-content">
         <a href="#home">
           <div fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-icon style="color: gray;">person</mat-icon>
             ورود    
+            <mat-icon style="color: gray;">person</mat-icon>
           </div>
         </a>
         <a href="#about" style="border-bottom: #80808038 solid thin;border-top: #80808038 solid thin;">
           <div fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-icon style="color: gray;">person_add</mat-icon>
             ثبت نام
+            <mat-icon style="color: gray;">person_add</mat-icon>
           </div>
         </a>
         <a href="#about" style="border-bottom: #80808038 solid thin;">
           <div fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-icon style="color: gray;">person_pin</mat-icon>
             پروفایل
+            <mat-icon style="color: gray;">person_pin</mat-icon>
           </div>
         </a>
         <a href="#contact">
           <div fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-icon style="color: gray;">power_settings_new</mat-icon>
             خروج
+            <mat-icon style="color: gray;">power_settings_new</mat-icon>
           </div>
         </a>
       </div>
@@ -81,32 +81,33 @@
         <button (click)="toggleButton()" style="background-color: transparent;padding: 10px;border-radius: 1px;margin-left: 10px;
           margin-right: 10px;border: solid thin gray;color: gray;outline: none;cursor: pointer;">
           <div fxLayout="row" fxLayoutAlign="center center">
-            <mat-icon>person_outline</mat-icon>حساب کاربری 
+            حساب کاربری 
+            <mat-icon>person_outline</mat-icon>
           </div>
         </button>
         <div [ngClass]="(showDropdownMenu==false)?'dropdown-content':'show'" class="dropdown-content">
           <a href="#home">
             <div fxLayout="row" fxLayoutAlign="space-between center">
-              <mat-icon style="color: gray;">person</mat-icon>
               ورود    
+              <mat-icon style="color: gray;">person</mat-icon>
             </div>
           </a>
           <a href="#about" style="border-bottom: #80808038 solid thin;border-top: #80808038 solid thin;">
             <div fxLayout="row" fxLayoutAlign="space-between center">
-              <mat-icon style="color: gray;">person_add</mat-icon>
               ثبت نام
+              <mat-icon style="color: gray;">person_add</mat-icon>
             </div>
           </a>
           <a href="#about" style="border-bottom: #80808038 solid thin;">
             <div fxLayout="row" fxLayoutAlign="space-between center">
-              <mat-icon style="color: gray;">person_pin</mat-icon>
               پروفایل
+              <mat-icon style="color: gray;">person_pin</mat-icon>
             </div>
           </a>
           <a href="#contact">
             <div fxLayout="row" fxLayoutAlign="space-between center">
-              <mat-icon style="color: gray;">power_settings_new</mat-icon>
               خروج
+              <mat-icon style="color: gray;">power_settings_new</mat-icon>
             </div>
           </a>
         </div>
