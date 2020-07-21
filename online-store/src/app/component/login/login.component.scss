@@ -1,0 +1,19 @@
+.button{
+    width: 100%;
+    background-color: #36b2d1;
+    color: white;
+}
+
+.container{
+    border: #dedada solid thin; 
+    border-radius: 2px;
+    padding: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+    .container{
+        border: none; 
+        border-radius: 2px;
+        padding: 100px;
+    }
+}

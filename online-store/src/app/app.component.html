@@ -1,94 +1,42 @@
-<div fxHide.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
-  style="padding: 10px;background-color: aliceblue;">
-  <div fxLayout="row" fxLayoutAlign="start center">
-
+<div>
+  <div *ngIf="showMenu | async">
+  <div fxHide.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
+    style="padding: 10px;background-color: aliceblue;">
     <div fxLayout="row" fxLayoutAlign="start center">
 
-      <button mat-icon-button (click)="snav.toggle();">
-        <mat-icon style="color: gray;font-size: 29px;">menu</mat-icon>
-      </button>
-      
-    </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
 
-  </div>
+        <button mat-icon-button (click)="snav.toggle();">
+          <mat-icon style="color: gray;font-size: 29px;">menu</mat-icon>
+        </button>
 
-  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
-
-    <div fxLayout="row" fxLayoutAlign="end center">
-      <img [src]="'assets/logo/logo.png'"/>
-    </div>
-
-  </div>
-
-</div>
-
-<div fxHide.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
-  style="padding: 10px;background-color: aliceblue;">
-
-  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <button (click)="toggleButton()" style="background-color: transparent;border: none;">
-        <mat-icon style="color: gray;margin-top: 8px;">person_outline</mat-icon>
-      </button>
-
-      <div [ngClass]="(showDropdownMenu==false)?'dropdown-content':'show'" class="dropdown-content">
-        <a href="#home">
-          <div fxLayout="row" fxLayoutAlign="space-between center">
-            ورود    
-            <mat-icon style="color: gray;">person</mat-icon>
-          </div>
-        </a>
-        <a href="#about" style="border-bottom: #80808038 solid thin;border-top: #80808038 solid thin;">
-          <div fxLayout="row" fxLayoutAlign="space-between center">
-            ثبت نام
-            <mat-icon style="color: gray;">person_add</mat-icon>
-          </div>
-        </a>
-        <a href="#about" style="border-bottom: #80808038 solid thin;">
-          <div fxLayout="row" fxLayoutAlign="space-between center">
-            پروفایل
-            <mat-icon style="color: gray;">person_pin</mat-icon>
-          </div>
-        </a>
-        <a href="#contact">
-          <div fxLayout="row" fxLayoutAlign="space-between center">
-            خروج
-            <mat-icon style="color: gray;">power_settings_new</mat-icon>
-          </div>
-        </a>
       </div>
 
-      <mat-icon style="color: gray;">local_grocery_store</mat-icon>
     </div>
-  </div>
 
-</div>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
 
-<div fxHide fxShow.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
-  style="padding: 10px;background-color: aliceblue;">
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <img [src]="'assets/logo/logo.png'" />
+      </div>
 
-  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
-
-    <div fxLayout="row" fxLayoutAlign="end center">
-      <img [src]="'assets/logo/logo.png'"/>
     </div>
 
   </div>
 
-  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <div class="dropdown">
-        <button (click)="toggleButton()" style="background-color: transparent;padding: 10px;border-radius: 1px;margin-left: 10px;
-          margin-right: 10px;border: solid thin gray;color: gray;outline: none;cursor: pointer;">
-          <div fxLayout="row" fxLayoutAlign="center center">
-            حساب کاربری 
-            <mat-icon>person_outline</mat-icon>
-          </div>
+  <div fxHide.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
+    style="padding: 10px;background-color: aliceblue;">
+
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <button (click)="toggleButton()" style="background-color: transparent;border: none;">
+          <mat-icon style="color: gray;margin-top: 8px;">person_outline</mat-icon>
         </button>
+
         <div [ngClass]="(showDropdownMenu==false)?'dropdown-content':'show'" class="dropdown-content">
           <a href="#home">
             <div fxLayout="row" fxLayoutAlign="space-between center">
-              ورود    
+              ورود
               <mat-icon style="color: gray;">person</mat-icon>
             </div>
           </a>
@@ -111,64 +59,119 @@
             </div>
           </a>
         </div>
+
+        <mat-icon style="color: gray;">local_grocery_store</mat-icon>
       </div>
-      <div style="font-size: 30px;padding: 14px; color: gray;">|</div>
-      <mat-icon style="color: gray;">local_grocery_store</mat-icon>
     </div>
+
   </div>
 
-</div>
-<div>
-  <div fxHide fxShow.gt-xs style="padding: 10px;"
-    [ngClass]="{'showMenu': scrollPosition,'topMenu': scrollPosition === false }">
-    <div fxLayout="column" fxLayoutAlign="space-around center">
-      <div fxFlex="50% 0 50%">
-        <a routerLink="/home">
-          <img [src]="''" style="width: 100%; height: auto;">
-        </a>
+  <div fxHide fxShow.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
+    style="padding: 10px;background-color: aliceblue;">
+
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <img [src]="'assets/logo/logo.png'" />
+      </div>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div class="dropdown">
+          <button (click)="toggleButton()" style="background-color: transparent;padding: 10px;border-radius: 1px;margin-left: 10px;
+          margin-right: 10px;border: solid thin gray;color: gray;outline: none;cursor: pointer;">
+            <div fxLayout="row" fxLayoutAlign="center center">
+              حساب کاربری
+              <mat-icon>person_outline</mat-icon>
+            </div>
+          </button>
+          <div [ngClass]="(showDropdownMenu==false)?'dropdown-content':'show'" class="dropdown-content">
+            <a routerLink="/login">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                ورود
+                <mat-icon style="color: gray;">person</mat-icon>
+              </div>
+            </a>
+            <a routerLink="/register" style="border-bottom: #80808038 solid thin;border-top: #80808038 solid thin;">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                ثبت نام
+                <mat-icon style="color: gray;">person_add</mat-icon>
+              </div>
+            </a>
+            <a href="#about" style="border-bottom: #80808038 solid thin;">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                پروفایل
+                <mat-icon style="color: gray;">person_pin</mat-icon>
+              </div>
+            </a>
+            <a href="#contact">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                خروج
+                <mat-icon style="color: gray;">power_settings_new</mat-icon>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div style="font-size: 30px;padding: 14px; color: gray;">|</div>
+        <mat-icon style="color: gray;">local_grocery_store</mat-icon>
       </div>
     </div>
 
-    <div fxFlex fxLayout="row" fxLayoutAlign="center center" fxHide.xs>
-      <div fxLayout fxLayoutGap="20px">
-        <div>
+  </div>
+  <div>
+    <div fxHide fxShow.gt-xs style="padding: 10px;"
+      [ngClass]="{'showMenu': scrollPosition,'topMenu': scrollPosition === false }">
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <div fxFlex="50% 0 50%">
           <a routerLink="/home">
-            <div translate>Home</div>
-          </a>
-        </div>
-        <div>
-          <a routerLink="/contactus">
-            <div translate>HearingAid</div>
-          </a>
-        </div>
-
-        <div>
-          <a href="http://mahyatavan.blogfa.com/">
-            <div translate>Weblog</div>
-          </a>
-        </div>
-        <div>
-          <a routerLink="/contactus">
-            <div translate>Partner</div>
-          </a>
-        </div>
-        <div>
-          <a routerLink="/contactus">
-            <div translate>Contact Us</div>
-          </a>
-        </div>
-        <div>
-          <a routerLink="/aboutus">
-            <div translate>AboutCenter</div>
+            <img [src]="''" style="width: 100%; height: auto;">
           </a>
         </div>
       </div>
 
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center" fxHide.xs>
+        <div fxLayout fxLayoutGap="20px">
+          <div>
+            <a routerLink="/home">
+              <div translate>Home</div>
+            </a>
+          </div>
+          <div>
+            <a routerLink="/contactus">
+              <div translate>HearingAid</div>
+            </a>
+          </div>
+
+          <div>
+            <a href="http://mahyatavan.blogfa.com/">
+              <div translate>Weblog</div>
+            </a>
+          </div>
+          <div>
+            <a routerLink="/contactus">
+              <div translate>Partner</div>
+            </a>
+          </div>
+          <div>
+            <a routerLink="/contactus">
+              <div translate>Contact Us</div>
+            </a>
+          </div>
+          <div>
+            <a routerLink="/aboutus">
+              <div translate>AboutCenter</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+
     </div>
-
-
   </div>
-
+</div>
   <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches">
       <mat-nav-list>

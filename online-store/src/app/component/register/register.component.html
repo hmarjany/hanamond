@@ -1,0 +1,47 @@
+<div  fxLayout="column" fxLayoutAlign="center center" style="height: 100vh;">
+    <div fxLayout="column" fxLayoutAlign="start center" class="container">
+        <div>
+            <img [src]="'assets/logo/logo.png'" />
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" style="font-size: 18px;">
+            ثبت‌نام
+        </div>
+        <br/>
+        <form [formGroup]="form" (ngSubmit)="register()">
+            <div>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="نام و نام خانوادگی" formControlName="name" autocomplete="off">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field style="text-align: left">
+                    <input type="text" matInput placeholder="نام کاربری (E-Mail)" formControlName="email" autocomplete="off">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field style="text-align: left">
+                    <input type="password" matInput placeholder="کلمه عبور" formControlName="password">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field style="text-align: left">
+                    <input type="password" matInput placeholder="تکرار کلمه عبور" formControlName="confirmPass"
+                    [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="form.hasError('notSame')">
+                        تکرار کلمه عبور اشتباه است
+                    </mat-error>  
+                </mat-form-field>
+            </div>
+
+            <br/>
+            <div>
+                <button class="button" type="submit" mat-button>ثبت نام</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
