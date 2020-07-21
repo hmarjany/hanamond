@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/service/Auth/auth.service';
+import { User } from 'src/app/model/User';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +14,13 @@ export class ProfileComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  currentUser: User;
+
+  constructor(private _formBuilder: FormBuilder,
+    private authService: AuthService) {
+      this.authService.currentUser.subscribe(x => this.currentUser = x);
+      console.log(this.currentUser);
+    }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({

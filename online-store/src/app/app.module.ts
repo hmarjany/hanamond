@@ -15,10 +15,12 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { DataService } from './service/Data/data.service';
+import { JwtInterceptor } from './Helper/jwt.interceptor';
+import { ErrorInterceptor } from './Helper/error.interceptor';
 
 
 
@@ -45,7 +47,11 @@ import { DataService } from './service/Data/data.service';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [DataService],
+  providers: [
+    DataService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
