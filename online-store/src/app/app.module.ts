@@ -22,6 +22,8 @@ import { DataService } from './service/Data/data.service';
 import { JwtInterceptor } from './Helper/jwt.interceptor';
 import { ErrorInterceptor } from './Helper/error.interceptor';
 import { AutofocousDirective } from './Helper/autofocous.directive';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoadingComponent } from './component/loading/loading.component';
 
 
 
@@ -31,7 +33,8 @@ import { AutofocousDirective } from './Helper/autofocous.directive';
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
-    AutofocousDirective
+    AutofocousDirective,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { AutofocousDirective } from './Helper/autofocous.directive';
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
+    MatProgressBarModule,
     ReactiveFormsModule,
     HttpClientModule
   ],

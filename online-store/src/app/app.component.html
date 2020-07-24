@@ -1,3 +1,6 @@
+<app-loading
+  *ngIf="loading" color="accent" mode="indeterminate">
+</app-loading>
 <div>
   <div *ngIf="showMenu">
     <div fxHide.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
@@ -46,13 +49,13 @@
               </div>
             </button>
             <div [ngClass]="(showDropdownMenu==false)?'dropdown-content':'show'" class="dropdown-content">
-              <a href="/profile" style="border-bottom: #80808038 solid thin;">
+              <a routerLink="/profile" style="border-bottom: #80808038 solid thin;">
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                   پروفایل
                   <mat-icon style="color: gray;">person_pin</mat-icon>
                 </div>
               </a>
-              <a href="/" (click)="logout()">
+              <a routerLink="/" (click)="logout()">
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                   خروج
                   <mat-icon style="color: gray;">power_settings_new</mat-icon>

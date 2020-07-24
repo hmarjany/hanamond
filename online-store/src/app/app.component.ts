@@ -7,7 +7,7 @@ import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { isNullOrUndefined } from 'util';
 import { User } from './model/User';
 import { AuthService } from './service/Auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, NavigationError, NavigationCancel, NavigationEnd, NavigationStart, Event } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -18,6 +18,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class AppComponent {
   title = 'hanamond';
+  loading = false;
   showMenu: boolean = true;
   showDropdownMenu = false;
   dataPassed: any;
@@ -66,9 +67,30 @@ export class AppComponent {
       if (isNullOrUndefined(x)) {
         this.showMenu = true;
       }
-      this.changeDetectorRef.detectChanges()
+      this.changeDetectorRef.detectChanges();
     });
     
+    this.router.events.subscribe((event: Event) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.loading = true;
+          this.changeDetectorRef.detectChanges();
+          break;
+        }
+
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.loading = false;
+          this.changeDetectorRef.detectChanges();
+          break;
+        }
+        default: {
+          this.changeDetectorRef.detectChanges();
+          break;
+        }
+      }
+    });
   }
 
 
