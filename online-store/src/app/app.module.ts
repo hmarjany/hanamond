@@ -21,6 +21,7 @@ import { RegisterComponent } from './component/register/register.component';
 import { DataService } from './service/Data/data.service';
 import { JwtInterceptor } from './Helper/jwt.interceptor';
 import { ErrorInterceptor } from './Helper/error.interceptor';
+import { AutofocousDirective } from './Helper/autofocous.directive';
 
 
 
@@ -29,7 +30,8 @@ import { ErrorInterceptor } from './Helper/error.interceptor';
     AppComponent,
     ProfileComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AutofocousDirective
   ],
   imports: [
     BrowserModule,

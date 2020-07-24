@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
           username: ['',Validators.required],
           password: ['',Validators.required]
       });
+      
   }
 
   ngOnInit(): void {
@@ -56,4 +57,5 @@ export class LoginComponent implements OnInit {
               );
       }
   }
+
 }

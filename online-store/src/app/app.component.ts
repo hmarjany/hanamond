@@ -1,4 +1,4 @@
-import { Component, ElementRef, ChangeDetectorRef, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, ChangeDetectorRef, HostListener, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
@@ -7,6 +7,8 @@ import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { isNullOrUndefined } from 'util';
 import { User } from './model/User';
 import { AuthService } from './service/Auth/auth.service';
+import { Router } from '@angular/router';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,7 +18,7 @@ import { AuthService } from './service/Auth/auth.service';
 })
 export class AppComponent {
   title = 'hanamond';
-  showMenu:Subject<Boolean> = new BehaviorSubject(true);
+  showMenu: boolean = true;
   showDropdownMenu = false;
   dataPassed: any;
   subscription: Subscription;
@@ -28,6 +30,12 @@ export class AppComponent {
 
   private _mobileQueryListener: () => void;
 
+  @ViewChild('sidenav') sidenav: MatSidenav;
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+ 
   ngOnInit() {
     window.addEventListener('scroll', this.scroll, true);
   }
@@ -41,22 +49,28 @@ export class AppComponent {
     }
   };
 
-  constructor(@Inject(DOCUMENT) private document: Document, changeDetectorRef: ChangeDetectorRef,
+  constructor(@Inject(DOCUMENT) private document: Document, 
+    private changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher, private eRef: ElementRef,
     private dataService: DataService, 
-    private authService: AuthService) {
+    private authService: AuthService, 
+    private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
 
     this.authService.currentUser.subscribe(x => this.currentUser = x);
-    this.subscription = this.dataService.getData().subscribe(x => {
-      this.showMenu.next(x==="true");
-      if(isNullOrUndefined(x)){
-        this.showMenu.next(true);
+    this.showMenu = true;
+    this.dataService.getData().subscribe(x => {
+      this.showMenu = (x === "true");
+      if (isNullOrUndefined(x)) {
+        this.showMenu = true;
       }
+      this.changeDetectorRef.detectChanges()
     });
+    
   }
+
 
   ngOnDestroy(): void {
     window.removeEventListener('scroll', this.scroll, true);
@@ -76,10 +90,24 @@ export class AppComponent {
     this.authService.logout();
   }
 
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
+  }
+
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+    }
+  }
+
   @HostListener('document:click', ['$event'])
   clickout(event) {
     if (this.eRef.nativeElement.contains(event.target)) {
-      this.showDropdownMenu = true;
+      if(event.target.id!="account"){
+        this.showDropdownMenu = false;
+      }
     } else {
       this.showDropdownMenu = false;
     }

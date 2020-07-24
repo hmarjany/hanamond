@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
  
-@Injectable()
+@Injectable({
+    providedIn: 'root' 
+})
 export class DataService {
-    private subject = new Subject<any>();
+    public subject = new Subject<any>();
  
     sendData(message: string) {
         this.subject.next(message);
