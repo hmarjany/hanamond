@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Subject } from 'rxjs';
+import { LoaderService } from 'src/app/service/Loader/loader.service';
 
 @Component({
   selector: 'app-loading',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadingComponent implements OnInit {
 
-  constructor() { }
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
+  constructor(private loaderService: LoaderService,
+    private changeDetectorRef: ChangeDetectorRef){
+      this.isLoading.subscribe(()=>{
+        this.changeDetectorRef.detectChanges();
+      })
+    }
 
   ngOnInit(): void {
   }

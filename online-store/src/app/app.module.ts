@@ -24,6 +24,7 @@ import { ErrorInterceptor } from './Helper/error.interceptor';
 import { AutofocousDirective } from './Helper/autofocous.directive';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoadingComponent } from './component/loading/loading.component';
+import { LoaderService } from './service/Loader/loader.service';
 
 
 
@@ -54,6 +55,7 @@ import { LoadingComponent } from './component/loading/loading.component';
     HttpClientModule
   ],
   providers: [
+    LoaderService,
     DataService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
