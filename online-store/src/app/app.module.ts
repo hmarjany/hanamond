@@ -22,7 +22,6 @@ import { DataService } from './service/Data/data.service';
 import { JwtInterceptor } from './Helper/jwt.interceptor';
 import { ErrorInterceptor } from './Helper/error.interceptor';
 import { AutofocousDirective } from './Helper/autofocous.directive';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoadingComponent } from './component/loading/loading.component';
 
 
@@ -49,7 +48,6 @@ import { LoadingComponent } from './component/loading/loading.component';
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressBarModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
