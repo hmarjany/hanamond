@@ -9,6 +9,7 @@ import { User } from './model/User';
 import { AuthService } from './service/Auth/auth.service';
 import { Router, NavigationError, NavigationCancel, NavigationEnd, NavigationStart, Event } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
+import { LoaderService } from './service/Loader/loader.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,7 +19,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class AppComponent {
   title = 'hanamond';
-  loading = false;
   showMenu: boolean = true;
   showDropdownMenu = false;
   dataPassed: any;
@@ -55,7 +55,9 @@ export class AppComponent {
     media: MediaMatcher, private eRef: ElementRef,
     private dataService: DataService, 
     private authService: AuthService, 
-    private router: Router) {
+    private router: Router,
+    private loaderService: LoaderService) {
+
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -73,7 +75,7 @@ export class AppComponent {
     this.router.events.subscribe((event: Event) => {
       switch (true) {
         case event instanceof NavigationStart: {
-          this.loading = true;
+          this.loaderService.show();
           this.changeDetectorRef.detectChanges();
           break;
         }
@@ -81,7 +83,7 @@ export class AppComponent {
         case event instanceof NavigationEnd:
         case event instanceof NavigationCancel:
         case event instanceof NavigationError: {
-          this.loading = false;
+          this.loaderService.hide();
           this.changeDetectorRef.detectChanges();
           break;
         }
