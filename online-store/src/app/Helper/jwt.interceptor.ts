@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 import { AuthService } from '../service/Auth/auth.service';
 import { LoaderService } from '../service/Loader/loader.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, retry, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -26,6 +26,28 @@ export class JwtInterceptor implements HttpInterceptor {
         console.log(request);
         
         return next.handle(request).pipe(
+            retry(1),
+
+            catchError((error: HttpErrorResponse) => {
+     
+              let errorMessage = '';
+     
+              if (error instanceof ErrorEvent) {
+     
+                errorMessage = `Error: ${error}`;
+     
+              } else {
+     
+                // server-side error
+     
+                errorMessage = `${error}`;
+     
+              }
+     
+              return throwError(errorMessage);
+     
+            }),
+            
             finalize(() => this.loaderService.hide())
         );
     }

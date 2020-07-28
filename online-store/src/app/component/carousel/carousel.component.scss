@@ -1,0 +1,28 @@
+.topset{
+    margin-top: 80px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    width: 70vw;
+}
+
+.leftBanner{
+    display: inherit;
+    width: 30vw;
+    background-color: limegreen;
+    margin-top: 80px;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .topset{
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        width: 100vw;
+    }
+
+    .leftBanner{
+        display: none;
+    }
+  }

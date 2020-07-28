@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/model/User';
 import { ErrorStateMatcher } from 'src/app/ErrorStateMatcher';
 import { DataService } from 'src/app/service/Data/data.service';
+import { ErrorObject } from 'src/app/Helper/ErrorObject';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
   matcher = new ErrorStateMatcher();
   showMenu = false;
-
+  errorObject: ErrorObject = new ErrorObject();
+  
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
@@ -64,7 +66,7 @@ export class RegisterComponent implements OnInit {
             this.router.navigateByUrl('/');
           },
           error => {
-            console.log(error);
+            this.errorObject.Message=error;
           },
           () => {
 

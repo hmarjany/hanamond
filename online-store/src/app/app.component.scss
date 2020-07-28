@@ -1,4 +1,14 @@
   
+  .topMenuRibbon{
+    padding: 10px;
+    background-color: aliceblue;
+  }
+
+  .topMenuRibbonScroll{
+    padding: 0px;
+    background-color: aliceblue;
+  }
+
   .example-container {
       display: flex;
       flex-direction: column;
@@ -108,11 +118,9 @@
 	display:block;
 	color:#333;
 	text-decoration:none;
-	font-weight:700;
-	font-size:12px;
+	font-size:16px;
 	line-height:32px;
 	padding:0 15px;
-	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
 }
 
 #primary_nav_wrap ul li

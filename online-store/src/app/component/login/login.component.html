@@ -3,8 +3,12 @@
         <div>
             <img [src]="'assets/logo/logo.png'" />
         </div>
+        
         <div fxLayout="row" fxLayoutAlign="start center" style="font-size: 18px;">
             ورود / ثبت‌نام
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" style="color: red;">
+            {{errorObject.Message}}
         </div>
         <br/>
         <form [formGroup]="form" (ngSubmit)="login()">

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/service/Auth/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/User';
 import { DataService } from 'src/app/service/Data/data.service';
+import { ErrorObject } from 'src/app/Helper/ErrorObject';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { DataService } from 'src/app/service/Data/data.service';
 })
 export class LoginComponent implements OnInit {
   form:FormGroup;
+  errorObject: ErrorObject = new ErrorObject();
 
   showMenu = false;
   constructor(private fb:FormBuilder, 
@@ -49,7 +51,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigateByUrl('/');
                   },
                   error => {
-                    console.log(error);
+                    this.errorObject.Message=error;
                   },
                   () => {
 

@@ -4,6 +4,8 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { AuthGuard } from './Helper/auth.guard';
+import { HomeComponent } from './component/home/home.component';
+import { ProductComponent } from './component/product/product.component';
 
 const routes: Routes = [
   { 
@@ -14,6 +16,12 @@ const routes: Routes = [
   },
   {
     path: 'register', component: RegisterComponent
+  },
+  {
+    path: 'home', component: HomeComponent
+  },
+  {
+    path: 'product', component: ProductComponent
   }
 
 ];

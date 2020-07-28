@@ -70,7 +70,7 @@
     </div>
 
     <div fxHide fxShow.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
-      style="padding: 10px;background-color: aliceblue;">
+    [ngClass]="{'topMenuRibbonScroll': scrollPosition,'topMenuRibbon': scrollPosition === false }">
 
       <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
 
@@ -122,7 +122,7 @@
 
     </div>
     <div>
-      <div fxHide fxShow.gt-xs style="padding: 10px;"
+      <div fxHide fxShow.gt-xs style="padding: 10px;background-color: aliceblue;border-top: lightgray solid thin;"
         [ngClass]="{'showMenu': scrollPosition,'topMenu': scrollPosition === false }">
         <div fxLayout="column" fxLayoutAlign="space-around center">
           <div fxFlex="50% 0 50%">
@@ -132,17 +132,22 @@
           </div>
         </div>
 
-        <div fxFlex fxLayout="row" fxLayoutAlign="center center" fxHide.xs>
+        <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxHide.xs>
           <div fxLayout fxLayoutGap="20px">
             <nav id="primary_nav_wrap">
               <ul>
-                <li class="current-menu-item"><a routerLink="/">Home</a></li>
-                <li><a href="#">Menu 1</a>
+                <li class="current-menu-item"><a routerLink="/home">
+                  <div fxLayout="row" fxLayoutAlign="center center">
+                  صفحه اصلی
+                  <mat-icon style="color: gray;">home</mat-icon>
+                </div>
+                </a></li>
+                <li><a href="#">زنانه</a>
                   <ul>
-                    <li><a routerLink="/login">Sub Menu 1</a></li>
-                    <li><a href="#">Sub Menu 2</a></li>
-                    <li><a href="#">Sub Menu 3</a></li>
-                    <li><a href="#">Sub Menu 4</a>
+                    <li><a routerLink="/login">کفش</a></li>
+                    <li><a href="#">لباس شب</a></li>
+                    <li><a href="#">لباس راحتی</a></li>
+                    <!-- <li><a href="#">Sub Menu 4</a>
                       <ul>
                         <li><a href="#">Deep Menu 1</a>
                           <ul>
@@ -154,18 +159,18 @@
                         </li>
                         <li><a href="#">Deep Menu 2</a></li>
                       </ul>
-                    </li>
-                    <li><a href="#">Sub Menu 5</a></li>
+                    </li> -->
+                    <!-- <li><a href="#">Sub Menu 5</a></li> -->
                   </ul>
                 </li>
-                <li><a href="#">Menu 2</a>
+                <li><a href="#">مردانه</a>
                   <ul>
-                    <li><a href="#">Sub Menu 1</a></li>
-                    <li><a href="#">Sub Menu 2</a></li>
-                    <li><a href="#">Sub Menu 3</a></li>
+                    <li><a href="#">کفش</a></li>
+                    <li><a href="#">لباس رسمی</a></li>
+                    <li><a href="#">لباس راحتی</a></li>
                   </ul>
                 </li>
-                <li><a href="#">Menu 3</a>
+                <li><a href="#">بچگانه</a>
                   <ul>
                     <li class="dir"><a href="#">Sub Menu 1</a></li>
                     <li class="dir"><a href="#">Sub Menu 2 THIS IS SO LONG IT MIGHT CAUSE AN ISSEUE BUT MAYBE NOT?</a>
@@ -182,10 +187,10 @@
                     <li><a href="#">Sub Menu 5</a></li>
                   </ul>
                 </li>
-                <li><a href="#">Menu 4</a></li>
-                <li><a href="#">Menu 5</a></li>
-                <li><a href="#">Menu 6</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">فروش ویژه</a></li>
+                <!-- <li><a href="#">Menu 5</a></li>
+                <li><a href="#">Menu 6</a></li> -->
+                <li><a href="#">پیگیری سفارش</a></li>
               </ul>
             </nav>
           </div>

@@ -24,7 +24,16 @@ import { ErrorInterceptor } from './Helper/error.interceptor';
 import { AutofocousDirective } from './Helper/autofocous.directive';
 import { LoadingComponent } from './component/loading/loading.component';
 import { LoaderService } from './service/Loader/loader.service';
-
+import { HomeComponent } from './component/home/home.component';
+import { CarouselFirstComponent } from './component/carousel-first/carousel-first.component';
+import { CarouselSecondComponent } from './component/carousel-second/carousel-second.component';
+import { CarouselThirdComponent } from './component/carousel-third/carousel-third.component';
+import { CarouselForthComponent } from './component/carousel-forth/carousel-forth.component';
+import { CarouselComponent } from './component/carousel/carousel.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { NewProductCarouselComponent } from './component/new-product-carousel/new-product-carousel.component';
+import { ProductItemComponent } from './component/product-item/product-item.component';
+import { ProductComponent } from './component/product/product.component';
 
 
 @NgModule({
@@ -34,7 +43,16 @@ import { LoaderService } from './service/Loader/loader.service';
     LoginComponent,
     RegisterComponent,
     AutofocousDirective,
-    LoadingComponent
+    LoadingComponent,
+    HomeComponent,
+    CarouselFirstComponent,
+    CarouselSecondComponent,
+    CarouselThirdComponent,
+    CarouselForthComponent,
+    CarouselComponent,
+    NewProductCarouselComponent,
+    ProductItemComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +68,8 @@ import { LoaderService } from './service/Loader/loader.service';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CarouselModule
   ],
   providers: [
     LoaderService,

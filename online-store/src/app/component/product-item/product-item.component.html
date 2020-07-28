@@ -1,0 +1,8 @@
+<div class="flex">
+    <section *ngFor="let product of productList; index as i;">
+        <div style="background-image: url({{product.ImagePath}});width: 100%;height: 190px;"></div>
+        <h2 translate>{{product.Name}}</h2>
+        <p translate>{{product.Price}}</p>
+    </section>
+
+</div>

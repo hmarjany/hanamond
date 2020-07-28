@@ -6,6 +6,9 @@
         <div fxLayout="row" fxLayoutAlign="start center" style="font-size: 18px;">
             ثبت‌نام
         </div>
+        <div fxLayout="row" fxLayoutAlign="start center" style="color: red;">
+            {{errorObject.Message}}
+        </div>
         <br/>
         <form [formGroup]="form" (ngSubmit)="register()">
             <div>

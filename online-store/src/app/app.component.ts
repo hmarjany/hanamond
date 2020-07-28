@@ -43,11 +43,12 @@ export class AppComponent {
 
 
   scroll = (event): void => {
-    if (window.pageYOffset > 126) {
+    if (Math.round(window.pageYOffset) > 130) {
       this.scrollPosition = true;
     } else {
       this.scrollPosition = false;
     }
+    this.changeDetectorRef.detectChanges();
   };
 
   constructor(@Inject(DOCUMENT) private document: Document, 
