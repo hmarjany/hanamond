@@ -1,27 +1,9 @@
-<div style="background-color: lightpink;width: 100vw;height: 410px;display: flex;" >
+<div style="background-color: lightpink;width: 100vw;height: 410px;display: flex;">
     <div style="width: 30vw ;height: 100%;background-color: lightslategray;">
-        
+
     </div>
     <div style="width: 70vw;">
-        <owl-carousel-o [options]="customOptions">
-            <ng-container>
-                <ng-template carouselSlide>
-                    <app-product-item></app-product-item>
-                </ng-template>
-            </ng-container>
-
-            <ng-container>
-                <ng-template carouselSlide>
-                    <app-product-item></app-product-item>
-                </ng-template>
-            </ng-container>
-
-            <ng-container>
-                <ng-template carouselSlide>
-                    <app-product-item></app-product-item>
-                </ng-template>
-            </ng-container>
-
-        </owl-carousel-o>
+        <app-product-item [PrdouctPage]="false" [productList]="productList">
+        </app-product-item>
     </div>
 </div>
