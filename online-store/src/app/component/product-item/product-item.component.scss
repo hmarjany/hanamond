@@ -1,25 +1,69 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  
-section {
-    flex: 1 1 0; /* Prevent the extra space around content */
-    text-align: center; /* Align text on center */
-    display: flex; /* Display as flex */
-    flex-direction: column; /* Display flex in column */
-    align-items: center; /* Align items on center */
+@media only screen and (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.sectionProduct {
+  flex: 1 1 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px;
+  border: thin solid #00000047;
+  padding: 25px;
+  background: whitesmoke;
+  border-radius: 5px;
+  height: 280px;
+  max-width: 150px;
+  min-width: 150px;
+}
+
+.sectionProduct > p {
+  flex-grow: 1;
+}
+
+.sectionNewProduct {
+  flex: 1 1 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px;
+  border: thin solid #00000047;
+  padding: 25px;
+  background: whitesmoke;
+  border-radius: 5px;
+  height: 280px;
+}
+
+.sectionNewProduct > p {
+  flex-grow: 1;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .sectionProduct {
+    flex: 1 1 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 40px;
     border: thin solid #00000047;
     padding: 25px;
     background: whitesmoke;
     border-radius: 5px;
     height: 280px;
+    max-width: 80vw;
+    min-width: 80vw;
   }
-  
-section > p {
-    flex-grow: 1; /* Keep p's same size */
-  }
-  
-
-  ul {
-    display: flex; /* Display specs in flex-row */
-    justify-content: space-between; /* Specs to start and end of row */
-  }
+}

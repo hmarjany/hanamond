@@ -1,23 +1,27 @@
-<div style="display: flex;flex-wrap: wrap; justify-content: center; " *ngIf="PrdouctPage === true">
-    <section *ngFor="let product of productList; index as i;">
+<div class="container" *ngIf="PrdouctPage === true">
+    <section class="sectionProduct" *ngFor="let product of productList; index as i;">
         <div style="background-image: url({{product.ImagePath}});width: 100%;height: 190px;"></div>
-        <h2 >{{product.Name}}</h2>
-        <p >{{product.Price}}</p>
+
+        <a routerLink="/productview">
+            <h2>{{product.Name}}</h2>
+        </a>
+        
+        <p>{{product.Price}}</p>
     </section>
 
 </div>
 
 <div *ngIf="PrdouctPage === false">
     <owl-carousel-o [options]="customOptions">
-    <ng-container *ngFor="let product of productList; index as i;">
-        <ng-template carouselSlide>
-            <section>
-                <div style="background-image: url({{product.ImagePath}});width: 100%;height: 190px;"></div>
-                <h2 >{{product.Name}}</h2>
-                <p >{{product.Price}}</p>
-            </section>
-        </ng-template>
-    </ng-container>
-</owl-carousel-o>
+        <ng-container *ngFor="let product of productList; index as i;">
+            <ng-template carouselSlide>
+                <section class="sectionNewProduct">
+                    <div style="background-image: url({{product.ImagePath}});width: 100%;height: 190px;"></div>
+                    <h2>{{product.Name}}</h2>
+                    <p>{{product.Price}}</p>
+                </section>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
 
 </div>

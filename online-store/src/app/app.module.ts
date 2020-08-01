@@ -34,7 +34,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NewProductCarouselComponent } from './component/new-product-carousel/new-product-carousel.component';
 import { ProductItemComponent } from './component/product-item/product-item.component';
 import { ProductComponent } from './component/product/product.component';
-
+import { ProductViewComponent } from './component/product-view/product-view.component';
+import { ProductViewImageComponent } from './component/product-view-image/product-view-image.component';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { ProductComponent } from './component/product/product.component';
     CarouselComponent,
     NewProductCarouselComponent,
     ProductItemComponent,
-    ProductComponent
+    ProductComponent,
+    ProductViewComponent,
+    ProductViewImageComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,8 @@ import { ProductComponent } from './component/product/product.component';
     MatInputModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CarouselModule
+    CarouselModule,
+    PinchZoomModule 
   ],
   providers: [
     LoaderService,

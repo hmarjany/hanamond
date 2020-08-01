@@ -1,0 +1,29 @@
+<div class="topset">
+    <div fxHide fxShow.gt-xs fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+        <app-product-view-image></app-product-view-image>
+        <div  fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" >
+            <h2>تست تست</h2>
+            <div style="border-top: solid gray thin;">
+                توضیحات
+            </div>
+        </div>
+        <!-- mobile view -->
+        <div fxHide.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" >
+            <h2>تست تست</h2>
+            <div style="border-top: solid gray thin;">
+                توضیحات
+            </div>
+        </div>
+    </div>
+
+    <!-- mobile view -->
+    <div fxHide.gt-xs  fxLayout="column" fxLayoutAlign="center center">
+        <app-product-view-image></app-product-view-image>
+    </div>
+    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" >
+        <h2>تست تست</h2>
+        <div style="border-top: solid gray thin;">
+            توضیحات
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { RegisterComponent } from './component/register/register.component';
 import { AuthGuard } from './Helper/auth.guard';
 import { HomeComponent } from './component/home/home.component';
 import { ProductComponent } from './component/product/product.component';
+import { ProductViewComponent } from './component/product-view/product-view.component';
 
 const routes: Routes = [
   { 
@@ -23,7 +24,11 @@ const routes: Routes = [
   {
     path: 'product', component: ProductComponent
   }
-
+  ,
+  {
+    path: 'productview', component: ProductViewComponent
+  }
+  
 ];
 
 @NgModule({
