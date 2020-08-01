@@ -7,7 +7,6 @@
   .container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
   }
 }
 
@@ -17,14 +16,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 40px;
-  border: thin solid #00000047;
+  border: 0.1px solid #dcd6d647;
   padding: 25px;
-  background: whitesmoke;
-  border-radius: 5px;
-  height: 280px;
-  max-width: 150px;
-  min-width: 150px;
+  background: white;
+  height: 350px;
+  min-width: 260px;
+}
+
+.sectionProduct:last-child {
+  max-width: 25vw;
+}
+
+.sectionProduct:nth-last-child(2) {
+  background: black;
+}
+
+.sectionProduct:nth-last-child(3) {
+  background: black;
 }
 
 .sectionProduct > p {
@@ -48,7 +56,6 @@
 .sectionNewProduct > p {
   flex-grow: 1;
 }
-
 
 @media only screen and (max-width: 600px) {
   .sectionProduct {
