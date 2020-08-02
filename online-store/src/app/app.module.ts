@@ -37,6 +37,7 @@ import { ProductComponent } from './component/product/product.component';
 import { ProductViewComponent } from './component/product-view/product-view.component';
 import { ProductViewImageComponent } from './component/product-view-image/product-view-image.component';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
+import { BarRatingModule } from "ngx-bar-rating";
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { PinchZoomModule } from 'ngx-pinch-zoom';
     ReactiveFormsModule,
     HttpClientModule,
     CarouselModule,
-    PinchZoomModule 
+    PinchZoomModule,
+    BarRatingModule
   ],
   providers: [
     LoaderService,

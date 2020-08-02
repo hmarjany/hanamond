@@ -2,6 +2,7 @@
 @import '../node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.theme.default.scss';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~@angular/material/theming';
+@import '~ngx-bar-rating/themes/br-default-theme';
 
 $custom-typography: mat-typography-config($font-family: '"yekan", sans-serif;');
 @include mat-core($custom-typography);
