@@ -39,6 +39,7 @@ import { ProductViewImageComponent } from './component/product-view-image/produc
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { BarRatingModule } from "ngx-bar-rating";
 import { PagingComponent } from './component/paging/paging.component';
+import { CartComponent } from './component/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { PagingComponent } from './component/paging/paging.component';
     ProductComponent,
     ProductViewComponent,
     ProductViewImageComponent,
-    PagingComponent
+    PagingComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
