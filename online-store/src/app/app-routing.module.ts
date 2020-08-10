@@ -7,6 +7,7 @@ import { AuthGuard } from './Helper/auth.guard';
 import { HomeComponent } from './component/home/home.component';
 import { ProductComponent } from './component/product/product.component';
 import { ProductViewComponent } from './component/product-view/product-view.component';
+import { CartViewComponent } from './component/cart-view/cart-view.component';
 
 const routes: Routes = [
   { 
@@ -27,6 +28,9 @@ const routes: Routes = [
   ,
   {
     path: 'productview', component: ProductViewComponent
+  },
+  {
+    path: 'cartview', component: CartViewComponent
   }
   
 ];
