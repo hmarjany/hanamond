@@ -66,7 +66,7 @@
           <div (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()" >
             <mat-icon style="color: gray;" matBadge="{{cartItems}}" matBadgeColor="warn">
               local_grocery_store</mat-icon>
-            <app-cart *ngIf="showCart" style="position: absolute;z-index: 999999999999999;
+            <app-cart *ngIf="showCart && cartItems > 0" style="position: absolute;z-index: 999999999999999;
             margin-top: 24px;
             margin-right: -28px;">
 
@@ -131,7 +131,7 @@
             margin-right: -16px;" matBadge="{{cartItems}}" matBadgeColor="warn">
               local_grocery_store
             </mat-icon>
-            <app-cart *ngIf="showCart"style="position: absolute;z-index: 999999999999999;
+            <app-cart *ngIf="showCart && cartItems > 0" style="position: absolute;z-index: 999999999999999;
             margin-top: 24px;margin-right: -40px;width: 300px;margin-right: -300px;"></app-cart>
           </div>
         </div>
