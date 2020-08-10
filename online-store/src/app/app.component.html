@@ -1,6 +1,6 @@
 <app-loading>
 </app-loading>
-<app-cart></app-cart>
+
 <div>
   <div *ngIf="showMenu">
     <div fxHide.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
@@ -63,15 +63,23 @@
               </a>
             </div>
           </div>
+          <div (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()" >
+            <mat-icon style="color: gray;" matBadge="{{cartItems}}" matBadgeColor="warn">
+              local_grocery_store</mat-icon>
+            <app-cart *ngIf="showCart" style="position: absolute;z-index: 999999999999999;
+            margin-top: 24px;
+            margin-right: -28px;">
 
-          <mat-icon style="color: gray;">local_grocery_store</mat-icon>
+            </app-cart>
+          </div>
+
         </div>
       </div>
 
     </div>
 
     <div fxHide fxShow.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
-    [ngClass]="{'topMenuRibbonScroll': scrollPosition,'topMenuRibbon': scrollPosition === false }">
+      [ngClass]="{'topMenuRibbonScroll': scrollPosition,'topMenuRibbon': scrollPosition === false }">
 
       <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
 
@@ -117,7 +125,15 @@
             </div>
           </div>
           <div style="font-size: 30px;padding: 14px; color: gray;">|</div>
-          <mat-icon style="color: gray;">local_grocery_store</mat-icon>
+          <div (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()" style="width: 30px;height: auto;">
+            <mat-icon style="color: gray;direction: ltr;cursor: pointer;width: 40px;
+            height: 28px;
+            margin-right: -16px;" matBadge="{{cartItems}}" matBadgeColor="warn">
+              local_grocery_store
+            </mat-icon>
+            <app-cart *ngIf="showCart"style="position: absolute;z-index: 999999999999999;
+            margin-top: 24px;margin-right: -40px;width: 300px;margin-right: -300px;"></app-cart>
+          </div>
         </div>
       </div>
 
@@ -138,11 +154,11 @@
             <nav id="primary_nav_wrap">
               <ul>
                 <li class="current-menu-item"><a routerLink="/home">
-                  <div fxLayout="row" fxLayoutAlign="center center">
-                  صفحه اصلی
-                  <mat-icon style="color: gray;">home</mat-icon>
-                </div>
-                </a></li>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                      صفحه اصلی
+                      <mat-icon style="color: gray;">home</mat-icon>
+                    </div>
+                  </a></li>
                 <li><a href="#">زنانه</a>
                   <ul>
                     <li><a routerLink="/login">کفش</a></li>
@@ -222,7 +238,7 @@
       </mat-nav-list>
 
     </mat-sidenav>
-    <mat-sidenav-content >
+    <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

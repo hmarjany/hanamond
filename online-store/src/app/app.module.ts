@@ -40,6 +40,7 @@ import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { BarRatingModule } from "ngx-bar-rating";
 import { PagingComponent } from './component/paging/paging.component';
 import { CartComponent } from './component/cart/cart.component';
+import { MatBadgeModule } from '@angular/material/badge'
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { CartComponent } from './component/cart/cart.component';
     HttpClientModule,
     CarouselModule,
     PinchZoomModule,
-    BarRatingModule
+    BarRatingModule,
+    MatBadgeModule
   ],
   providers: [
     LoaderService,

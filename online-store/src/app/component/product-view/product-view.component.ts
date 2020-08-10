@@ -24,5 +24,6 @@ export class ProductViewComponent implements OnInit {
 
   addToCart(product) {
     this.cartService.addToCart(product);
+    this.cartService.getItemsCount();
   }
 }

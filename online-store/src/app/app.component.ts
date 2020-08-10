@@ -10,6 +10,7 @@ import { AuthService } from './service/Auth/auth.service';
 import { Router, NavigationError, NavigationCancel, NavigationEnd, NavigationStart, Event } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 import { LoaderService } from './service/Loader/loader.service';
+import { CartService } from './service/Cart/cart.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,13 +18,15 @@ import { LoaderService } from './service/Loader/loader.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'hanamond';
   showMenu: boolean = true;
   showDropdownMenu = false;
+  showCart = false;
   dataPassed: any;
   subscription: Subscription;
   currentUser: User;
+  cartItems: Number;
 
   mobileQuery: MediaQueryList;
 
@@ -39,6 +42,11 @@ export class AppComponent {
  
   ngOnInit() {
     window.addEventListener('scroll', this.scroll, true);
+    this.cartService.itemsCountChange.subscribe((value)=>{
+      this.cartItems = value;
+    })
+
+    this.cartService.getItemsCount();
   }
 
 
@@ -57,7 +65,8 @@ export class AppComponent {
     private dataService: DataService, 
     private authService: AuthService, 
     private router: Router,
-    private loaderService: LoaderService) {
+    private loaderService: LoaderService,
+    private cartService: CartService) {
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -71,8 +80,8 @@ export class AppComponent {
         this.showMenu = true;
       }
       this.changeDetectorRef.detectChanges();
-    });
-    
+    });   
+
     this.router.events.subscribe((event: Event) => {
       switch (true) {
         case event instanceof NavigationStart: {
@@ -125,6 +134,10 @@ export class AppComponent {
     if (!this.isExpanded) {
       this.isShowing = false;
     }
+  }
+
+  cartMouseLeave(){
+    this.showCart = false;
   }
 
   @HostListener('document:click', ['$event'])
