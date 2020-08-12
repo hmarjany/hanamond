@@ -17,6 +17,7 @@ export class ProductViewComponent implements OnInit {
       this.product = new Product();
       this.product.Name = "test01";
       this.product.Price = 1000;
+      this.product.ImagePath = 'assets/carousel-1bg.png';
     }
 
   ngOnInit(): void {

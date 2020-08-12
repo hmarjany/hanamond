@@ -41,7 +41,7 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { PagingComponent } from './component/paging/paging.component';
 import { CartComponent } from './component/cart/cart.component';
 import { MatBadgeModule } from '@angular/material/badge';
-import { CartViewComponent } from './component/cart-view/cart-view.component'
+import { CartViewComponent } from './component/cart-view/cart-view.component';
 
 @NgModule({
   declarations: [

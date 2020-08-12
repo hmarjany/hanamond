@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/model/Product';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CartService } from 'src/app/service/Cart/cart.service';
 
 @Component({
   selector: 'app-product-item',
@@ -11,9 +12,18 @@ export class ProductItemComponent implements OnInit {
 
   @Input() productList: Product[];
   @Input() PrdouctPage: boolean;
-  constructor() { }
+  @Input() CartPage: boolean = false;
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
+  }
+
+  onValueChanged(value: number): void { 
+  }
+  
+  removeItem(product){
+    this.cartService.removeFromCart(product);
+    this.cartService.getItemsCount();
   }
 
   customOptions: OwlOptions = {
