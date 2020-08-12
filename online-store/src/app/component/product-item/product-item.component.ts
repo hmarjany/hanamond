@@ -13,6 +13,7 @@ export class ProductItemComponent implements OnInit {
   @Input() productList: Product[];
   @Input() PrdouctPage: boolean;
   @Input() CartPage: boolean = false;
+  @Input() MobileView: boolean = false;
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {

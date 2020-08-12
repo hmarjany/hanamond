@@ -1,50 +1,96 @@
 <div class="topset">
-    <div fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="start start" style="
+    <div fxHide fxShow.gt-xs fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="start start" style="
     margin: 15px;
     min-width: 950px;">
         <app-product-item style="width: 70%;" [productList]="productList" [CartPage]="true"></app-product-item>
 
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
-        style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: white;border-radius: 4px;width: 30%;min-width: 280px;">
-        <div style="width: 85%;padding: 18px;">
-            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
-                &nbsp;گواهی اصالات و سلامت فیزیکی
+            style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: white;border-radius: 4px;width: 30%;min-width: 280px;">
+            <div style="width: 85%;padding: 18px;">
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
+                    &nbsp;گواهی اصالات و سلامت فیزیکی
+                </div>
+            </div>
+            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
+                    &nbsp;موجود در انبار
+                </div>
+            </div>
+            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
+                fxLayoutAlign="end end">
+                <div class="discountDecoration">
+                    4000
+                </div>
+                <div class="discount">
+                    5%
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <h2 style="color: #ef394e;font-size: 30px;">5698000</h2>
+                    <h2 style="color: #ef394e;">تومان</h2>
+                </div>
+            </div>
+            <div style="width: 85%;padding: 18px;">
+                <button style="width: 100%;
+                                background: #ef394e;
+                                border: none;
+                                color: white;
+                                padding: inherit;
+                                font-size: 1.2rem;
+                                border-radius: 7px;
+                                outline: none;
+                                cursor: pointer;">ادامه فرآیند خرید</button>
             </div>
         </div>
-        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
-            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
-                &nbsp;موجود در انبار
-            </div>
-        </div>
-        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
-            fxLayoutAlign="end end">
-            <div class="discountDecoration">
-                4000
-            </div>
-            <div class="discount">
-                5%
-            </div>
-            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                <h2 style="color: #ef394e;font-size: 30px;">5698000</h2>
-                <h2 style="color: #ef394e;">تومان</h2>
-            </div>
-        </div>
-        <div style="width: 85%;padding: 18px;">
-            <button style="width: 100%;
-    background: #ef394e;
-    border: none;
-    color: white;
-    padding: inherit;
-    font-size: 1.2rem;
-    border-radius: 7px;
-    outline: none;
-    cursor: pointer;">ادامه فرآیند خرید</button>
-        </div>
-    </div>
 
     </div>
 
-    
+
 </div>
+
+<!-- Mobile view -->
+<div fxHide.gt-xs  fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="margin: 15px;">
+        <app-product-item  [productList]="productList" [CartPage]="true" [MobileView]="true"></app-product-item>
+
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
+            style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: white;border-radius: 4px;width: 100%;">
+            <div style="width: 85%;padding: 18px;">
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
+                    &nbsp;گواهی اصالات و سلامت فیزیکی
+                </div>
+            </div>
+            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
+                    &nbsp;موجود در انبار
+                </div>
+            </div>
+            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
+                fxLayoutAlign="end end">
+                <div class="discountDecoration">
+                    4000
+                </div>
+                <div class="discount">
+                    5%
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <h2 style="color: #ef394e;font-size: 30px;">5698000</h2>
+                    <h2 style="color: #ef394e;">تومان</h2>
+                </div>
+            </div>
+            <div style="width: 85%;padding: 18px;">
+                <button style="width: 100%;
+                                background: #ef394e;
+                                border: none;
+                                color: white;
+                                padding: inherit;
+                                font-size: 1.2rem;
+                                border-radius: 7px;
+                                outline: none;
+                                cursor: pointer;">ادامه فرآیند خرید</button>
+            </div>
+        </div>
+
+    </div>
