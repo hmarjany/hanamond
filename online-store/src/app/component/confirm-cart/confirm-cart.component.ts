@@ -9,6 +9,7 @@ import { CartService } from 'src/app/service/Cart/cart.service';
 export class ConfirmCartComponent implements OnInit {
 
   productList: any;
+  editAddress: boolean = false;
   constructor(private cartService: CartService) { 
     this.productList =  cartService.getItems();
   }
@@ -17,4 +18,11 @@ export class ConfirmCartComponent implements OnInit {
     
   }
 
+  editAddressView(){
+    if(this.editAddress === false){
+      this.editAddress = true;
+    }else{
+      this.editAddress = false;
+    }
+  }
 }

@@ -2,8 +2,45 @@
     <div fxHide fxShow.gt-xs fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="start start" style="
     margin: 15px;
     min-width: 950px;">
-        <app-address style="width: 70%;"></app-address>
+        <div style="width: 70%;">
+            <section class="sectionَSelectedAddress" *ngIf="!editAddress">
+                <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+                    <div>
+                        <h2>
+                            آدرس تحویل سفارش
+                        </h2>
+                    </div>
+                    <div>
+                        تهران، خیابان شریعتی، بالاتر از ملک، خیابان کشواد، خیابان کلیم کاشانی، پلاک 22، واحد 8
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+                        <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
+                        <div style="color: gray">حسین مرجانی</div>
+                    </div>
+                    <a style="color: #7bbcf5;cursor: pointer;" (click)="editAddressView()">
+                        تغییر یا ویرایش آدرس >
+                    </a>
+                </div>
+            </section>
+            <div *ngIf="editAddress">
+                <div>
+                    <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="end center">
+                        <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
+                            <mat-icon style="cursor: pointer;" (click)="editAddressView()">save</mat-icon>
+                            <div>ذخیره تغییرات آدرس</div>
 
+                            <mat-icon style="cursor: pointer;color: red;" (click)="editAddressView()">close</mat-icon>
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+                <app-address></app-address>
+            </div>
+            <app-product-item [productList]="productList" [CartPage]="true"  [ConfirmCartView]="true"></app-product-item>
+
+        </div>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
             style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: white;border-radius: 4px;width: 30%;min-width: 280px;">
             <div style="width: 85%;padding: 18px;">
@@ -50,38 +87,74 @@
 </div>
 
 <!-- Mobile view -->
-<div fxHide.gt-xs  fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="margin: 15px;">
-        <app-product-item  [productList]="productList" [CartPage]="true" [MobileView]="true"></app-product-item>
+<div fxHide.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="margin: 15px;">
+    <section class="sectionَSelectedAddress" *ngIf="!editAddress">
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+            <div>
+                <h2>
+                    آدرس تحویل سفارش
+                </h2>
+            </div>
+            <div>
+                تهران، خیابان شریعتی، بالاتر از ملک، خیابان کشواد، خیابان کلیم کاشانی، پلاک 22، واحد 8
+            </div>
+            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+                <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
+                <div style="color: gray">حسین مرجانی</div>
+            </div>
+            <a style="color: #7bbcf5;cursor: pointer;" (click)="editAddressView()">
+                تغییر یا ویرایش آدرس >
+            </a>
+        </div>
+    </section>
+    <div *ngIf="editAddress">
+        <div>
+            <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="end center">
+                <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
+                    <mat-icon style="cursor: pointer;" (click)="editAddressView()">save</mat-icon>
+                    <div>ذخیره تغییرات آدرس</div>
 
-        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
-            style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f8f6f6;border-radius: 4px;width: 100%;">
-            <div style="width: 85%;padding: 18px;">
-                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
-                    &nbsp;گواهی اصالات و سلامت فیزیکی
+                    <mat-icon style="cursor: pointer;color: red;" (click)="editAddressView()">close</mat-icon>
                 </div>
+                
             </div>
-            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
-                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
-                    &nbsp;موجود در انبار
-                </div>
+
+        </div>
+
+        <app-address></app-address>
+    </div>
+    
+    <app-product-item [productList]="productList" [CartPage]="true" [MobileView]="true" [ConfirmCartView]="true"></app-product-item>
+
+    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
+        style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f8f6f6;border-radius: 4px;width: 100%;">
+        <div style="width: 85%;padding: 18px;">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
+                &nbsp;گواهی اصالات و سلامت فیزیکی
             </div>
-            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
-                fxLayoutAlign="end end">
-                <div class="discountDecoration">
-                    4000
-                </div>
-                <div class="discount">
-                    5%
-                </div>
-                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <h2 style="color: #ef394e;font-size: 30px;">5698000</h2>
-                    <h2 style="color: #ef394e;">تومان</h2>
-                </div>
+        </div>
+        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
+                &nbsp;موجود در انبار
             </div>
-            <div style="width: 85%;padding: 18px;">
-                <button style="width: 100%;
+        </div>
+        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
+            fxLayoutAlign="end end">
+            <div class="discountDecoration">
+                4000
+            </div>
+            <div class="discount">
+                5%
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                <h2 style="color: #ef394e;font-size: 30px;">5698000</h2>
+                <h2 style="color: #ef394e;">تومان</h2>
+            </div>
+        </div>
+        <div style="width: 85%;padding: 18px;">
+            <button style="width: 100%;
                                 background: #ef394e;
                                 border: none;
                                 color: white;
@@ -90,7 +163,7 @@
                                 border-radius: 7px;
                                 outline: none;
                                 cursor: pointer;">پرداخت</button>
-            </div>
         </div>
-
     </div>
+
+</div>

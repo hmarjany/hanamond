@@ -14,6 +14,7 @@ export class ProductItemComponent implements OnInit {
   @Input() PrdouctPage: boolean;
   @Input() CartPage: boolean = false;
   @Input() MobileView: boolean = false;
+  @Input() ConfirmCartView: boolean = false;
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
