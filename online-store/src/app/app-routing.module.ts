@@ -8,6 +8,7 @@ import { HomeComponent } from './component/home/home.component';
 import { ProductComponent } from './component/product/product.component';
 import { ProductViewComponent } from './component/product-view/product-view.component';
 import { CartViewComponent } from './component/cart-view/cart-view.component';
+import { ConfirmCartComponent } from './component/confirm-cart/confirm-cart.component';
 
 const routes: Routes = [
   { 
@@ -31,6 +32,9 @@ const routes: Routes = [
   },
   {
     path: 'cartview', component: CartViewComponent, data:{Product:'product'}
+  },
+  {
+    path: 'confirmcart', component: ConfirmCartComponent
   }
   
 ];

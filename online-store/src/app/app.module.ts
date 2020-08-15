@@ -42,6 +42,8 @@ import { PagingComponent } from './component/paging/paging.component';
 import { CartComponent } from './component/cart/cart.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CartViewComponent } from './component/cart-view/cart-view.component';
+import { ConfirmCartComponent } from './component/confirm-cart/confirm-cart.component';
+import { AddressComponent } from './component/address/address.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { CartViewComponent } from './component/cart-view/cart-view.component';
     ProductViewImageComponent,
     PagingComponent,
     CartComponent,
-    CartViewComponent
+    CartViewComponent,
+    ConfirmCartComponent,
+    AddressComponent
   ],
   imports: [
     BrowserModule,

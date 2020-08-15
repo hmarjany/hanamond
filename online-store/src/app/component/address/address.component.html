@@ -1,0 +1,52 @@
+<div class="container">
+    <section class="sectionCartProduct" *ngFor="let address of addressList; index as i;">
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start"
+                style="border-bottom: lightgray solid thin;width: 100%;padding: 10px;">
+                <input type="radio" />
+                <div>
+                    ارسال به این آدرس
+                </div>
+            </div>
+            <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <h2>
+                    {{address.address}}
+                </h2>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center"
+                    style="font-size: 16px;color: gray;">
+                    <mat-icon style="color: lightskyblue;margin-top: 8px;transform: scale(0.8);">email</mat-icon>
+                    <div>{{address.postalCode}}</div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                    <mat-icon style="color: lightskyblue;margin-top: 8px;transform: scale(0.8);">phone</mat-icon>
+                    <div>{{address.mobilePhone}}</div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                    <mat-icon style="color: lightskyblue;margin-top: 8px;transform: scale(0.8);">person_outline
+                    </mat-icon>
+                    <div>{{address.deliverTo}}</div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="1px" fxLayoutAlign="start center">
+                    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" style="color: lightskyblue;">
+                        <div>حذف</div>
+                        <div>|</div>
+                        <div>ویرایش</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="sectionCartProduct">
+        <div fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="space-around center" style="padding: 30px">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <mat-icon style="margin-top: 8px;transform: scale(2);">add_circle_outline</mat-icon>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <div style="margin-top: 8px;transform: scale(2);;">آدرس جدید</div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- CartPage Mobile view -->
