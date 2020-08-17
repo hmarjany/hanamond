@@ -23,19 +23,6 @@
                 </div>
             </section>
             <div *ngIf="editAddress">
-                <div>
-                    <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="end center">
-                        <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
-                            <mat-icon style="cursor: pointer;" (click)="editAddressView()">save</mat-icon>
-                            <div>ذخیره تغییرات آدرس</div>
-
-                            <mat-icon style="cursor: pointer;color: red;" (click)="editAddressView()">close</mat-icon>
-                        </div>
-                        
-                    </div>
-
-                </div>
-
                 <app-address></app-address>
             </div>
             <app-product-item [productList]="productList" [CartPage]="true"  [ConfirmCartView]="true"></app-product-item>
@@ -108,19 +95,6 @@
         </div>
     </section>
     <div *ngIf="editAddress">
-        <div>
-            <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="end center">
-                <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
-                    <mat-icon style="cursor: pointer;" (click)="editAddressView()">save</mat-icon>
-                    <div>ذخیره تغییرات آدرس</div>
-
-                    <mat-icon style="cursor: pointer;color: red;" (click)="editAddressView()">close</mat-icon>
-                </div>
-                
-            </div>
-
-        </div>
-
         <app-address></app-address>
     </div>
     

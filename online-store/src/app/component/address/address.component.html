@@ -1,9 +1,55 @@
-<div class="container">
+<div class="sectionَAddress" *ngIf="ShowView">
+    <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
+            <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center end">
+                <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start start">
+                    <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
+                        <button type="submit">
+                            <mat-icon style="cursor: pointer;">save</mat-icon>
+                            <div>ذخیره تغییرات آدرس</div>
+                        </button>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
+                        <button>
+                            <mat-icon style="cursor: pointer;">close</mat-icon>
+                            <div>بستن</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <mat-form-field class="example-full-width" style="width: 60vw;">
+                <mat-label>آدرس پستی</mat-label>
+                <textarea matInput formControlName="address" autocomplete="off"></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>تلفن همراه</mat-label>
+                <input matInput formControlName="mobilePhone" autocomplete="off" />
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <mat-form-field class="example-full-width">
+                    <mat-label>کد پستی</mat-label>
+                    <input matInput formControlName="postalCode" autocomplete="off" />
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>تحویل گیرنده</mat-label>
+                    <input matInput formControlName="deliverTo" autocomplete="off" />
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container" *ngIf="!ShowView">
     <section class="sectionَAddress" *ngFor="let address of addressList; index as i;">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
             <div *ngIf="!ProfileView === true" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start"
                 style="border-bottom: lightgray solid thin;width: 100%;padding: 10px;">
-                <input type="radio" name="checkAddress" style="cursor: pointer;"/>
+                <input type="radio" name="checkAddress" style="cursor: pointer;" />
                 <div>
                     ارسال به این آدرس
                 </div>
@@ -30,7 +76,7 @@
                     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" style="color: lightskyblue;">
                         <div>حذف</div>
                         <div>|</div>
-                        <div>ویرایش</div>
+                        <div (click)="showViewToggle(i)" style="cursor: pointer;">ویرایش</div>
                     </div>
                 </div>
             </div>
