@@ -24,7 +24,7 @@ const routes: Routes = [
     path: 'home', component: HomeComponent
   },
   {
-    path: 'product', component: ProductComponent
+    path: 'product/:Category/:SubCategory/:CategoryType', component: ProductComponent
   }
   ,
   {

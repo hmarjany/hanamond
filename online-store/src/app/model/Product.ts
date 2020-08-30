@@ -18,4 +18,6 @@ export class Product{
     AdditinalInfos?: AdditionalInfo;
     Comments?: Comment;
     Quantity?: Number;
+    skip?: Number = 0;
+    limit?: Number = 0;
 }

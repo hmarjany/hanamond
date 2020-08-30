@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/model/Product';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-product',
@@ -9,22 +11,41 @@ import { Product } from 'src/app/model/Product';
 export class ProductComponent implements OnInit {
 
   productList: Product[];
-  constructor() {
-    this.productList =[
-      {Name:"test1",Price:1000,ImagePath:'assets/carousel-1bg.png'},
-      {Name:"test2",Price:5000,ImagePath:'assets/carousel-1bg.png'},
-      {Name:"test3",Price:1000,ImagePath:'assets/carousel-1bg.png'},
-      {Name:"test4",Price:5000,ImagePath:'assets/carousel-1bg.png'},
-      {Name:"test5",Price:1000,ImagePath:'assets/carousel-1bg.png'},
-      {Name:"test6",Price:5000,ImagePath:'assets/carousel-1bg.png'},
-      {Name:"test7",Price:1000,ImagePath:'assets/carousel-1bg.png'},
-      {Name:"test8",Price:5000,ImagePath:'assets/carousel-1bg.png'},
-      {Name:"test9",Price:1000,ImagePath:'assets/carousel-1bg.png'},
-      {Name:"test10",Price:5000,ImagePath:'assets/carousel-1bg.png'}
-    ];
-   }
+  pageNumber: number = 1;
+  category: number;
+  categoryType: number;
+  subCategory: number;
+  perPage = 12;
 
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+    this.productList = []
   }
 
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.category = params['Category'];
+      this.categoryType = params['CategoryType'];
+      this.subCategory = params['SubCategory'];
+
+      var productFilter = new Product();
+      productFilter.Category = this.category;
+      productFilter.CategoryType = this.categoryType;
+      productFilter.SubCategory = this.subCategory;
+      productFilter.limit = this.perPage;
+      productFilter.skip = this.perPage * (this.pageNumber - 1);
+      let httpParams = new HttpParams()
+        .set('Category', productFilter.Category.toString())
+        .set('CategoryType', productFilter.CategoryType.toString())
+        .set('SubCategory', productFilter.SubCategory.toString())
+        .set('limit', productFilter.limit.toString())
+        .set('skip', productFilter.skip.toString());
+      this.http.get<Product[]>('http://127.0.0.1:3100/product/getListByPaging', { params: httpParams }).subscribe(data => {
+        this.productList = data;
+      });
+    });
+  }
+
+  onPageNumber(pageNumber: number) {
+    this.pageNumber = pageNumber;
+  }
 }

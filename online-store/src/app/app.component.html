@@ -1,7 +1,7 @@
 <app-loading>
 </app-loading>
 
-<div>
+<div *ngIf="showHeader">
   <div *ngIf="showMenu">
     <div fxHide.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
       style="padding: 10px;background-color: aliceblue;">
@@ -161,8 +161,8 @@
                   </a></li>
                 <li><a href="#">زنانه</a>
                   <ul>
-                    <li><a routerLink="/login">کفش</a></li>
-                    <li><a href="#">لباس شب</a></li>
+                    <li><a routerLink="/product/1/1/1">کفش</a></li>
+                    <li><a routerLink="/product/0/2/2">لباس شب</a></li>
                     <li><a href="#">لباس راحتی</a></li>
                     <!-- <li><a href="#">Sub Menu 4</a>
                       <ul>

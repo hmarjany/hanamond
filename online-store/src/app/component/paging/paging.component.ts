@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-paging',
@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PagingComponent implements OnInit {
 
   @Input()pageCount = 0;
+  @Output() pageNumber = new EventEmitter<number>();
   pages:Array<number>;
 
   constructor() { 
@@ -27,6 +28,7 @@ export class PagingComponent implements OnInit {
         children[i].className = "pageElement";
     }
     var a = e.target;
+    this.pageNumber.emit(parseInt(e.target.innerText));
     a.className += " active";
   }
 }

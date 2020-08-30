@@ -18,7 +18,7 @@ import { CartService } from './service/Cart/cart.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'hanamond';
   showMenu: boolean = true;
   showDropdownMenu = false;
@@ -27,6 +27,7 @@ export class AppComponent implements OnInit{
   subscription: Subscription;
   currentUser: User;
   cartItems: Number;
+  showHeader: boolean = true;
 
   mobileQuery: MediaQueryList;
 
@@ -39,10 +40,10 @@ export class AppComponent implements OnInit{
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
- 
+
   ngOnInit() {
     window.addEventListener('scroll', this.scroll, true);
-    this.cartService.itemsCountChange.subscribe((value)=>{
+    this.cartService.itemsCountChange.subscribe((value) => {
       this.cartItems = value;
     })
 
@@ -59,15 +60,16 @@ export class AppComponent implements OnInit{
     this.changeDetectorRef.detectChanges();
   };
 
-  constructor(@Inject(DOCUMENT) private document: Document, 
+  constructor(@Inject(DOCUMENT) private document: Document,
     private changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher, private eRef: ElementRef,
-    private dataService: DataService, 
-    private authService: AuthService, 
+    private dataService: DataService,
+    private authService: AuthService,
     private router: Router,
     private loaderService: LoaderService,
     private cartService: CartService) {
 
+    
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -80,7 +82,7 @@ export class AppComponent implements OnInit{
         this.showMenu = true;
       }
       this.changeDetectorRef.detectChanges();
-    });   
+    });
 
     this.router.events.subscribe((event: Event) => {
       switch (true) {
@@ -136,14 +138,14 @@ export class AppComponent implements OnInit{
     }
   }
 
-  cartMouseLeave(){
+  cartMouseLeave() {
     this.showCart = false;
   }
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
     if (this.eRef.nativeElement.contains(event.target)) {
-      if(event.target.id!="account"){
+      if (event.target.id != "account") {
         this.showDropdownMenu = false;
       }
     } else {
