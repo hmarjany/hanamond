@@ -1,4 +1,4 @@
 export class AdditionalInfo{
-    Key: String;
-    Value: String;
+    key: String;
+    value: String;
 }

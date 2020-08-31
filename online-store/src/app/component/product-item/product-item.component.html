@@ -1,8 +1,14 @@
 <div class="container" *ngIf="PrdouctPage === true">
     <section class="sectionProduct" *ngFor="let product of productList; index as i;">
-        <div fxLayout="row" fxLayoutAlign="center center" class="specilaOffer">
+        <div *ngIf="product.SpecialOffer" fxLayout="row" fxLayoutAlign="center center" class="specilaOffer">
             <div>
                 فروش ویژه
+            </div>
+        </div>
+        <div *ngIf="!product.SpecialOffer" fxLayout="row" fxLayoutAlign="center center"
+            style="border-bottom: none;height: 25px;" class="specilaOffer">
+            <div>
+                &nbsp;
             </div>
         </div>
         <a class="rLink" routerLink="/productview/{{product._id}}" style="width: 100%;">
@@ -14,19 +20,19 @@
             <h2>{{product.Name}}</h2>
         </a>
         <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
-            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+            <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
                 موجود
                 <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
             </div>
-            <!-- <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+            <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
                 ناموجود
                 <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
-            </div> -->
+            </div>
             <div style="direction: ltr;">
                 <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
             </div>
         </div>
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+        <div *ngIf="product.Sale" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
             <div class="discountDecoration">
                 4000
             </div>
@@ -34,12 +40,20 @@
                 5%
             </div>
         </div>
+        <div *ngIf="!product.Sale" style="height: 30px;" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+            <div>
+                &nbsp;
+            </div>
+            <div class="discount" style="background-color: transparent;">
+                &nbsp;
+            </div>
+        </div>
         <div fxLayout="row" fxLayoutAlign="end center">
-            <h2>{{product.Price}} تومان</h2>
+            <h2>{{product.Price | number}} تومان</h2>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center">
             <div class="extraParameter">
-                parameter
+                {{product.Sepcification}}
             </div>
         </div>
     </section>
@@ -64,57 +78,60 @@
                         </div>
                     </div>
                     <div *ngIf="!ConfirmCartView">
-                        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                        <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
+                            fxLayoutAlign="start center">
                             موجود
                             <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
-                            <!-- <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                        </div>
+                        <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
+                            fxLayoutAlign="center center">
                             ناموجود
                             <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
-                        </div> -->
-                            <div style="direction: ltr;">
-                                <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
-                            </div>
                         </div>
-                        <div class="number-input">
-                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus"></button>
-                            <input class="quantity" min="1" name="quantity" value="1" type="number">
-                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                        </div>
-                        <div fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="start center"
-                            style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;" (click)="removeItem(product)">
-                            <div>
-                                حذف
-                            </div>
-                            <div>
-                                <mat-icon style="cursor: pointer;" (click)="removeItem(product)">remove_shopping_cart
-                                </mat-icon>
-                            </div>
+                        <div style="direction: ltr;">
+                            <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
                         </div>
                     </div>
-                </div>
-
-
-
-            </div>
-            <div *ngIf="!ConfirmCartView" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="end center"
-                style="width: 36%;">
-                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
-                    <div class="discountDecoration">
-                        4000
+                    <div class="number-input">
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                            class="plus"></button>
+                        <input class="quantity" min="1" name="quantity" value="1" type="number">
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                     </div>
-                    <div>تومان</div>
-                    <div class="discount">
-                        5%
+                    <div fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="start center"
+                        style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;"
+                        (click)="removeItem(product)">
+                        <div>
+                            حذف
+                        </div>
+                        <div>
+                            <mat-icon style="cursor: pointer;" (click)="removeItem(product)">remove_shopping_cart
+                            </mat-icon>
+                        </div>
                     </div>
-                </div>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <div>{{product.Price}}</div>
-                    <div>تومان</div>
                 </div>
             </div>
+
+
 
         </div>
+        <div *ngIf="!ConfirmCartView" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="end center"
+            style="width: 36%;">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <div class="discountDecoration">
+                    4000
+                </div>
+                <div>تومان</div>
+                <div class="discount">
+                    5%
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div>{{product.Price | number}}</div>
+                <div>تومان</div>
+            </div>
+        </div>
+
     </section>
 
 </div>
@@ -132,55 +149,57 @@
                     <a class="rLink" routerLink="/productview">
                         <h2>{{product.Name}}</h2>
                     </a>
-                    
+
                     <div *ngIf="ConfirmCartView" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
                         <div style="direction: ltr;min-width: 89vw;">
                             <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
                         </div>
                     </div>
-                        <div *ngIf="!ConfirmCartView" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
-                            موجود
-                            <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
-                            <!-- <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
-                            ناموجود
-                            <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
-                        </div> -->
-                            <div style="direction: ltr;">
-                                <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
-                            </div>
-                        </div>
-                        <div *ngIf="!ConfirmCartView" class="number-input">
-                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus"></button>
-                            <input class="quantity" min="1" name="quantity" value="1" type="number">
-                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                        </div>
-                        <div *ngIf="!ConfirmCartView" fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="center center"
-                            style="color: #a4a5a7;font-size: 10px;cursor: pointer;" (click)="removeItem(product)">
-                            <div>
-                                حذف
-                            </div>
-                            <div>
-                                <mat-icon style="cursor: pointer;" (click)="removeItem(product)">remove_shopping_cart
-                                </mat-icon>
-                            </div>
-                        </div>
-                    
+                    <div *ngIf="!ConfirmCartView && product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
+                        fxLayoutAlign="center center">
+                        موجود
+                        <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
+                    </div>
+                    <div *ngIf="!ConfirmCartView && product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
+                        fxLayoutAlign="center center">
+                        ناموجود
+                        <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
+                    </div>
+                    <div style="direction: ltr;">
+                        <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
+                    </div>
                 </div>
-                <div *ngIf="!ConfirmCartView" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center"
-                    style="width: 36%;">
+                <div *ngIf="!ConfirmCartView" class="number-input">
+                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                        class="plus"></button>
+                    <input class="quantity" min="1" name="quantity" value="1" type="number">
+                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                </div>
+                <div *ngIf="!ConfirmCartView" fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="center center"
+                    style="color: #a4a5a7;font-size: 10px;cursor: pointer;" (click)="removeItem(product)">
+                    <div>
+                        حذف
+                    </div>
+                    <div>
+                        <mat-icon style="cursor: pointer;" (click)="removeItem(product)">remove_shopping_cart
+                        </mat-icon>
+                    </div>
+                </div>
 
-                    <div class="discountDecoration">
-                        4000
-                    </div>
+            </div>
+            <div *ngIf="!ConfirmCartView" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 36%;">
+
+                <div class="discountDecoration">
+                    4000
+                </div>
+                <div>تومان</div>
+                <div class="discount">
+                    5%
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div>{{product.Price | number}}</div>
                     <div>تومان</div>
-                    <div class="discount">
-                        5%
-                    </div>
-                    <div fxLayout="row" fxLayoutAlign="center center">
-                        <div>{{product.Price}}</div>
-                        <div>تومان</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -194,7 +213,7 @@
                 <section class="sectionNewProduct">
                     <div style="background-image: url({{product.ImagePath}});width: 100%;height: 190px;"></div>
                     <h2>{{product.Name}}</h2>
-                    <p>{{product.Price}}</p>
+                    <p>{{product.Price | number}}</p>
                 </section>
             </ng-template>
         </ng-container>

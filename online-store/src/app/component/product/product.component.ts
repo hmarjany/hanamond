@@ -18,6 +18,7 @@ export class ProductComponent implements OnInit {
   perPage = 12;
   defualtImagePath = 'assets/carousel-1bg.png';
   totalPage :any;
+  isDataAvailable = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {
     this.productList = []
@@ -79,6 +80,7 @@ export class ProductComponent implements OnInit {
           }
         });
         this.productList = data;
+        this.isDataAvailable = true;
       });
     });
   }

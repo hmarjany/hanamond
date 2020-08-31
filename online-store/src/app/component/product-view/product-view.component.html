@@ -1,4 +1,4 @@
-<div class="topset">
+<div class="topset" *ngIf="isDataAvailable">
     <div fxHide fxShow.gt-xs fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" style="background: white;
     margin: 15px;
     border: thin solid #e8e4e4;
@@ -7,27 +7,39 @@
         <app-product-view-image [imagePaths]="imagePaths"></app-product-view-image>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;">
             <section class="fieldset">
-                <h1>کفش اکو</h1>
+                <h1>{{product.Name}}</h1>
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;">
                     <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start"
                         style="font-size: 18px; padding: 5px;width: 70%;">
                         <div>
-                            توضیحات
+                            {{product.Sepcification}}
                         </div>
                         <div style="direction: ltr;">
                             <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
                         </div>
-                        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" style="font-size: 14px;">
-                            <div>برند : </div>
-                            <div>دسته بندی : </div>
+                        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
+                            <div>برند : &nbsp;{{product.BrandName}}</div>
+                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start"
+                                style="font-size: 16px;">
+                                دسته بندی :&nbsp;
+                                <a style="text-decoration: none;"
+                                    routerLink="/product/{{product.Category}}/{{product.CategoryType}}/{{product.SubCategory}}">
+                                    <div>
+                                        {{product.CategoryName}}&nbsp;/&nbsp;{{product.SubCategoryName}}&nbsp;/&nbsp;{{product.CategoryTypeName}}
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                         <div fxLayout="column" fxLayoutAlign="start center" style="font-size: 14px;">
                             <div>ویژگی های محصول</div>
-                            <ul style="font-size: 12px;padding: 0px;">
-                                <li>خوشگل</li>
-                                <li>زیبا</li>
-                                <li>مامانی</li>
-                            </ul>
+                            <ng-container *ngIf="product.AdditinalInfos">
+                                <ul style="font-size: 14px;padding: 0px;list-style-position: inside;
+                                list-style-type: arabic-indic;">
+                                    <li *ngFor="let addInfo of product.AdditinalInfos; index as i;">
+                                        {{addInfo.key}}&nbsp;:&nbsp;{{addInfo.value}}
+                                    </li>
+                                </ul>
+                            </ng-container>
                         </div>
                     </div>
 
@@ -40,9 +52,15 @@
                             </div>
                         </div>
                         <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
-                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                            <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
+                                fxLayoutAlign="start center">
                                 <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
                                 &nbsp;موجود در انبار
+                            </div>
+                            <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
+                                fxLayoutAlign="start center">
+                                <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
+                                &nbsp;ناموجود
                             </div>
                         </div>
                         <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
@@ -54,7 +72,7 @@
                                 5%
                             </div>
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                                <h2 style="color: #ef394e;font-size: 30px;">5698000</h2>
+                                <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
                                 <h2 style="color: #ef394e;">تومان</h2>
                             </div>
                         </div>
@@ -79,30 +97,42 @@
 
     <!-- mobile view -->
     <div fxHide.gt-xs>
-        <app-product-view-image></app-product-view-image>
+        <app-product-view-image [imagePaths]="imagePaths"></app-product-view-image>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;margin-top: 10px;">
             <section class="fieldset">
-                <h1>کفش اکو</h1>
+                <h1>{{product.Name}}</h1>
                 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;">
                     <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start"
                         style="font-size: 18px; padding: 5px;width: 100%;">
                         <div>
-                            توضیحات
+                            {{product.Sepcification}}
                         </div>
                         <div style="direction: ltr;">
                             <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
                         </div>
-                        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" style="font-size: 14px;">
-                            <div>برند : </div>
-                            <div>دسته بندی : </div>
+                        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 14px;">
+                            <div>برند : &nbsp;{{product.BrandName}}</div>
+                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start"
+                                style="font-size: 16px;">
+                                دسته بندی :&nbsp;
+                                <a style="text-decoration: none;"
+                                    routerLink="/product/{{product.Category}}/{{product.CategoryType}}/{{product.SubCategory}}">
+                                    <div>
+                                        {{product.CategoryName}}&nbsp;/&nbsp;{{product.SubCategoryName}}&nbsp;/&nbsp;{{product.CategoryTypeName}}
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                         <div fxLayout="column" fxLayoutAlign="start center" style="font-size: 14px;">
                             <div>ویژگی های محصول</div>
-                            <ul style="font-size: 12px;padding: 0px;">
-                                <li>خوشگل</li>
-                                <li>زیبا</li>
-                                <li>مامانی</li>
-                            </ul>
+                            <ng-container *ngIf="product.AdditinalInfos">
+                                <ul style="font-size: 14px;padding: 0px;list-style-position: inside;
+                                list-style-type: arabic-indic;">
+                                    <li *ngFor="let addInfo of product.AdditinalInfos; index as i;">
+                                        {{addInfo.key}}&nbsp;:&nbsp;{{addInfo.value}}
+                                    </li>
+                                </ul>
+                            </ng-container>
                         </div>
                     </div>
 
@@ -115,9 +145,15 @@
                             </div>
                         </div>
                         <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
-                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                            <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
+                                fxLayoutAlign="start center">
                                 <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
                                 &nbsp;موجود در انبار
+                            </div>
+                            <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
+                                fxLayoutAlign="start center">
+                                <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
+                                &nbsp;ناموجود
                             </div>
                         </div>
                         <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
@@ -129,7 +165,7 @@
                                 5%
                             </div>
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                                <h2 style="color: #ef394e;font-size: 30px;">5698000</h2>
+                                <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
                                 <h2 style="color: #ef394e;">تومان</h2>
                             </div>
                         </div>

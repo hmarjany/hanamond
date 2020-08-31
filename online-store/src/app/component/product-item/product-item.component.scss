@@ -5,6 +5,7 @@ $width: 100%;
   border-bottom: red solid thin;
   width: 100%;
   padding: 3px;
+  height: 26px;
 }
 
 .discountDecoration {
@@ -110,21 +111,17 @@ $width: 100%;
   z-index: 2;
 }
 
-.extraParameter {
-  display: none;
-}
-
 .sectionProduct:hover .extraParameter {
   display: initial;
   border-top: lightgrey solid thin;
-  padding: 5px;
+  padding-right: 5px;
   width: 100%;
+  margin-top: -5px;
 }
 
 .sectionProduct > p {
   flex-grow: 1;
 }
-
 
 .sectionCartProduct {
   flex: 1 1 0;
@@ -132,25 +129,11 @@ $width: 100%;
   flex-direction: column;
   background: white;
   min-width: 99%;
-  //padding: 10px;
   z-index: 0;
   margin: 0.5px;
   border: #e4e4e4 thin solid;
   border-radius: 4px;
 }
-
-// .sectionCartProduct:hover {
-//   flex: 1 1 0;
-//   display: flex;
-//   flex-direction: column;
-//   background: white;
-//   min-width: 100%;
-//   transition: transform 300ms ease;
-//   box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.31);
-//   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-//   margin: 1px;
-//   z-index: 2;
-// }
 
 .extraParameter {
   display: none;

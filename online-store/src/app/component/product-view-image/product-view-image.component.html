@@ -1,12 +1,13 @@
-<div fxHide fxShow.gt-xs fxLayout="column"  fxLayoutGap="10px" fxLayoutAlign="space-around start" style="padding: 5px;width: 33vw;">
+<div fxHide fxShow.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="space-around start" style="padding: 5px;width: 440px;min-width: 440px;max-width: 440px;">
     <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%;">
         <pinch-zoom backgroundColor="transparent">
             <img [src]="selectedImage" />
         </pinch-zoom>
     </div>
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" >
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around end">
         <div (click)="changeSelectedImage(i)" *ngFor="let path of imagePaths; index as i;" style="width: 75px;
         height: 75px; 
+        min-width: 75px;
         border: lightgray solid thin;
         border-radius: 3px;
             background-image: url({{path}});
@@ -15,23 +16,28 @@
             background-size: cover;
             cursor: pointer;">
         </div>
-        
+
     </div>
 </div>
 
 <!-- mobile view -->
-<div fxHide.gt-xs fxLayout="column"  fxLayoutGap="10px" fxLayoutAlign="center center" >
+<div fxHide.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
     <div fxLayout="row" fxLayoutAlign="center center">
         <pinch-zoom backgroundColor="transparent">
-            <img [src]="'assets/carousel-1bg.png'" style="width: 250px;height: 250px;" />
+            <img [src]="selectedImage" style="width: 100%;" />
         </pinch-zoom>
     </div>
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" >
-        <div style="width: 50px;height: 50px; border: lightgray solid thin;">
-
-        </div>
-        <div style="width: 50px;height: 50px; border: lightgray solid thin;">
-
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+        <div (click)="changeSelectedImage(i)" *ngFor="let path of imagePaths; index as i;" style="width: 50px;
+        height: 50px; 
+        min-width: 50px;
+        border: lightgray solid thin;
+        border-radius: 3px;
+            background-image: url({{path}});
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            cursor: pointer;">
         </div>
     </div>
 </div>
