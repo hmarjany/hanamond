@@ -5,10 +5,11 @@ import { AdditionalInfo } from './AdditionalInfo';
 import { Brand } from './enum/Brand';
 
 export class Product{
+    _id: any;
     Category?: Category;
     CategoryType?: CategoryType;
     SubCategory?: SubCategory;
-    ImagePath?: String;
+    ImagePath?: Array<String>;
     public Name?: String;
     Price?: Number;
     Barnd?: Brand;

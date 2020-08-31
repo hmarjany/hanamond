@@ -28,7 +28,7 @@ const routes: Routes = [
   }
   ,
   {
-    path: 'productview', component: ProductViewComponent
+    path: 'productview/:productId', component: ProductViewComponent
   },
   {
     path: 'cartview', component: CartViewComponent, data:{Product:'product'}

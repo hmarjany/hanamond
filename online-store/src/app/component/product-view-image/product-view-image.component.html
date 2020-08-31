@@ -1,16 +1,21 @@
 <div fxHide fxShow.gt-xs fxLayout="column"  fxLayoutGap="10px" fxLayoutAlign="space-around start" style="padding: 5px;width: 33vw;">
     <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%;">
         <pinch-zoom backgroundColor="transparent">
-            <img [src]="'assets/carousel-1bg.png'" />
+            <img [src]="selectedImage" />
         </pinch-zoom>
     </div>
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" >
-        <div style="width: 75px;height: 75px; border: lightgray solid thin;border-radius: 3px;">
-
+        <div (click)="changeSelectedImage(i)" *ngFor="let path of imagePaths; index as i;" style="width: 75px;
+        height: 75px; 
+        border: lightgray solid thin;
+        border-radius: 3px;
+            background-image: url({{path}});
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            cursor: pointer;">
         </div>
-        <div style="width: 75px;height: 75px; border: lightgray solid thin;border-radius: 3px;">
-
-        </div>
+        
     </div>
 </div>
 
