@@ -1,17 +1,17 @@
 <div class="sectionَAddress" *ngIf="ShowView">
-    <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
+    <form [formGroup]="editForm" (ngSubmit)="onEditSubmit($event)">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
             <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center end">
                 <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start start">
                     <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
-                        <button type="submit">
-                            <mat-icon style="cursor: pointer;">save</mat-icon>
+                        <button type="submit" style="cursor: pointer;" [disabled]="!editForm.valid">
+                            <mat-icon>save</mat-icon>
                             <div>ذخیره تغییرات آدرس</div>
                         </button>
                     </div>
 
                     <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
-                        <button>
+                        <button style="cursor: pointer;" id="closeButton">
                             <mat-icon style="cursor: pointer;">close</mat-icon>
                             <div>بستن</div>
                         </button>
@@ -20,26 +20,20 @@
             </div>
 
             <mat-form-field class="example-full-width" style="width: 60vw;">
-                <mat-label>آدرس پستی</mat-label>
-                <textarea matInput formControlName="address" autocomplete="off"></textarea>
+                <textarea matInput formControlName="address" placeholder="آدرس پستی" autocomplete="off" required></textarea>
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
-                <mat-label>تلفن همراه</mat-label>
-                <input matInput formControlName="mobilePhone" autocomplete="off" />
+                <input matInput formControlName="mobilePhone" placeholder="تلفن همراه" autocomplete="off" required />
             </mat-form-field>
 
-            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
-                <mat-form-field class="example-full-width">
-                    <mat-label>کد پستی</mat-label>
-                    <input matInput formControlName="postalCode" autocomplete="off" />
-                </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input matInput formControlName="postalCode" placeholder="کد پستی" autocomplete="off" required />
+            </mat-form-field>
 
-                <mat-form-field class="example-full-width">
-                    <mat-label>تحویل گیرنده</mat-label>
-                    <input matInput formControlName="deliverTo" autocomplete="off" />
-                </mat-form-field>
-            </div>
+            <mat-form-field class="example-full-width">
+                <input matInput formControlName="deliverTo" placeholder="تحویل گیرنده" autocomplete="off" required />
+            </mat-form-field>
         </div>
     </form>
 </div>
@@ -74,7 +68,7 @@
                 </div>
                 <div fxLayout="row" fxLayoutGap="1px" fxLayoutAlign="start end">
                     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" style="color: lightskyblue;">
-                        <div>حذف</div>
+                        <div (click)="deleteAddress(i)" style="cursor: pointer;">حذف</div>
                         <div>|</div>
                         <div (click)="showViewToggle(i)" style="cursor: pointer;">ویرایش</div>
                     </div>
@@ -83,7 +77,8 @@
         </div>
     </section>
     <section class="sectionَAddress">
-        <div fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="space-around center" style="padding: 30px;cursor: pointer;">
+        <div fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="space-around center"
+            style="padding: 30px;cursor: pointer;" (click)="newAddress()">
             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
                 <mat-icon style="margin-top: 8px;transform: scale(2);">add_circle_outline</mat-icon>
             </div>

@@ -1,25 +1,32 @@
 .mat-stepper-vertical {
-    margin-top: 8px;
-  }
-  
-  .mat-form-field {
-    margin-top: 16px;
-  }
-  
-  .profileTopset{
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+
+.profileTopset {
+  margin-top: 80px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  padding: 12px;
+}
+
+.saveContainer {
+  margin-right: 0;
+}
+@media only screen and (max-width: 600px) {
+  .profileTopset {
     margin-top: 0px;
-    margin-right: 0px;
+    margin-right: -18px;
     margin-bottom: 10px;
     margin-left: 10px;
     padding: 12px;
-}
-
-  @media only screen and (max-width: 600px) {
-    .profileTopset{
-        margin-top: 0px;
-        margin-right: -18px;
-        margin-bottom: 10px;
-        margin-left: 10px;
-        padding: 12px;
-    }
   }
+
+  .saveContainer {
+    margin-right: 25px;
+  }
+}
