@@ -38,7 +38,7 @@
     </form>
 </div>
 
-<div class="container" *ngIf="!ShowView">
+<div class="container" style="--content-after: {{contentAfterWidth}};" *ngIf="!ShowView">
     <section class="sectionَAddress" *ngFor="let address of addressList; index as i;">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
             <div *ngIf="!ProfileView === true" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start"

@@ -49,6 +49,7 @@ export class ProductViewComponent implements OnInit {
         item.CategoryName = Category.map(item.Category);
         item.CategoryTypeName = CategoryType.map(item.CategoryType);
         item.SubCategoryName = SubCategory.map(item.SubCategory);
+        item.Count = 1;
         this.product = item;
         this.imagePaths = item.ImagePath;
         this.isDataAvailable = true;

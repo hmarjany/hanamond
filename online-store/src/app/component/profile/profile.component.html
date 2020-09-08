@@ -1,7 +1,7 @@
 <div class="profileTopset">
   <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start start" class="saveContainer">
     <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
-      <button type="submit" style="cursor: pointer;">
+      <button type="submit" style="cursor: pointer;" (click)="save()">
         <mat-icon style="cursor: pointer;">save</mat-icon>
         <div>ذخیره تغییرات</div>
       </button>
@@ -13,17 +13,17 @@
         <ng-template matStepLabel>مشخصات عمومی</ng-template>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">
           <mat-form-field>
-            <input matInput placeholder="نام و نام خانوادگی" formControlName="name" required autocomplete="off">
+            <input matInput placeholder="نام و نام خانوادگی" formControlName="name" [(ngModel)]="currentUser.name" required autocomplete="off">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="شماره همراه" formControlName="phone" required autocomplete="off">
+            <input matInput placeholder="شماره همراه" formControlName="phone" [(ngModel)]="currentUser.phoneNumber" required autocomplete="off">
           </mat-form-field>
         </div>
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
       <ng-template matStepLabel>آدرس ها</ng-template>
-      <app-address [ProfileView]="true"></app-address>
+      <app-address [addressList] = "address" [ProfileView]="true" (addresses) ="onAddresses($event)"></app-address>
     </mat-step>
 
   </mat-vertical-stepper>

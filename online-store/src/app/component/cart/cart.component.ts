@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/service/Cart/cart.service';
+import { Product } from 'src/app/model/Product';
 
 @Component({
   selector: 'app-cart',
@@ -8,11 +9,18 @@ import { CartService } from 'src/app/service/Cart/cart.service';
 })
 export class CartComponent implements OnInit {
 
-  items;
+  items: Array<Product>;
+  productIds: Array<any> = new Array<any>();
+  totalPrice: number = 0;
+
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     this.items = this.cartService.getItems();
+    this.items.forEach(item=>{
+      this.totalPrice += (item.Count as number)*(item.Price as number);
+      this.productIds.push(item._id);
+    });
   }
 
   removeItem(product){

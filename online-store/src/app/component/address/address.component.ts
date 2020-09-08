@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Address } from 'src/app/model/Address';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
@@ -7,33 +7,27 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss']
 })
+
 export class AddressComponent implements OnInit {
 
-  addressList: Address[];
+  @Output() addresses = new EventEmitter<Address[]>();
+  @Input() addressList: Address[] = [];
   @Input() ProfileView: boolean = false;
   ShowView: boolean = false;
   selectedAddressIndex: number = -1;
   editForm: FormGroup;
   isNewAddress = false;
+  contentAfterWidth: any;
+
   constructor(private formBuilder: FormBuilder) {
-    this.addressList = [
-      { address: "تهران، خیابان شریعتی، بالاتر از ملک، خیابان کشواد، خیابان کلیم کاشانی، پلاک 22، واحد 8", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" },
-      { address: "جردن کلم کاظمی پلاک 2", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" },
-      { address: "جردن کلم کاظمی پلاک 2", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" },
-      { address: "جردن کلم کاظمی پلاک 2", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" },
-      { address: "جردن کلم کاظمی پلاک 2", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" },
-      { address: "جردن کلم کاظمی پلاک 2", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" },
-      { address: "جردن کلم کاظمی پلاک 2", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" },
-      { address: "جردن کلم کاظمی پلاک 2", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" },
-      { address: "جردن کلم کاظمی پلاک 2", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" },
-      { address: "جردن کلم کاظمی پلاک 2", deliverTo: "مارال فتحعلی", isCurrent: true, mobilePhone: "09123456789", postalCode: "1234567890" }
-    ];
+  }
 
-
+  ngOnChanges(){
+    this.contentWidth();
   }
 
   ngOnInit(): void {
-    this.editForm = this.formBuilder.group({
+      this.editForm = this.formBuilder.group({
       address: ['', Validators.required],
       mobilePhone: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       postalCode: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
@@ -44,7 +38,7 @@ export class AddressComponent implements OnInit {
   onEditSubmit(event) {
     if (event.submitter.id === "closeButton") {
       this.ShowView = false;
-      if(this.isNewAddress){
+      if (this.isNewAddress) {
         this.addressList.splice(this.addressList.length - 1, 1);
         this.isNewAddress = false;
       }
@@ -54,12 +48,14 @@ export class AddressComponent implements OnInit {
       this.addressList[this.selectedAddressIndex].deliverTo = this.editForm.get('deliverTo').value;
       this.addressList[this.selectedAddressIndex].mobilePhone = this.editForm.get('mobilePhone').value;
       this.addressList[this.selectedAddressIndex].postalCode = this.editForm.get('postalCode').value;
+      this.addresses.emit(this.addressList);
     }
   }
 
   newAddress() {
     this.isNewAddress = true;
     this.addressList.push(new Address);
+    this.contentWidth();
     this.showViewToggle(this.addressList.length - 1);
   }
 
@@ -80,5 +76,24 @@ export class AddressComponent implements OnInit {
 
   deleteAddress(index) {
     this.addressList.splice(index, 1);
+    this.contentWidth();
+  }
+
+  private contentWidth() {
+    if (this.addressList === undefined) {
+      this.contentAfterWidth = null;
+    } else {
+      if ((this.addressList.length + 1) % 3 == 0) {
+        this.contentAfterWidth = null;
+      }
+
+      if ((this.addressList.length + 1) % 3 == 1) {
+        this.contentAfterWidth = '62.4%';
+      }
+
+      if ((this.addressList.length + 1) % 3 == 2) {
+        this.contentAfterWidth = '29%';
+      }
+    }
   }
 }

@@ -1,13 +1,13 @@
 $width: 100%;
 
 .sectionَAddress {
-    flex: 1 1 0;
+    flex: 1 1 25%;
     display: flex;
     flex-direction: column;
     padding: 2%;
     background: white;
     height: 330px;
-    min-width: 260px;
+    //min-width: 260px;
     margin: 0.5px;
     border: #e4e4e4 thin solid;
     border-radius: 4px;
@@ -19,38 +19,11 @@ $width: 100%;
     flex-wrap: wrap;
 }
 
-@media all and (min-width: 1337px) {
-    .container::after {
-      content: "";
-      //flex: 1 1 calc(#{$width / 4});
-      display: flex;
-      flex-direction: column;
-      background: white;
-      min-width: calc(#{$width / 4});
-      margin: 1px;
-    }
-  }
-
-@media all and (max-width: 1337px) {
-    .container::after {
-      content: "";
-      //flex: 1 1 calc(#{$width / 3});
-      display: flex;
-      flex-direction: column;
-      background: white;
-      min-width: calc(#{$width / 3});
-      margin: 1px;
-    }
-  }
-
-  @media all and (max-width: 1031px) {
-    .container::after {
-      content: "";
-      //flex: 1 1 calc(#{$width / 3});
-      display: flex;
-      flex-direction: column;
-      background: white;
-      min-width: calc(#{$width / 2});
-      margin: 1px;
-    }
-  }
+.container::after {
+  content: "";
+  flex: var(--content-after);
+  display: flex;
+  flex-direction: column;
+  background: white;
+  margin: 1px;
+}

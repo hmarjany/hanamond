@@ -31,10 +31,10 @@ const routes: Routes = [
     path: 'productview/:productId', component: ProductViewComponent
   },
   {
-    path: 'cartview', component: CartViewComponent, data:{Product:'product'}
+    path: 'cartview/:productIds', component: CartViewComponent, data:{Product:'product'}
   },
   {
-    path: 'confirmcart', component: ConfirmCartComponent
+    path: 'confirmcart/:productIds/:userId', component: ConfirmCartComponent
   }
   
 ];

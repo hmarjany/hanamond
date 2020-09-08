@@ -11,11 +11,11 @@
                         </h2>
                     </div>
                     <div>
-                        تهران، خیابان شریعتی، بالاتر از ملک، خیابان کشواد، خیابان کلیم کاشانی، پلاک 22، واحد 8
+                        {{address[0].address}}
                     </div>
                     <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
                         <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
-                        <div style="color: gray">حسین مرجانی</div>
+                        <div style="color: gray">{{address[0].deliverTo}}</div>
                     </div>
                     <a style="color: #7bbcf5;cursor: pointer;" (click)="editAddressView()">
                         تغییر یا ویرایش آدرس >
@@ -23,7 +23,7 @@
                 </div>
             </section>
             <div *ngIf="editAddress">
-                <app-address></app-address>
+                <app-address [addressList] = "address"></app-address>
             </div>
             <app-product-item [productList]="productList" [CartPage]="true"  [ConfirmCartView]="true"></app-product-item>
 
@@ -64,7 +64,7 @@
                                 font-size: 1.2rem;
                                 border-radius: 7px;
                                 outline: none;
-                                cursor: pointer;">پرداخت</button>
+                                cursor: pointer;" (click)="payment()">پرداخت</button>
             </div>
         </div>
 
@@ -83,11 +83,11 @@
                 </h2>
             </div>
             <div>
-                تهران، خیابان شریعتی، بالاتر از ملک، خیابان کشواد، خیابان کلیم کاشانی، پلاک 22، واحد 8
+                {{address[0].address}}
             </div>
             <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
                 <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
-                <div style="color: gray">حسین مرجانی</div>
+                <div style="color: gray">{{address[0].deliverTo}}</div>
             </div>
             <a style="color: #7bbcf5;cursor: pointer;" (click)="editAddressView()">
                 تغییر یا ویرایش آدرس >
@@ -95,7 +95,7 @@
         </div>
     </section>
     <div *ngIf="editAddress">
-        <app-address></app-address>
+        <app-address [addressList] = "address" ></app-address>
     </div>
     
     <app-product-item [productList]="productList" [CartPage]="true" [MobileView]="true" [ConfirmCartView]="true"></app-product-item>

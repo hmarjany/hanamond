@@ -1,25 +1,30 @@
 <div fxLayout="column" fxLayoutAlign="start center" style="box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.31);
 background-color: white;
 border-radius: 5px;">
-  <div
-    style="max-height: 400px;overflow-y: auto;width: 100%;">
+  <div style="max-height: 400px;overflow-y: auto;width: 100%;">
     <div *ngFor="let item of items" style="border-bottom: lightgrey thin solid;padding: 8px;">
       <div fxLayout="column">
         <div fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="start center">
           <div>
-            <img [src]="'assets/carousel-1bg.png'" style="height: 60px;" />
+            <img [src]="item.ImagePath[0]" style="height: 60px;" />
           </div>
           <div fxLayout="column" style="width: 70%;font-size: 20px;color: darkgray;">
             <div>
               {{ item.Name }}
             </div>
-            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" style="color: #7bbcf5;font-size: 12px;">
+            <div *ngIf="item.Quantity > 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
+              style="color: #7bbcf5;font-size: 12px;">
               <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
               &nbsp;موجود در انبار
             </div>
+            <div *ngIf="item.Quantity < 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
+              style="color: #7bbcf5;font-size: 12px;">
+              <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
+              &nbsp;ناموجود
+            </div>
             <div fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="end center" style="color: #a4a5a7;font-size: 10px;">
               <div>
-                1 عدد
+                {{item.Count}} عدد
               </div>
               <div>
                 <mat-icon style="cursor: pointer;" (click)="removeItem(item)">remove_shopping_cart</mat-icon>
@@ -31,11 +36,10 @@ border-radius: 5px;">
     </div>
 
   </div>
-  <div
-    style="border-top: darkslategray thick solid; border-bottom: lightgrey thin solid;padding: 8px;width: 284px;">
+  <div style="border-top: darkslategray thick solid; border-bottom: lightgrey thin solid;padding: 8px;width: 284px;">
     <div fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="end center" style="color: #a4a5a7;font-size: 10px;">
       <div>
-        مبلغ قابل پرداخت : 12300002 ریال
+        مبلغ قابل پرداخت : {{totalPrice | number}} ریال
       </div>
       <div>
         <button style="width: 100%;
@@ -46,7 +50,7 @@ border-radius: 5px;">
                     font-size: 16px;
                     border-radius: 7px;
                     outline: none;
-                    cursor: pointer;" routerLink="/cartview">ثبت سفارش</button>
+                    cursor: pointer;" routerLink="/cartview/{{productIds}}">ثبت سفارش</button>
       </div>
     </div>
   </div>

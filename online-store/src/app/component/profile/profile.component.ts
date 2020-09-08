@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/service/Auth/auth.service';
 import { User } from 'src/app/model/User';
+import { Address } from 'src/app/model/Address';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -13,24 +15,36 @@ export class ProfileComponent implements OnInit {
   isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-
+  address: Address[];
   currentUser: User;
 
   constructor(private _formBuilder: FormBuilder,
-    private authService: AuthService) {
-      this.authService.currentUser.subscribe(x => this.currentUser = x);
-      console.log(this.currentUser);
-    }
+    private http: HttpClient) {
+      this.currentUser = new User();
+  }
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      name: ['', Validators.required],
-      phone: ['', Validators.required]
+    let httpParams = new HttpParams()
+      .set('userId', JSON.parse(localStorage.getItem('currentUser'))._id);
+    this.http.get<User>('http://127.0.0.1:3100/users/getById', { params: httpParams }).subscribe(data => {
+      this.currentUser = data;
+      this.address  = this.currentUser.address;
     });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+
+    this.firstFormGroup = this._formBuilder.group({
+      name: [this.currentUser.name, Validators.required],
+      phone: [this.currentUser.phoneNumber, Validators.required]
     });
   }
 
-  
+  save() {
+    this.http.post<User>('http://127.0.0.1:3100/users/updateUser', this.currentUser).subscribe(data => {
+      this.currentUser = data;
+    });
+  }
+
+  onAddresses(addresses: Address[]) {
+    this.currentUser.address = addresses;
+  }
+
 }

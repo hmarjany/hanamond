@@ -19,8 +19,7 @@
                         </div>
                         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
                             <div>برند : &nbsp;{{product.BrandName}}</div>
-                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start"
-                                style="font-size: 16px;">
+                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
                                 دسته بندی :&nbsp;
                                 <a style="text-decoration: none;"
                                     routerLink="/product/{{product.Category}}/{{product.CategoryType}}/{{product.SubCategory}}">
@@ -65,11 +64,21 @@
                         </div>
                         <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
                             fxLayoutGap="10px" fxLayoutAlign="end end">
-                            <div class="discountDecoration">
-                                4000
+                            <div *ngIf="product.Sale">
+                                <div class="discountDecoration">
+                                    4000
+                                </div>
+                                <div class="discount">
+                                    5%
+                                </div>
                             </div>
-                            <div class="discount">
-                                5%
+                            <div *ngIf="!product.Sale">
+                                <div class="discountDecoration">
+                                    &nbsp;
+                                </div>
+                                <div class="discount" style="background-color: transparent;">
+                                    &nbsp;
+                                </div>
                             </div>
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
                                 <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
@@ -112,8 +121,7 @@
                         </div>
                         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 14px;">
                             <div>برند : &nbsp;{{product.BrandName}}</div>
-                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start"
-                                style="font-size: 16px;">
+                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
                                 دسته بندی :&nbsp;
                                 <a style="text-decoration: none;"
                                     routerLink="/product/{{product.Category}}/{{product.CategoryType}}/{{product.SubCategory}}">
@@ -158,11 +166,21 @@
                         </div>
                         <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
                             fxLayoutGap="10px" fxLayoutAlign="end end">
-                            <div class="discountDecoration">
-                                4000
+                            <div *ngIf="product.Sale">
+                                <div class="discountDecoration">
+                                    4000
+                                </div>
+                                <div class="discount">
+                                    5%
+                                </div>
                             </div>
-                            <div class="discount">
-                                5%
+                            <div *ngIf="!product.Sale">
+                                <div class="discountDecoration">
+                                    &nbsp;
+                                </div>
+                                <div class="discount" style="background-color: transparent;">
+                                    &nbsp;
+                                </div>
                             </div>
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
                                 <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
