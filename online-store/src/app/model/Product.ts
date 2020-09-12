@@ -14,7 +14,10 @@ export class Product{
     SubCategoryName: string;
     ImagePath: Array<String>;
     Name: String;
-    Price: Number;
+    Price: number;
+    LastPrice: number;
+    DiscountPrice: number;
+    DiscountPercent: number;
     Barnd: Brand;
     BrandName: string;
     Sale: Boolean;
@@ -26,4 +29,5 @@ export class Product{
     Count: Number = 1;
     skip?: Number = 0;
     limit?: Number = 0;
+    isProductAvailable: boolean;
 }

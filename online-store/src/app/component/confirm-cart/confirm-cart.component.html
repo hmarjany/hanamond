@@ -11,11 +11,11 @@
                         </h2>
                     </div>
                     <div>
-                        {{address[0].address}}
+                        {{selectedAddress}}
                     </div>
                     <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
                         <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
-                        <div style="color: gray">{{address[0].deliverTo}}</div>
+                        <div style="color: gray">{{selectedAddressDeliverTo}}</div>
                     </div>
                     <a style="color: #7bbcf5;cursor: pointer;" (click)="editAddressView()">
                         تغییر یا ویرایش آدرس >
@@ -25,7 +25,7 @@
             <div *ngIf="editAddress">
                 <app-address [addressList] = "address"></app-address>
             </div>
-            <app-product-item [productList]="productList" [CartPage]="true"  [ConfirmCartView]="true"></app-product-item>
+            <!-- <app-product-item [productList]="productList" [CartPage]="true"  [ConfirmCartView]="true"></app-product-item> -->
 
         </div>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
@@ -83,11 +83,11 @@
                 </h2>
             </div>
             <div>
-                {{address[0].address}}
+                {{selectedAddress}}
             </div>
             <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
                 <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
-                <div style="color: gray">{{address[0].deliverTo}}</div>
+                <div style="color: gray">{{selectedAddressDeliverTo}}</div>
             </div>
             <a style="color: #7bbcf5;cursor: pointer;" (click)="editAddressView()">
                 تغییر یا ویرایش آدرس >
@@ -98,7 +98,7 @@
         <app-address [addressList] = "address" ></app-address>
     </div>
     
-    <app-product-item [productList]="productList" [CartPage]="true" [MobileView]="true" [ConfirmCartView]="true"></app-product-item>
+    <!-- <app-product-item [productList]="productList" [CartPage]="true" [MobileView]="true" [ConfirmCartView]="true"></app-product-item> -->
 
     <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
         style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f8f6f6;border-radius: 4px;width: 100%;">

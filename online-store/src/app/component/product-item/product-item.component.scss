@@ -22,6 +22,7 @@ $width: 100%;
 
 .rLink {
   width: 30%;
+  white-space: nowrap;
 }
 
 .rLink:link {
@@ -59,38 +60,30 @@ $width: 100%;
 .container {
   display: flex;
   flex-wrap: wrap;
-}
-
-.container::after {
-  content: "";
-  flex: var(--content-after);
-  padding: var(--content-after-padding);
-  display: flex;
-  flex-direction: column;
-  background: white;
-  //min-width: 260px;
-  margin: var(--content-after-margin);
+  list-style: none;
+  padding: 0px;
 }
 
 .sectionProduct {
-  flex: 1 1 25%;
+  flex: 1 0 20.333%;
   display: flex;
   flex-direction: column;
   padding: 2%;
   background: white;
   height: 400px;
-  //min-width: 260px;
+  max-width: 20.333%;
   margin: 1px;
   z-index: 0;
 }
 
 .sectionProduct:hover {
-  flex: 1 1 25%;
+  flex: 1 0 20.333%;
   display: flex;
   flex-direction: column;
   padding: 2%;
   background: white;
   height: 400px;
+  max-width: 20.333%;
   transition: transform 300ms ease;
   box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.31);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -104,6 +97,104 @@ $width: 100%;
   padding-right: 5px;
   width: 100%;
   margin-top: -5px;
+}
+
+
+@media (min-width: 0px) and (max-width: 600px) {
+  .container {
+    display: inherit;
+    flex-wrap: wrap;
+    list-style: none;
+
+  }
+
+  .sectionProduct {
+    flex: 1 0 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    background: white;
+    height: 400px;
+    max-width: 100%;
+    margin: 1px;
+    z-index: 0;
+  }
+  
+  .sectionProduct:hover {
+    flex: 1 0 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    background: white;
+    height: 400px;
+    max-width: 100%;
+    transition: transform 300ms ease;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.31);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    margin: 1px;
+    z-index: 2;
+  }
+  
+}
+
+@media (min-width: 600px) and (max-width: 809px) {
+  .sectionProduct {
+    flex: 1 0 45.333%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    background: white;
+    height: 400px;
+    max-width: 45.333%;
+    margin: 1px;
+    z-index: 0;
+  }
+  
+  .sectionProduct:hover {
+    flex: 1 0 45.333%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    background: white;
+    height: 400px;
+    max-width: 45.333%;
+    transition: transform 300ms ease;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.31);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    margin: 1px;
+    z-index: 2;
+  }
+  
+}
+
+@media (min-width: 809px) and (max-width: 990px) {
+  .sectionProduct {
+    flex: 1 0 28.333%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    background: white;
+    height: 400px;
+    max-width: 28.333%;
+    margin: 1px;
+    z-index: 0;
+  }
+  
+  .sectionProduct:hover {
+    flex: 1 0 28.333%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    background: white;
+    height: 400px;
+    max-width: 28.333%;
+    transition: transform 300ms ease;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.31);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    margin: 1px;
+    z-index: 2;
+  }
+  
 }
 
 .sectionProduct > p {

@@ -36,7 +36,7 @@ export class ProductViewComponent implements OnInit {
           item.ImagePath.push(this.defualtImagePath);
         } else {
           item.ImagePath.forEach((path, i) => {
-            item.ImagePath[i] = 'assets/' + path;
+            item.ImagePath[i] = 'assets/productView/' + path;
           })
         }
 
@@ -49,6 +49,9 @@ export class ProductViewComponent implements OnInit {
         item.CategoryName = Category.map(item.Category);
         item.CategoryTypeName = CategoryType.map(item.CategoryType);
         item.SubCategoryName = SubCategory.map(item.SubCategory);
+        item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
+        item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;
+        item.isProductAvailable = item.Quantity > 0;
         item.Count = 1;
         this.product = item;
         this.imagePaths = item.ImagePath;
@@ -57,8 +60,10 @@ export class ProductViewComponent implements OnInit {
     });
   }
 
-  addToCart(product) {
-    this.cartService.addToCart(product);
-    this.cartService.getItemsCount();
+  addToCart(product: Product) {
+    if (product.isProductAvailable) {
+      this.cartService.addToCart(product);
+      this.cartService.getItemsCount();
+    }
   }
 }

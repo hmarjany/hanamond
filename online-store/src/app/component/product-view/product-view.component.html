@@ -42,65 +42,59 @@
                         </div>
                     </div>
 
-                    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
-                        style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 30%;min-width: 280px;">
-                        <div style="width: 85%;padding: 18px;">
-                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                                <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
-                                &nbsp;گواهی اصالات و سلامت فیزیکی
-                            </div>
-                        </div>
-                        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
-                            <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
-                                fxLayoutAlign="start center">
-                                <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
-                                &nbsp;موجود در انبار
-                            </div>
-                            <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
-                                fxLayoutAlign="start center">
-                                <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
-                                &nbsp;ناموجود
-                            </div>
-                        </div>
-                        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
-                            fxLayoutGap="10px" fxLayoutAlign="end end">
-                            <div *ngIf="product.Sale">
-                                <div class="discountDecoration">
-                                    4000
-                                </div>
-                                <div class="discount">
-                                    5%
-                                </div>
-                            </div>
-                            <div *ngIf="!product.Sale">
-                                <div class="discountDecoration">
-                                    &nbsp;
-                                </div>
-                                <div class="discount" style="background-color: transparent;">
-                                    &nbsp;
-                                </div>
-                            </div>
-                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                                <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
-                                <h2 style="color: #ef394e;">تومان</h2>
-                            </div>
-                        </div>
-                        <div (click)="addToCart(product)" style="width: 85%;padding: 18px;">
-                            <button style="width: 100%;
-                        background: #ef394e;
-                        border: none;
-                        color: white;
-                        padding: inherit;
-                        font-size: 1.2rem;
-                        border-radius: 7px;
-                        outline: none;
-                        cursor: pointer;">افزودن به سبد خرید</button>
-                        </div>
-                    </div>
+                    
                 </div>
             </section>
-        </div>
 
+            
+        </div>
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
+        style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 30%;min-width: 280px;">
+        <div style="width: 85%;padding: 18px;">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
+                &nbsp;گواهی اصالات و سلامت فیزیکی
+            </div>
+        </div>
+        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
+            <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
+                fxLayoutAlign="start center">
+                <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
+                &nbsp;موجود در انبار
+            </div>
+            <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
+                fxLayoutAlign="start center">
+                <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
+                &nbsp;ناموجود
+            </div>
+        </div>
+        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
+            fxLayoutGap="10px" fxLayoutAlign="end end">
+            <div *ngIf="product.Sale">
+                <div class="discountDecoration">
+                    {{product.DiscountPrice}}
+                </div>
+                <div class="discount">
+                    {{product.DiscountPercent}}%
+                </div>
+            </div>
+            <div *ngIf="!product.Sale">
+                <div class="discountDecoration">
+                    &nbsp;
+                </div>
+                <div class="discount" style="background-color: transparent;">
+                    &nbsp;
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
+                <h2 style="color: #ef394e;">تومان</h2>
+            </div>
+        </div>
+        <div (click)="addToCart(product)" style="width: 85%;padding: 18px;">
+            <button [ngClass]="{'buyButt': product.isProductAvailable === true,'buyButtDisable':product.isProductAvailable===false}">افزودن به سبد خرید</button>
+        </div>
+    </div>
 
     </div>
 
@@ -144,7 +138,11 @@
                         </div>
                     </div>
 
-                    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
+                    
+                </div>
+            </section>
+
+            <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
                         style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 100%;min-width: 280px;">
                         <div style="width: 85%;padding: 18px;">
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
@@ -168,10 +166,10 @@
                             fxLayoutGap="10px" fxLayoutAlign="end end">
                             <div *ngIf="product.Sale">
                                 <div class="discountDecoration">
-                                    4000
+                                    {{product.DiscountPrice}}
                                 </div>
                                 <div class="discount">
-                                    5%
+                                    {{product.DiscountPercent}}%
                                 </div>
                             </div>
                             <div *ngIf="!product.Sale">
@@ -187,20 +185,11 @@
                                 <h2 style="color: #ef394e;">تومان</h2>
                             </div>
                         </div>
-                        <div style="width: 85%;padding: 18px;">
-                            <button style="width: 100%;
-                        background: #ef394e;
-                        border: none;
-                        color: white;
-                        padding: inherit;
-                        font-size: 1.2rem;
-                        border-radius: 7px;
-                        outline: none;
-                        cursor: pointer;">افزودن به سبد خرید</button>
+                        <div (click)="addToCart(product)" style="width: 85%;padding: 18px;">
+                            <button [ngClass]="{'buyButt': product.isProductAvailable === true,'buyButtDisable':product.isProductAvailable===false}">افزودن به سبد خرید</button>
                         </div>
                     </div>
-                </div>
-            </section>
+                    
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Product } from 'src/app/model/Product';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { CartService } from 'src/app/service/Cart/cart.service';
@@ -18,32 +18,17 @@ export class ProductItemComponent implements OnInit {
   contentAfterWidth: any;
   contentAfterPadding: any;
   contentAfterMargin: any;
+  
   constructor(private cartService: CartService) { }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.contentAfterWidth=window.innerWidth/4+"px";
+  }
+
   ngOnInit(): void {
-    if (this.productList === undefined) {
-      this.contentAfterWidth = null;
-      this.contentAfterPadding = '0%';
-      this.contentAfterMargin = '0px';
-    } else {
-      if (this.productList.length % 3 == 0) {
-        this.contentAfterWidth = null;
-        this.contentAfterPadding = '0%';
-        this.contentAfterMargin = '0px';
-      }
-
-      if (this.productList.length % 3 == 1) {
-        this.contentAfterWidth = '58.4%';
-        this.contentAfterPadding = '2%';
-        this.contentAfterMargin = '1px';
-      }
-
-      if (this.productList.length % 3 == 2) {
-        this.contentAfterWidth = '25%';
-        this.contentAfterPadding = '2%';
-        this.contentAfterMargin = '1px';
-      }
-    }
+    this.contentAfterWidth=window.innerWidth/4+"px";
+    
   }
 
   onValueChanged(value: number): void {

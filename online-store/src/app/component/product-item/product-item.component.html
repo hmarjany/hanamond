@@ -1,5 +1,5 @@
-<div class="container" style="--content-after: {{contentAfterWidth}};--content-after-padding:{{contentAfterPadding}};--content-after-margin:{{contentAfterMargin}}" *ngIf="PrdouctPage === true">
-    <section class="sectionProduct" *ngFor="let product of productList; index as i;">
+<ul class="container" style="--content-after: {{contentAfterWidth}};--content-after-padding:{{contentAfterPadding}};--content-after-margin:{{contentAfterMargin}}" *ngIf="PrdouctPage === true">
+    <li class="sectionProduct" *ngFor="let product of productList; index as i;">
         <div *ngIf="product.SpecialOffer" fxLayout="row" fxLayoutAlign="center center" class="specilaOffer">
             <div>
                 فروش ویژه
@@ -15,8 +15,7 @@
             <div style="background-image: url({{product.ImagePath[0]}});
             width: 100%;height: 190px;
             background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;"></div>
+            background-repeat: no-repeat;"></div>
             <h2>{{product.Name}}</h2>
         </a>
         <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
@@ -34,10 +33,10 @@
         </div>
         <div *ngIf="product.Sale" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
             <div class="discountDecoration">
-                4000
+                {{product.DiscountPrice}}
             </div>
             <div class="discount">
-                5%
+                {{product.DiscountPercent}}%
             </div>
         </div>
         <div *ngIf="!product.Sale" style="height: 30px;" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
@@ -56,20 +55,25 @@
                 {{product.Sepcification}}
             </div>
         </div>
-    </section>
+    </li>
 
-</div>
+</ul>
 
 <div class="container" *ngIf="CartPage === true && MobileView === false">
     <section class="sectionCartProduct" *ngFor="let product of productList; index as i;">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" style="margin: 12px;">
-            <a class="rLink" routerLink="/productview" fxLayout="column" fxLayoutGap="10px"
+            <a class="rLink" routerLink="/productview/{{product._id}}" fxLayout="column" fxLayoutGap="10px"
                 fxLayoutAlign="center start">
-                <div style="background-image: url({{product.ImagePath}});width: 100%;height: 190px;"></div>
+                <div style="background-image: url({{product.ImagePath[0]}});
+                width: 100%;
+                height: 190px;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;"></div>
             </a>
             <div fxLayout="row" style="width: 30%;" fxLayoutAlign="start center">
                 <div fxLayout="column" style="margin-right: 30px;" fxLayoutGap="10px" fxLayoutAlign="start start">
-                    <a class="rLink" routerLink="/productview">
+                    <a class="rLink" routerLink="/productview/{{product._id}}">
                         <h2>{{product.Name}}</h2>
                     </a>
                     <div *ngIf="ConfirmCartView" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
@@ -98,7 +102,13 @@
                         <input class="quantity" min="1" name="quantity" value="1" type="number">
                         <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                     </div>
-                    <div fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="start center"
+                    
+                </div>
+            </div>
+
+            <div *ngIf="!ConfirmCartView" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center end"
+            style="width: 35%;">
+            <div fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="start center"
                         style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;"
                         (click)="removeItem(product)">
                         <div>
@@ -108,15 +118,7 @@
                             <mat-icon style="cursor: pointer;" (click)="removeItem(product)">remove_shopping_cart
                             </mat-icon>
                         </div>
-                    </div>
-                </div>
             </div>
-
-
-
-        </div>
-        <div *ngIf="!ConfirmCartView" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="end center"
-            style="width: 36%;">
             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
                 <div class="discountDecoration">
                     4000
@@ -132,24 +134,29 @@
             </div>
         </div>
 
+        </div>
+        
+
     </section>
 
 </div>
 
 <!-- CartPage Mobile view -->
-<div class="container" *ngIf="CartPage === true && MobileView === true">
+<div class="container" *ngIf="CartPage === true && MobileView === true" style="display: flex;">
     <section class="sectionCartProduct" *ngFor="let product of productList; index as i;" style="min-width: auto;">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-            <a class="rLink" style="width: 100%;" routerLink="/productview" fxLayout="column" fxLayoutGap="10px"
+            <a class="rLink" style="width: 100%;" routerLink="/productview/{{product._id}}" fxLayout="column" fxLayoutGap="10px"
                 fxLayoutAlign="center center">
-                <div style="background-image: url({{product.ImagePath}});width: 100%;height: 190px;"></div>
+                <div style="background-image: url({{product.ImagePath[0]}});
+                width: 100%;
+                height: 190px;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;"></div>
+                <h2>{{product.Name}}</h2>
             </a>
             <div fxLayout="column" fxLayoutAlign="center center">
                 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-                    <a class="rLink" routerLink="/productview">
-                        <h2>{{product.Name}}</h2>
-                    </a>
-
                     <div *ngIf="ConfirmCartView" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
                         <div style="direction: ltr;min-width: 89vw;">
                             <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
@@ -176,7 +183,7 @@
                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                 </div>
                 <div *ngIf="!ConfirmCartView" fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="center center"
-                    style="color: #a4a5a7;font-size: 10px;cursor: pointer;" (click)="removeItem(product)">
+                    style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;cursor: pointer;" (click)="removeItem(product)">
                     <div>
                         حذف
                     </div>
@@ -211,7 +218,12 @@
         <ng-container *ngFor="let product of productList; index as i;">
             <ng-template carouselSlide>
                 <section class="sectionNewProduct">
-                    <div style="background-image: url({{product.ImagePath}});width: 100%;height: 190px;"></div>
+                    <div style="background-image: url({{product.ImagePath[0]}});
+                    width: 100%;
+                    height: 190px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;"></div>
                     <h2>{{product.Name}}</h2>
                     <p>{{product.Price | number}}</p>
                 </section>

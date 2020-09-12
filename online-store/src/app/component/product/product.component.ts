@@ -71,12 +71,14 @@ export class ProductComponent implements OnInit {
         .set('skip', productFilter.skip.toString());
       this.http.get<Product[]>('http://127.0.0.1:3100/product/getListByPaging', { params: httpParams }).subscribe(data => {
         data.forEach((item) => {
+          item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
+          item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;
           if (item.ImagePath === undefined || item.ImagePath === null) {
             item.ImagePath = new Array<String>();
             item.ImagePath.push(this.defualtImagePath);
           }
           else {
-            item.ImagePath[0] = 'assets/' + item.ImagePath[0];
+            item.ImagePath[0] = 'assets/productItem/' + item.ImagePath[0];
           }
         });
         this.productList = data;

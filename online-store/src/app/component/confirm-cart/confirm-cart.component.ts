@@ -19,6 +19,8 @@ export class ConfirmCartComponent implements OnInit {
   address: Address[] = new Array<Address>();
   currentUser: User;
   defualtImagePath = 'assets/carousel-1bg.png';
+  selectedAddress: String = '';
+  selectedAddressDeliverTo: String = '';
 
   constructor(private route: ActivatedRoute,
     private http: HttpClient) { 
@@ -30,6 +32,10 @@ export class ConfirmCartComponent implements OnInit {
     this.http.get<User>('http://127.0.0.1:3100/users/getById', { params: httpParams }).subscribe(data => {
       this.currentUser = data;
       this.address  = this.currentUser.address;
+      if(this.address[0] != undefined){
+        this.selectedAddress = this.address[0].address;
+        this.selectedAddressDeliverTo = this.address[0].deliverTo;
+      }
     });
 
     this.route.params.subscribe(params => {

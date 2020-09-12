@@ -20,6 +20,9 @@ export class CartComponent implements OnInit {
     this.items.forEach(item=>{
       this.totalPrice += (item.Count as number)*(item.Price as number);
       this.productIds.push(item._id);
+      item.ImagePath.forEach((path, i) => {
+        item.ImagePath[i] = 'assets/cartView/' + path.split('/')[2];
+      })
     });
   }
 
