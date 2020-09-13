@@ -16,18 +16,28 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.initializeCart();
+  }
+
+  private initializeCart() {
     this.items = this.cartService.getItems();
-    this.items.forEach(item=>{
-      this.totalPrice += (item.Count as number)*(item.Price as number);
+    this.totalPrice = 0;
+    this.items.forEach(item => {
+      this.totalPrice += item.Count * item.Price;
       this.productIds.push(item._id);
       item.ImagePath.forEach((path, i) => {
         item.ImagePath[i] = 'assets/cartView/' + path.split('/')[2];
-      })
+      });
     });
+  }
+
+  ngOnChanges(){
+    
   }
 
   removeItem(product){
     this.cartService.removeFromCart(product);
+    this.initializeCart();
     this.cartService.getItemsCount();
   }
 }

@@ -25,9 +25,9 @@ export class Product{
     Sepcification: String;
     AdditinalInfos: Array<AdditionalInfo>;
     Comments: Comment;
-    Quantity: Number;
-    Count: Number = 1;
-    skip?: Number = 0;
-    limit?: Number = 0;
+    Quantity: number;
+    Count: number = 1;
+    skip?: number = 0;
+    limit?: number = 0;
     isProductAvailable: boolean;
 }

@@ -36,19 +36,15 @@ export class CartService {
     if (this.items.find(x => x._id === product._id) != null) {
       var productCount = this.items.find(x => x._id === product._id).Count;
       if (productCount > 1) {
-        (this.items.find(x => x._id === product._id).Count as number) -= 1;
+        (this.items.find(x => x._id === product._id).Count) -= 1;
       }
       else {
         var itemIndex = this.items.indexOf(product, 0);
-        if (itemIndex > -1) {
-          this.items.splice(itemIndex, 1);
-        }
-      }
-    } else {
-      var itemIndex = this.items.indexOf(product, 0);
-      if (itemIndex > -1) {
         this.items.splice(itemIndex, 1);
       }
+    } else {
+      var itemIndex_ = this.items.indexOf(product, 0);
+      this.items.splice(itemIndex_, 1);
     }
     localStorage.setItem('hanamondcartsatatus', JSON.stringify(this.items));
   }
@@ -63,7 +59,9 @@ export class CartService {
     this.getItems();
     var itemlength = 0;
     if (this.items != null) {
-      itemlength = this.items.length;
+      this.items.forEach((item)=>{
+        itemlength += item.Count;  
+      })
     }
 
     if (itemlength === 0) {

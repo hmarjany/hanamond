@@ -99,7 +99,7 @@
                     <div class="number-input">
                         <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                             class="plus"></button>
-                        <input class="quantity" min="1" name="quantity" value="1" type="number">
+                        <input class="quantity" min="1" name="quantity" value="{{product.Count}}" type="number">
                         <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                     </div>
                     
@@ -119,13 +119,20 @@
                             </mat-icon>
                         </div>
             </div>
-            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+            <div *ngIf="product.Sale" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
                 <div class="discountDecoration">
-                    4000
+                    {{product.DiscountPrice}}
                 </div>
-                <div>تومان</div>
                 <div class="discount">
-                    5%
+                    {{product.DiscountPercent}}%
+                </div>
+            </div>
+            <div *ngIf="!product.Sale" style="height: 30px;" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+                <div>
+                    &nbsp;
+                </div>
+                <div class="discount" style="background-color: transparent;">
+                    &nbsp;
                 </div>
             </div>
             <div fxLayout="row" fxLayoutAlign="center center">
@@ -179,7 +186,7 @@
                 <div *ngIf="!ConfirmCartView" class="number-input">
                     <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                         class="plus"></button>
-                    <input class="quantity" min="1" name="quantity" value="1" type="number">
+                    <input class="quantity" min="1" name="quantity" value="{{product.Count}}" type="number">
                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
                 </div>
                 <div *ngIf="!ConfirmCartView" fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="center center"
@@ -197,12 +204,21 @@
             <div *ngIf="!ConfirmCartView" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center"
                 style="width: 36%;">
 
-                <div class="discountDecoration">
-                    4000
+                <div *ngIf="product.Sale" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+                    <div class="discountDecoration">
+                        {{product.DiscountPrice}}
+                    </div>
+                    <div class="discount">
+                        {{product.DiscountPercent}}%
+                    </div>
                 </div>
-                <div>تومان</div>
-                <div class="discount">
-                    5%
+                <div *ngIf="!product.Sale" style="height: 30px;" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+                    <div>
+                        &nbsp;
+                    </div>
+                    <div class="discount" style="background-color: transparent;">
+                        &nbsp;
+                    </div>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center center">
                     <div>{{product.Price | number}}</div>

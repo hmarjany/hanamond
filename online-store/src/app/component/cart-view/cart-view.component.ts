@@ -14,13 +14,16 @@ export class CartViewComponent implements OnInit {
   productList: any;
   defualtImagePath = 'assets/carousel-1bg.png';
   userId: any;
+  totalPrice: number = 0;
   productIds: Array<any> = new Array<any>();
   constructor(private route: ActivatedRoute,
     private http: HttpClient,
+    private cartService: CartService,
     private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
+    var cachItems = this.cartService.getItems();
     this.route.params.subscribe(params => {
       let httpParams = new HttpParams()
         .set('productIds', params['productIds'].toString());
@@ -35,7 +38,15 @@ export class CartViewComponent implements OnInit {
             })
           }
           this.productIds.push(item._id);
+          item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
+          item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;
+          var product = cachItems.find(x=> x._id === item._id);
+          if(product!=null){
+            item.Count = product.Count;
+            this.totalPrice += item.Count * item.Price;
+          }
         })
+        
         this.productList = items;
         this.userId = JSON.parse(localStorage.getItem('currentUser'))._id;
         this.changeDetectorRef.detectChanges();
