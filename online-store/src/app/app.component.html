@@ -63,7 +63,7 @@
               </a>
             </div>
           </div>
-          <div (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()" >
+          <div (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()">
             <mat-icon style="color: gray;" matBadge="{{cartItems}}" matBadgeColor="warn">
               local_grocery_store</mat-icon>
             <app-cart *ngIf="showCart && cartItems > 0" style="position: absolute;z-index: 999999999999999;
@@ -242,4 +242,5 @@
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
+  <app-footer></app-footer>
 </div>

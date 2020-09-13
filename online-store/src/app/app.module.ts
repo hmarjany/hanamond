@@ -44,6 +44,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CartViewComponent } from './component/cart-view/cart-view.component';
 import { ConfirmCartComponent } from './component/confirm-cart/confirm-cart.component';
 import { AddressComponent } from './component/address/address.component';
+import { FooterComponent } from './component/footer/footer.component'
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { AddressComponent } from './component/address/address.component';
     CartComponent,
     CartViewComponent,
     ConfirmCartComponent,
-    AddressComponent
+    AddressComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
