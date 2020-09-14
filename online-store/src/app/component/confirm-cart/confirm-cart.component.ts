@@ -21,6 +21,7 @@ export class ConfirmCartComponent implements OnInit {
   defualtImagePath = 'assets/carousel-1bg.png';
   selectedAddress: String = '';
   selectedAddressDeliverTo: String = '';
+  isDataAvailable = false;
 
   constructor(private route: ActivatedRoute,
     private http: HttpClient) { 
@@ -53,6 +54,7 @@ export class ConfirmCartComponent implements OnInit {
           }
         })
         this.productList = items;
+        this.isDataAvailable = true;
       });
     });
   }

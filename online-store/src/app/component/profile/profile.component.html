@@ -1,4 +1,9 @@
-<div class="profileTopset">
+<div *ngIf="!isDataAvailable" >
+  <app-loading [strictLoading]="!isDataAvailable">
+  </app-loading>
+</div>
+
+<div *ngIf="isDataAvailable" class="profileTopset">
   <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start start" class="saveContainer">
     <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
       <button type="submit" style="cursor: pointer;" (click)="save()">

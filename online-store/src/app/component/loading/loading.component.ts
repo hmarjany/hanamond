@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 import { LoaderService } from 'src/app/service/Loader/loader.service';
 
@@ -9,6 +9,7 @@ import { LoaderService } from 'src/app/service/Loader/loader.service';
 })
 export class LoadingComponent implements OnInit {
 
+  @Input() strictLoading = false;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   constructor(private loaderService: LoaderService,
     private changeDetectorRef: ChangeDetectorRef){
@@ -18,6 +19,9 @@ export class LoadingComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    if(this.strictLoading){
+      this.changeDetectorRef.detectChanges();
+    }
   }
 
 }

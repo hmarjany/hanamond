@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   secondFormGroup: FormGroup;
   address: Address[];
   currentUser: User;
+  isDataAvailable = false;
 
   constructor(private _formBuilder: FormBuilder,
     private http: HttpClient) {
@@ -29,6 +30,7 @@ export class ProfileComponent implements OnInit {
     this.http.get<User>('http://127.0.0.1:3100/users/getById', { params: httpParams }).subscribe(data => {
       this.currentUser = data;
       this.address  = this.currentUser.address;
+      this.isDataAvailable = true;
     });
 
     this.firstFormGroup = this._formBuilder.group({

@@ -1,3 +1,7 @@
+<div *ngIf="!isDataAvailable" >
+    <app-loading [strictLoading]="!isDataAvailable">
+    </app-loading>
+</div>
 <div *ngIf="isDataAvailable" class="mainContainer">
     <div class="secondContainer">
         <app-product-item [productList]="productList" [PrdouctPage]="true"></app-product-item>

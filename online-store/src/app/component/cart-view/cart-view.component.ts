@@ -16,6 +16,7 @@ export class CartViewComponent implements OnInit {
   userId: any;
   totalPrice: number = 0;
   productIds: Array<any> = new Array<any>();
+  isDataAvailable = false;
   constructor(private route: ActivatedRoute,
     private http: HttpClient,
     private cartService: CartService,
@@ -50,6 +51,7 @@ export class CartViewComponent implements OnInit {
         this.productList = items;
         this.userId = JSON.parse(localStorage.getItem('currentUser'))._id;
         this.changeDetectorRef.detectChanges();
+        this.isDataAvailable = true;
       });
     });
 
