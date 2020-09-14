@@ -52,12 +52,16 @@ export class AppComponent implements OnInit {
 
 
   scroll = (event): void => {
-    if (Math.round(window.pageYOffset) > 130) {
+    if ( window.pageYOffset > 130) {
       this.scrollPosition = true;
+      this.changeDetectorRef.detectChanges();
     } else {
       this.scrollPosition = false;
     }
-    this.changeDetectorRef.detectChanges();
+
+    if ( window.pageYOffset < 30) {
+      this.changeDetectorRef.detectChanges();
+    }
   };
 
   constructor(@Inject(DOCUMENT) private document: Document,
