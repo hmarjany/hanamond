@@ -97,10 +97,9 @@
                         </div>
                     </div>
                     <div class="number-input">
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                            class="plus"></button>
+                        <button (click)="stepUp(product)" class="plus"></button>
                         <input class="quantity" min="1" name="quantity" value="{{product.Count}}" type="number">
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                        <button (click)="stepDown(product)"></button>
                     </div>
                     
                 </div>
@@ -108,14 +107,14 @@
 
             <div *ngIf="!ConfirmCartView" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center end"
             style="width: 35%;">
-            <div fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="start center"
+            <div  fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="start center"
                         style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;"
                         (click)="removeItem(product)">
                         <div>
                             حذف
                         </div>
                         <div>
-                            <mat-icon style="cursor: pointer;" (click)="removeItem(product)">remove_shopping_cart
+                            <mat-icon style="cursor: pointer;">remove_shopping_cart
                             </mat-icon>
                         </div>
             </div>
@@ -149,8 +148,8 @@
 </div>
 
 <!-- CartPage Mobile view -->
-<div class="container" *ngIf="CartPage === true && MobileView === true" style="display: flex;">
-    <section class="sectionCartProduct" *ngFor="let product of productList; index as i;" style="min-width: auto;">
+<ul class="container" *ngIf="CartPage === true && MobileView === true">
+    <li class="sectionCartProduct" *ngFor="let product of productList; index as i;">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
             <a class="rLink" style="width: 100%;" routerLink="/productview/{{product._id}}" fxLayout="column" fxLayoutGap="10px"
                 fxLayoutAlign="center center">
@@ -184,18 +183,19 @@
                     </div>
                 </div>
                 <div *ngIf="!ConfirmCartView" class="number-input">
-                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                        class="plus"></button>
-                    <input class="quantity" min="1" name="quantity" value="{{product.Count}}" type="number">
-                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                    <div class="number-input">
+                        <button (click)="stepUp(product)" class="plus"></button>
+                        <input class="quantity" min="1" name="quantity" value="{{product.Count}}" type="number">
+                        <button (click)="stepDown(product)"></button>
+                    </div>
                 </div>
                 <div *ngIf="!ConfirmCartView" fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="center center"
                     style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;cursor: pointer;" (click)="removeItem(product)">
-                    <div>
+                    <div >
                         حذف
                     </div>
                     <div>
-                        <mat-icon style="cursor: pointer;" (click)="removeItem(product)">remove_shopping_cart
+                        <mat-icon style="cursor: pointer;" >remove_shopping_cart
                         </mat-icon>
                     </div>
                 </div>
@@ -220,14 +220,13 @@
                         &nbsp;
                     </div>
                 </div>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <div>{{product.Price | number}}</div>
-                    <div>تومان</div>
-                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div style="font-size: 20px">{{product.Price | number}} تومان</div>
             </div>
         </div>
-    </section>
-</div>
+    </li>
+</ul>
 
 <div *ngIf="PrdouctPage === false">
     <owl-carousel-o [options]="customOptions">

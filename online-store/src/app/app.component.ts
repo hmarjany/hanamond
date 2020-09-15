@@ -145,6 +145,10 @@ export class AppComponent implements OnInit {
   cartMouseLeave() {
     this.showCart = false;
   }
+  
+  onOrder(){
+    this.cartMouseLeave();
+  }
 
   @HostListener('document:click', ['$event'])
   clickout(event) {

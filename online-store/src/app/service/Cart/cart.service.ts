@@ -14,6 +14,11 @@ export class CartService {
   items: Array<Product> = new Array<Product>();
   itemsCountChange: Subject<number> = new Subject<number>();
 
+  setItems(products: Array<Product>){
+    this.items = products;
+    this.getItemsCount();
+  }
+
   addToCart(product: Product) {
     if (this.items.find(x => x._id === product._id) != null) {
       (this.items.find(x => x._id === product._id).Count as number) += 1;

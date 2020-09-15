@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, EventEmitter, Output } from '@angular/core';
 import { Product } from 'src/app/model/Product';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { CartService } from 'src/app/service/Cart/cart.service';
@@ -15,6 +15,8 @@ export class ProductItemComponent implements OnInit {
   @Input() CartPage: boolean = false;
   @Input() MobileView: boolean = false;
   @Input() ConfirmCartView: boolean = false;
+  @Output() ProductEvent = new EventEmitter<Product>();
+  @Output() RemoveEvent = new EventEmitter<Product>();
   contentAfterWidth: any;
   contentAfterPadding: any;
   contentAfterMargin: any;
@@ -34,9 +36,26 @@ export class ProductItemComponent implements OnInit {
   onValueChanged(value: number): void {
   }
 
-  removeItem(product) {
-    this.cartService.removeFromCart(product);
+  removeItem(product: Product) {
+    var cartProduct = this.cartService.items.find(x=> x._id === product._id);
+    cartProduct.Count = 1;
+    this.cartService.removeFromCart(cartProduct);
     this.cartService.getItemsCount();
+    this.RemoveEvent.emit(cartProduct);
+  }
+
+  stepUp(product: Product){
+    product.Count += 1;
+    this.cartService.addToCart(product);
+    this.cartService.getItemsCount();
+    this.ProductEvent.emit(product);
+  }
+
+  stepDown(product: Product){
+      product.Count -= 1;
+      this.cartService.removeFromCart(product);
+      this.cartService.getItemsCount();
+      this.ProductEvent.emit(product);
   }
 
   customOptions: OwlOptions = {
