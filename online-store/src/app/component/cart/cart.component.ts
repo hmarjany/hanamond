@@ -28,10 +28,13 @@ export class CartComponent implements OnInit {
     this.items = this.cartService.getItems();
     this.totalPrice = 0;
     this.items.forEach(item => {
-      this.totalPrice += item.Count * item.Price;
+      if(item.Quantity > 0){
+        this.totalPrice += item.Count * item.Price;
+      }
       this.productIds.push(item._id);
       item.ImagePath.forEach((path, i) => {
-        item.ImagePath[i] = 'assets/cartView/' + path.split('/')[2];
+        var splitPath = path.split('/');
+        item.ImagePath[i] = 'assets/cartView/' + splitPath[splitPath.length - 1];
       });
     });
   }

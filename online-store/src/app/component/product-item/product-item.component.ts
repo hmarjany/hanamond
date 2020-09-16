@@ -21,16 +21,11 @@ export class ProductItemComponent implements OnInit {
   contentAfterPadding: any;
   contentAfterMargin: any;
   
-  constructor(private cartService: CartService) { }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.contentAfterWidth=window.innerWidth/4+"px";
-  }
-
-  ngOnInit(): void {
-    this.contentAfterWidth=window.innerWidth/4+"px";
+  constructor(private cartService: CartService) {
     
+   }
+
+  ngOnInit(): void { 
   }
 
   onValueChanged(value: number): void {
@@ -53,7 +48,7 @@ export class ProductItemComponent implements OnInit {
 
   stepDown(product: Product){
       product.Count -= 1;
-      this.cartService.removeFromCart(product);
+      this.cartService.removeCartExpEvent(product);
       this.cartService.getItemsCount();
       this.ProductEvent.emit(product);
   }

@@ -15,9 +15,9 @@ border-radius: 5px;">
             <div *ngIf="item.Quantity > 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
               style="color: #7bbcf5;font-size: 12px;">
               <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
-              &nbsp;موجود در انبار
+              &nbsp;موجود
             </div>
-            <div *ngIf="item.Quantity < 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
+            <div *ngIf="item.Quantity === 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
               style="color: #7bbcf5;font-size: 12px;">
               <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
               &nbsp;ناموجود

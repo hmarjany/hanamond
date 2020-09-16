@@ -61,7 +61,8 @@
 
 <div class="container" *ngIf="CartPage === true && MobileView === false">
     <section class="sectionCartProduct" *ngFor="let product of productList; index as i;">
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" style="margin: 12px;">
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" style="margin: 12px;"
+        [ngStyle]="product.Quantity===0?{'filter': 'blur(3px)'} : {'filter': 'none'}">
             <a class="rLink" routerLink="/productview/{{product._id}}" fxLayout="column" fxLayoutGap="10px"
                 fxLayoutAlign="center start">
                 <div style="background-image: url({{product.ImagePath[0]}});
@@ -88,7 +89,7 @@
                             <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
                         </div>
                         <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
-                            fxLayoutAlign="center center">
+                            fxLayoutAlign="start center">
                             ناموجود
                             <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
                         </div>
@@ -150,7 +151,7 @@
 <!-- CartPage Mobile view -->
 <ul class="container" *ngIf="CartPage === true && MobileView === true">
     <li class="sectionCartProduct" *ngFor="let product of productList; index as i;">
-        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center"  [ngStyle]="product.Quantity===0?{'filter': 'blur(3px)'} : {'filter': 'none'}">
             <a class="rLink" style="width: 100%;" routerLink="/productview/{{product._id}}" fxLayout="column" fxLayoutGap="10px"
                 fxLayoutAlign="center center">
                 <div style="background-image: url({{product.ImagePath[0]}});
