@@ -11,6 +11,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class AddressComponent implements OnInit {
 
   @Output() addresses = new EventEmitter<Address[]>();
+  @Output() selectAddressChangeEvent = new EventEmitter<number>();
   @Input() addressList: Address[] = [];
   @Input() ProfileView: boolean = false;
   ShowView: boolean = false;
@@ -52,9 +53,25 @@ export class AddressComponent implements OnInit {
     }
   }
 
+  selectAddressCheck(i: number){
+    if(this.addressList != undefined && this.addressList != null && this.addressList.length > 0){
+      this.addressList.map(item => {
+        item.isCurrent = false;
+      })
+    }
+    this.selectAddressChangeEvent.emit(i);
+  }
+
   newAddress() {
     this.isNewAddress = true;
-    this.addressList.push(new Address);
+    if(this.addressList != undefined && this.addressList != null && this.addressList.length > 0){
+      this.addressList.map(item=>{
+        item.isCurrent = false;
+      })
+    }
+    var newAddress = new Address();
+    newAddress.isCurrent = true;
+    this.addressList.push(newAddress);
     this.contentWidth();
     this.showViewToggle(this.addressList.length - 1);
   }

@@ -1,4 +1,4 @@
-<div *ngIf="!isDataAvailable" >
+<div *ngIf="!isDataAvailable">
     <app-loading [strictLoading]="!isDataAvailable">
     </app-loading>
 </div>
@@ -15,10 +15,12 @@
                             آدرس تحویل سفارش
                         </h2>
                     </div>
-                    <div>
-                        {{selectedAddress}}
+                    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center" style="font-size:16px" >
+                        <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">store</mat-icon>
+                        <div style="color: gray">{{selectedAddress}}</div>
+                        
                     </div>
-                    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+                    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center" style="font-size:16px">
                         <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
                         <div style="color: gray">{{selectedAddressDeliverTo}}</div>
                     </div>
@@ -28,7 +30,20 @@
                 </div>
             </section>
             <div *ngIf="editAddress">
-                <app-address [addressList] = "address"></app-address>
+                <div style="background-color: greenyellow;padding: 5px;">
+                    <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start center">
+                        <button style="cursor: pointer;" (click)="saveAddress()">
+                            <mat-icon style="cursor: pointer;">save</mat-icon>
+                            <div>ذخیره تغییرات آدرس</div>
+                        </button>
+
+                        <button style="cursor: pointer;" (click)="cancelAddress()">
+                            <mat-icon style="cursor: pointer;">cancel</mat-icon>
+                            <div>لغو</div>
+                        </button>
+                    </div>
+                </div>
+                <app-address [addressList]="address" (selectAddressChangeEvent)="onAddressChange($event)"></app-address>
             </div>
             <!-- <app-product-item [productList]="productList" [CartPage]="true"  [ConfirmCartView]="true"></app-product-item> -->
 
@@ -100,9 +115,9 @@
         </div>
     </section>
     <div *ngIf="editAddress">
-        <app-address [addressList] = "address" ></app-address>
+        <app-address [addressList]="address"></app-address>
     </div>
-    
+
     <!-- <app-product-item [productList]="productList" [CartPage]="true" [MobileView]="true" [ConfirmCartView]="true"></app-product-item> -->
 
     <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"

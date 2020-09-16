@@ -5,15 +5,15 @@
                 <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start start">
                     <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
                         <button type="submit" style="cursor: pointer;" [disabled]="!editForm.valid">
-                            <mat-icon>save</mat-icon>
-                            <div>ذخیره تغییرات آدرس</div>
+                            <mat-icon>add</mat-icon>
+                            <div>اضافه کردن آدرس جدید</div>
                         </button>
                     </div>
 
                     <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
                         <button style="cursor: pointer;" id="closeButton">
-                            <mat-icon style="cursor: pointer;">close</mat-icon>
-                            <div>بستن</div>
+                            <mat-icon style="cursor: pointer;">cancel</mat-icon>
+                            <div>لغو</div>
                         </button>
                     </div>
                 </div>
@@ -43,10 +43,10 @@
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
             <div *ngIf="!ProfileView === true" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start"
                 style="border-bottom: lightgray solid thin;width: 100%;padding: 10px;">
-                <input type="radio" name="checkAddress" style="cursor: pointer;" />
-                <div>
-                    ارسال به این آدرس
-                </div>
+                <input (click)="selectAddressCheck(i)" id="{{i}}" type="checkbox"  style="cursor: pointer;" name="{{i}}" [(ngModel)]="address.isCurrent" [checked]="address.isCurrent" />
+                    <label  style="cursor: pointer;" for="{{i}}">
+                        ارسال به این آدرس
+                    </label>
             </div>
             <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="end start">
                 <h2 style="height: 112px;">
