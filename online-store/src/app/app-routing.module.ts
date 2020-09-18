@@ -12,6 +12,9 @@ import { ConfirmCartComponent } from './component/confirm-cart/confirm-cart.comp
 
 const routes: Routes = [
   { 
+    path: '', redirectTo: '/home', pathMatch: 'full'
+  },
+  { 
     path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]
   },
   {

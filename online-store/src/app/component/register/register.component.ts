@@ -26,9 +26,9 @@ export class RegisterComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.email,Validators.required]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.min(6)]],
       confirmPass: ['']
-    }, { validator: this.checkPasswords });
+    }, { validator:[ this.checkPasswords, this.checkPasswordsLength] });
   }
 
   checkPasswords(group: FormGroup) {
@@ -40,6 +40,21 @@ export class RegisterComponent implements OnInit {
     let confirmPass = group.get('confirmPass').value;
     
     return pass === confirmPass ? null : { notSame: true }
+  }
+
+  checkPasswordsLength(group: FormGroup) {
+    if (group == null) {
+      return;
+    }
+
+    let pass = group.get('password').value as string;
+    
+    
+     if(pass.length < 6){
+      return {passLength:true};
+     } 
+
+     return {passLength:false};
   }
 
   ngOnInit(): void {
@@ -63,7 +78,18 @@ export class RegisterComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/home');
+            this.authService.login(user).subscribe(
+              data => {
+                console.log(data);
+              },
+              error => {
+                this.errorObject.Message=error;
+              },
+              () => {
+
+              }
+          );
           },
           error => {
             this.errorObject.Message=error;

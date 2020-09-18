@@ -43,7 +43,7 @@
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
             <div *ngIf="!ProfileView === true" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start"
                 style="border-bottom: lightgray solid thin;width: 100%;padding: 10px;">
-                <input (click)="selectAddressCheck(i)" id="{{i}}" type="checkbox"  style="cursor: pointer;" name="{{i}}" [(ngModel)]="address.isCurrent" [checked]="address.isCurrent" />
+                <input (click)="selectAddressCheck(i)" (change)="changed(i, $event)" id="{{i}}" type="checkbox"  style="cursor: pointer;" name="{{i}}" [(ngModel)]="address.isCurrent" [checked]="address.isCurrent" />
                     <label  style="cursor: pointer;" for="{{i}}">
                         ارسال به این آدرس
                     </label>

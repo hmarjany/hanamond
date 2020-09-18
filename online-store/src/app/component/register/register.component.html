@@ -1,4 +1,4 @@
-<div  fxLayout="column" fxLayoutAlign="center center" style="height: 100vh;">
+<div  fxLayout="column" fxLayoutAlign="center center" style="height: 100vh;direction: ltr;">
     <div fxLayout="column" fxLayoutAlign="start center" class="container">
         <div>
             <img [src]="'assets/logo/logo.png'" />
@@ -11,7 +11,7 @@
         </div>
         <br/>
         <form [formGroup]="form" (ngSubmit)="register()">
-            <div>
+            <div style="direction: rtl;">
                 <mat-form-field>
                     <input type="text" matInput placeholder="نام و نام خانوادگی" formControlName="name" autocomplete="off" autofocus>
                 </mat-form-field>
@@ -25,7 +25,11 @@
 
             <div>
                 <mat-form-field style="text-align: left">
-                    <input type="password" matInput placeholder="کلمه عبور" formControlName="password">
+                    <input type="password" matInput placeholder="کلمه عبور" formControlName="password" required minlength="6"
+                    [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="form.hasError('passLength')">
+                        حداقل تعدا کارکترهای کلمه عبور باید 6 عدد باشد
+                    </mat-error> 
                 </mat-form-field>
             </div>
 

@@ -71,17 +71,19 @@ export class ConfirmCartComponent implements OnInit {
   }
 
   onAddressChange(index: number){
-    this.selectedAddress= this.address[index].address;
-    this.selectedAddressDeliverTo = this.address[index].deliverTo;
   }
 
   saveAddress() {
-    if (this.address != undefined && this.address != null && this.address.length > 0) {
+    if (this.address != undefined && this.address != null) {
       this.currentUser.address = this.address;
       this.http.post<User>('http://127.0.0.1:3100/users/updateUser', this.currentUser).subscribe(data => {
-        
+        this.address = data.address;
         this.currentUser = data;
         this.editAddress = false;
+        var currentAddress = data.address.find(x => x.isCurrent === true);
+        this.selectedAddress = currentAddress.address;
+        this.selectedAddressDeliverTo = currentAddress.deliverTo;
+
       });
     }
   }

@@ -54,14 +54,23 @@ export class AddressComponent implements OnInit {
   }
 
   selectAddressCheck(i: number){
-    if(this.addressList != undefined && this.addressList != null && this.addressList.length > 0){
-      this.addressList.map(item => {
-        item.isCurrent = false;
-      })
-    }
     this.selectAddressChangeEvent.emit(i);
   }
 
+  changed(i, event){
+    if(this.addressList != undefined && this.addressList != null && this.addressList.length > 0){
+      this.addressList.map((item, index) => {
+        if(index != i){
+          item.isCurrent = false;
+        }else{
+          item.isCurrent = true;
+          event.target.checked = true;
+        }
+      })
+    }else{
+      return;
+    }
+  }
   newAddress() {
     this.isNewAddress = true;
     if(this.addressList != undefined && this.addressList != null && this.addressList.length > 0){
@@ -92,7 +101,16 @@ export class AddressComponent implements OnInit {
   }
 
   deleteAddress(index) {
+    if(this.addressList[index].isCurrent != null && this.addressList[index].isCurrent){
+      if(this.addressList[0]!=null && this.addressList[0]!=undefined){
+        this.addressList[0].isCurrent = true;
+      }
+    }
     this.addressList.splice(index, 1);
+    
+    if(this.addressList.length === 1){
+      this.addressList[0].isCurrent = true;
+    }
     this.contentWidth();
   }
 

@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="center center" style="height: 100vh;">
+<div fxLayout="column" fxLayoutAlign="center center" style="height: 100vh;direction: ltr;">
     <div fxLayout="column" fxLayoutAlign="start center" class="container">
         <div>
             <img [src]="'assets/logo/logo.png'" />
@@ -14,7 +14,7 @@
         <form [formGroup]="form" (ngSubmit)="login()">
             <div>
                 <mat-form-field style="text-align: left">
-                    <input type="text" matInput placeholder="نام کاربری(E-Mail)" formControlName="username" autocomplete="off" autofocus >
+                    <input type="text"  matInput placeholder="نام کاربری(E-Mail)" formControlName="username" autocomplete="off" autofocus >
                 </mat-form-field>
             </div>
 
