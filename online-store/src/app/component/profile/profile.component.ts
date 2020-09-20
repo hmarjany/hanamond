@@ -4,6 +4,7 @@ import { User } from 'src/app/model/User';
 import { Address } from 'src/app/model/Address';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { server } from 'src/app/Helper/server';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +28,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     let httpParams = new HttpParams()
       .set('userId', JSON.parse(localStorage.getItem('currentUser'))._id);
-    this.http.get<User>('http://127.0.0.1:3100/users/getById', { params: httpParams }).subscribe(data => {
+    this.http.get<User>(server.serverUrl + 'users/getById', { params: httpParams }).subscribe(data => {
       this.currentUser = data;
       this.address  = this.currentUser.address;
       this.isDataAvailable = true;
@@ -40,7 +41,7 @@ export class ProfileComponent implements OnInit {
   }
 
   save() {
-    this.http.post<User>('http://127.0.0.1:3100/users/updateUser', this.currentUser).subscribe(data => {
+    this.http.post<User>(server.serverUrl + 'users/updateUser', this.currentUser).subscribe(data => {
       this.currentUser = data;
     });
   }

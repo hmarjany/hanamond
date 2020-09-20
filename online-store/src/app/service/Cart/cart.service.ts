@@ -14,7 +14,19 @@ export class CartService {
   }
 
   items: Array<Product> = new Array<Product>();
+  finalItems: Array<Product> = new Array<Product>();
   itemsCountChange: Subject<number> = new Subject<number>();
+
+  getFinalItems(): Array<Product>{
+    this.finalItems = JSON.parse(localStorage.getItem('hanamondcartfinalsatatus'));
+    return this.finalItems;
+  }
+
+  setFinalItems(products: Array<Product>){
+      this.finalItems = new Array<Product>();
+      this.finalItems = products;
+      localStorage.setItem('hanamondcartfinalsatatus', JSON.stringify(this.finalItems));
+  }
 
   getRemoveEventEmitter() {
     return this.removeEvent;
@@ -84,7 +96,9 @@ export class CartService {
   clearCart() {
     localStorage.setItem('hanamondcartsatatus', null);
     this.items = JSON.parse(localStorage.getItem('hanamondcartsatatus'));
-    return this.items;
+
+    localStorage.setItem('hanamondcartfinalsatatus', null);
+    this.finalItems = JSON.parse(localStorage.getItem('hanamondcartsatatus'));
   }
 
   getItemsCount() {

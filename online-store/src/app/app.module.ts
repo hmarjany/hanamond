@@ -45,6 +45,8 @@ import { CartViewComponent } from './component/cart-view/cart-view.component';
 import { ConfirmCartComponent } from './component/confirm-cart/confirm-cart.component';
 import { AddressComponent } from './component/address/address.component';
 import { FooterComponent } from './component/footer/footer.component';
+import { SearchBarComponent } from './component/search-bar/search-bar.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,8 @@ import { FooterComponent } from './component/footer/footer.component';
     CartViewComponent,
     ConfirmCartComponent,
     AddressComponent,
-    FooterComponent
+    FooterComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +94,8 @@ import { FooterComponent } from './component/footer/footer.component';
     CarouselModule,
     PinchZoomModule,
     BarRatingModule,
-    MatBadgeModule
+    MatBadgeModule,
+    AutocompleteLibModule
   ],
   providers: [
     LoaderService,

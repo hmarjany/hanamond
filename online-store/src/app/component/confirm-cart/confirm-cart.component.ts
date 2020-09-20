@@ -6,6 +6,8 @@ import { Address } from 'src/app/model/Address';
 import { User } from 'src/app/model/User';
 import { Purchased } from 'src/app/model/Purchased';
 import { PurchasedItem } from 'src/app/model/PurchasedItem';
+import { CartService } from 'src/app/service/Cart/cart.service';
+import { server } from 'src/app/Helper/server';
 
 @Component({
   selector: 'app-confirm-cart',
@@ -21,20 +23,32 @@ export class ConfirmCartComponent implements OnInit {
   defualtImagePath = 'assets/carousel-1bg.png';
   selectedAddress: String = '';
   selectedAddressDeliverTo: String = '';
+  selectedAddressPhone: String = '';
   isDataAvailable = false;
+  totalPrice: number = 0;
 
   constructor(private route: ActivatedRoute,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private cartService: CartService) {
+      
   }
 
   ngOnInit(): void {
     this.loadAddress();
+    this.productList = this.cartService.getFinalItems();
+      this.productList.map((item, i)=>{
+        this.totalPrice += item.Count * item.Price;
+        item.ImagePath.forEach((path, i) => {
+          var splitPath = path.split('/');
+          item.ImagePath[i] = 'assets/cartView/' + splitPath[splitPath.length - 1];
+        });
+      })
   }
 
   private loadAddress() {
     let httpParams = new HttpParams()
       .set('userId', JSON.parse(localStorage.getItem('currentUser'))._id);
-    this.http.get<User>('http://127.0.0.1:3100/users/getById', { params: httpParams }).subscribe(data => {
+    this.http.get<User>(server.serverUrl + 'users/getById', { params: httpParams }).subscribe(data => {
       this.currentUser = data;
       this.address = this.currentUser.address;
       if (this.address != undefined && this.address != null && this.address.length > 0) {
@@ -54,6 +68,7 @@ export class ConfirmCartComponent implements OnInit {
         var currentAddress = this.address.find(x => x.isCurrent === true);
         this.selectedAddress = currentAddress.address;
         this.selectedAddressDeliverTo = currentAddress.deliverTo;
+        this.selectedAddressPhone = currentAddress.mobilePhone;
       } else {
         this.editAddress = true;
       }
@@ -76,14 +91,14 @@ export class ConfirmCartComponent implements OnInit {
   saveAddress() {
     if (this.address != undefined && this.address != null) {
       this.currentUser.address = this.address;
-      this.http.post<User>('http://127.0.0.1:3100/users/updateUser', this.currentUser).subscribe(data => {
+      this.http.post<User>(server.serverUrl + 'users/updateUser', this.currentUser).subscribe(data => {
         this.address = data.address;
         this.currentUser = data;
         this.editAddress = false;
         var currentAddress = data.address.find(x => x.isCurrent === true);
         this.selectedAddress = currentAddress.address;
         this.selectedAddressDeliverTo = currentAddress.deliverTo;
-
+        this.selectedAddressPhone = currentAddress.mobilePhone;
       });
     }
   }
@@ -114,7 +129,7 @@ export class ConfirmCartComponent implements OnInit {
     purchased.userName = this.currentUser.name.toString();
     purchased.userNamePhone = this.currentUser.phoneNumber.toString();
 
-    this.http.post<Purchased>('http://127.0.0.1:3100/purchased/save', purchased).subscribe(data => {
+    this.http.post<Purchased>(server.serverUrl + 'purchased/save', purchased).subscribe(data => {
 
     });
   }

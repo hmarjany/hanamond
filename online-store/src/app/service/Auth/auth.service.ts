@@ -4,6 +4,7 @@ import { User } from 'src/app/model/User';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserEnvelop } from 'src/app/model/UserEnvelop';
+import { server } from 'src/app/Helper/server';
 
 
 @Injectable({
@@ -23,7 +24,7 @@ export class AuthService {
   }
 
   login(user: User) {
-    return this.http.post<UserEnvelop>('http://127.0.0.1:3100/users/login', user)
+    return this.http.post<UserEnvelop>(server.serverUrl + 'users/login', user)
       .pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(res.user));
@@ -34,11 +35,11 @@ export class AuthService {
   }
 
   register(user: User) {
-    return this.http.post<User>('http://127.0.0.1:3100/users', user);
+    return this.http.post<User>(server.serverUrl + 'users', user);
   }
 
   logout() {
-    this.http.post<User>('http://127.0.0.1:3100/users/me/logout', this.currentUserSubject.value)
+    this.http.post<User>(server.serverUrl + 'users/me/logout', this.currentUserSubject.value)
       .subscribe(
         data => {
 

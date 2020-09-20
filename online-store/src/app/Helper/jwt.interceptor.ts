@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { AuthService } from '../service/Auth/auth.service';
 import { LoaderService } from '../service/Loader/loader.service';
 import { finalize, retry, catchError } from 'rxjs/operators';
+import { server } from './server';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -15,7 +16,7 @@ export class JwtInterceptor implements HttpInterceptor {
         this.loaderService.show();
         const currentUser = this.authenticationService.currentUserValue;
         const isLoggedIn = currentUser && currentUser.token;
-        const isApiUrl = request.url.startsWith("http://127.0.0.1:3100/");
+        const isApiUrl = request.url.startsWith(server.serverUrl);
         if (isLoggedIn && isApiUrl) {
             request = request.clone({
                 setHeaders: {

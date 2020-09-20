@@ -3,6 +3,7 @@ import { Product } from 'src/app/model/Product';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Count } from 'src/app/model/Count';
+import { server } from 'src/app/Helper/server';
 
 @Component({
   selector: 'app-product',
@@ -38,7 +39,7 @@ export class ProductComponent implements OnInit {
         .set('Category', productFilter.Category.toString())
         .set('CategoryType', productFilter.CategoryType.toString())
         .set('SubCategory', productFilter.SubCategory.toString());
-      this.http.get<Count>('http://127.0.0.1:3100/product/getAllCount', { params: httpParams}).subscribe(data => {
+      this.http.get<Count>(server.serverUrl + 'product/getAllCount', { params: httpParams}).subscribe(data => {
         this.totalPage = Math.ceil( data.result / this.perPage);
         this.listByPaging(1);
       });
@@ -69,7 +70,7 @@ export class ProductComponent implements OnInit {
         .set('SubCategory', productFilter.SubCategory.toString())
         .set('limit', productFilter.limit.toString())
         .set('skip', productFilter.skip.toString());
-      this.http.get<Product[]>('http://127.0.0.1:3100/product/getListByPaging', { params: httpParams }).subscribe(data => {
+      this.http.get<Product[]>(server.serverUrl + 'product/getListByPaging', { params: httpParams }).subscribe(data => {
         data.forEach((item) => {
           item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
           item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;

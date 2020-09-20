@@ -7,6 +7,7 @@ import { Brand } from 'src/app/model/enum/Brand';
 import { Category } from 'src/app/model/enum/category';
 import { CategoryType } from 'src/app/model/enum/CategoryType';
 import { SubCategory } from 'src/app/model/enum/SubCategory';
+import { server } from 'src/app/Helper/server';
 
 @Component({
   selector: 'app-product-view',
@@ -30,7 +31,7 @@ export class ProductViewComponent implements OnInit {
     this.route.params.subscribe(params => {
       let httpParams = new HttpParams()
         .set('productId', params['productId'].toString());
-      this.http.get<Product>('http://127.0.0.1:3100/product/getById', { params: httpParams }).subscribe(item => {
+      this.http.get<Product>(server.serverUrl + 'product/getById', { params: httpParams }).subscribe(item => {
         if (item.ImagePath === undefined || item.ImagePath === null) {
           item.ImagePath = new Array<String>();
           item.ImagePath.push(this.defualtImagePath);

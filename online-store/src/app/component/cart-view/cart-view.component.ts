@@ -3,6 +3,7 @@ import { CartService } from 'src/app/service/Cart/cart.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Product } from 'src/app/model/Product';
+import { server } from 'src/app/Helper/server';
 
 @Component({
   selector: 'app-cart-view',
@@ -30,7 +31,7 @@ export class CartViewComponent implements OnInit {
     this.route.params.subscribe(params => {
       let httpParams = new HttpParams()
         .set('productIds', params['productIds'].toString());
-      this.http.get<Array<Product>>('http://127.0.0.1:3100/product/getByIds', { params: httpParams }).subscribe(items => {
+      this.http.get<Array<Product>>(server.serverUrl + 'product/getByIds', { params: httpParams }).subscribe(items => {
         items.map((item, i) => {
           if (item.ImagePath === undefined || item.ImagePath === null) {
             item.ImagePath = new Array<String>();
@@ -119,5 +120,15 @@ export class CartViewComponent implements OnInit {
     })
 
     this.cartService.setItems(this.productList);
+  }
+
+  endProccess(){
+    var finalProductItems = new Array<Product>();
+    this.productList.forEach((item, i)=>{
+      if(item.Quantity>=1){
+        finalProductItems.push(item);
+      }
+    })
+    this.cartService.setFinalItems(finalProductItems);
   }
 }
