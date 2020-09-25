@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.sendData("false");
-    this.authService.logout();
 
     this.route.queryParams.subscribe(params => {
       this.returnUrl = params['returnUrl'];

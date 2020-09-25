@@ -8,6 +8,7 @@ import { Purchased } from 'src/app/model/Purchased';
 import { PurchasedItem } from 'src/app/model/PurchasedItem';
 import { CartService } from 'src/app/service/Cart/cart.service';
 import { server } from 'src/app/Helper/server';
+import { Order } from 'src/app/model/Order';
 
 @Component({
   selector: 'app-confirm-cart',
@@ -21,9 +22,9 @@ export class ConfirmCartComponent implements OnInit {
   address: Address[] = new Array<Address>();
   currentUser: User;
   defualtImagePath = 'assets/carousel-1bg.png';
-  selectedAddress: String = '';
-  selectedAddressDeliverTo: String = '';
-  selectedAddressPhone: String = '';
+  selectedAddress: string = '';
+  selectedAddressDeliverTo: string = '';
+  selectedAddressPhone: string = '';
   isDataAvailable = false;
   totalPrice: number = 0;
 
@@ -109,6 +110,8 @@ export class ConfirmCartComponent implements OnInit {
   }
 
   payment() {
+    var order = new Order();
+    
     var purchasedItems = new Array<PurchasedItem>();
     this.productList.forEach(item => {
       var purchasedItem = new PurchasedItem();
@@ -117,19 +120,29 @@ export class ConfirmCartComponent implements OnInit {
       purchasedItem.productId = item._id;
       purchasedItems.push(purchasedItem)
     })
+
+    order.purchasedItem = purchasedItems;
+    order.totalPrice = this.totalPrice;
+
     var purchased = new Purchased();
-    purchased.address = this.address[0].address;
+    purchased.address = this.selectedAddress;
     purchased.deliver = false;
-    purchased.deliverTo = this.address[0].deliverTo;
-    purchased.deliverToPhone = this.address[0].mobilePhone;
+    purchased.deliverTo = this.selectedAddressDeliverTo;
+    purchased.deliverToPhone = this.selectedAddressPhone;
     purchased.payOnline = false;
     purchased.purchaseDate = new Date();
     purchased.purchasedItem = purchasedItems;
     purchased.userId = this.currentUser._id;
     purchased.userName = this.currentUser.name.toString();
     purchased.userNamePhone = this.currentUser.phoneNumber.toString();
+    
+    order.address = this.selectedAddress;
+    order.deliverTo = this.selectedAddressDeliverTo;
+    order.deliverToPhone = this.selectedAddressPhone;
 
-    this.http.post<Purchased>(server.serverUrl + 'purchased/save', purchased).subscribe(data => {
+    order.purchasedUserDetails = purchased;
+
+    this.http.post<Order>(server.serverUrl + 'purchased/save', order).subscribe(data => {
 
     });
   }

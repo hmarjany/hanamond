@@ -11,5 +11,5 @@ export class Purchased{
     deliverToPhone: string;
     userName: string;
     userNamePhone: string;
-
+    
 }
