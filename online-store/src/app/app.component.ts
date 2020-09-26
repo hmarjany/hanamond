@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   dataPassed: any;
   subscription: Subscription;
   currentUser: User;
+  userName: string;
   cartItems: Number;
   showHeader: boolean = true;
 
@@ -46,6 +47,11 @@ export class AppComponent implements OnInit {
     this.cartService.itemsCountChange.subscribe((value) => {
       this.cartItems = value;
     })
+
+    this.authService.currentUser.subscribe(x => {
+      this.currentUser = x;
+      this.userName = 'سلام '+ x.name + ' !';
+    });
 
     this.cartService.getItemsCount();
   }
@@ -78,11 +84,18 @@ export class AppComponent implements OnInit {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
 
-    this.authService.currentUser.subscribe(x => this.currentUser = x);
+    this.authService.currentUser.subscribe(x => {
+      this.currentUser = x;
+    });
+
     this.showMenu = true;
     this.dataService.getData().subscribe(x => {
       this.showMenu = (x === "true");
       if (isNullOrUndefined(x)) {
+        if(this.currentUser != null){
+          this.userName = 'سلام '+ this.currentUser.name + ' !';
+        }
+
         this.showMenu = true;
       }
       this.changeDetectorRef.detectChanges();
@@ -128,6 +141,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.userName = '';
   }
 
   mouseenter() {

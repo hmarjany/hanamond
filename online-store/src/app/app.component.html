@@ -2,7 +2,7 @@
 </app-loading>
 
 <div *ngIf="showHeader" style="overflow:hidden;">
-  <div *ngIf="showMenu">
+  <div *ngIf="showMenu" style="background: aliceblue;">
     <div fxHide.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
       style="padding: 10px;background-color: aliceblue;">
       <div fxLayout="row" fxLayoutAlign="start center">
@@ -11,6 +11,7 @@
 
           <button mat-icon-button (click)="snav.toggle();">
             <mat-icon style="color: gray;font-size: 29px;">menu</mat-icon>
+            <div style="font-size: 12px;color: gray;margin-bottom: 10px;">{{userName}}</div>
           </button>
 
         </div>
@@ -19,7 +20,7 @@
 
       <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
 
-        <div fxLayout="row" fxLayoutAlign="end center">
+        <div fxLayout="column" fxLayoutAlign="end start">
           <img [src]="'assets/logo/logo.png'" />
         </div>
 
@@ -28,7 +29,7 @@
     </div>
 
     <div fxHide.gt-xs fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="space-between center"
-      style="padding: 10px;background-color: aliceblue;">
+      style="padding: 10px;background-color: aliceblue;margin-top: 14px;">
 
       <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
         <div fxLayout="row" fxLayoutAlign="start center">
@@ -36,7 +37,7 @@
             <button *ngIf="!currentUser"
               style="background-color: transparent;border:none ;outline: none;cursor: pointer;">
               <div fxLayout="row" fxLayoutAlign="center center">
-                <mat-icon style="color: gray;margin-top: 8px;">person_outline</mat-icon>
+                <mat-icon style="color: gray;margin-top: 1px;">person_outline</mat-icon>
               </div>
             </button>
           </a>

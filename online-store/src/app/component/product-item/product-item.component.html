@@ -152,14 +152,14 @@
 <ul class="container" *ngIf="CartPage === true && MobileView === true">
     <li class="sectionCartProduct" *ngFor="let product of productList; index as i;">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center"  [ngStyle]="product.Quantity===0?{'filter': 'blur(3px)'} : {'filter': 'none'}">
-            <a class="rLink" style="width: 100%;" routerLink="/productview/{{product._id}}" fxLayout="column" fxLayoutGap="10px"
-                fxLayoutAlign="center center">
-                <div style="background-image: url({{product.ImagePath[0]}});
+            <div style="background-image: url({{product.ImagePath[0]}});
                 width: 100%;
                 height: 190px;
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;"></div>
+            <a class="rLink" style="width: 100%;" routerLink="/productview/{{product._id}}" fxLayout="column" fxLayoutGap="10px"
+                fxLayoutAlign="center center">
                 <h2>{{product.Name}}</h2>
             </a>
             <div fxLayout="column" fxLayoutAlign="center center">

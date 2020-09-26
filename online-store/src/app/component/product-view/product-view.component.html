@@ -1,4 +1,4 @@
-<div *ngIf="!isDataAvailable" >
+<div *ngIf="!isDataAvailable">
     <app-loading [strictLoading]="!isDataAvailable">
     </app-loading>
 </div>
@@ -46,64 +46,64 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
             </section>
 
-            
+
         </div>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
-        style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 30%;min-width: 280px;">
-        <div style="width: 85%;padding: 18px;">
-            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
-                &nbsp;گواهی اصالات و سلامت فیزیکی
+            style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 30%;min-width: 280px;">
+            <div style="width: 85%;padding: 18px;">
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
+                    &nbsp;گواهی اصالات و سلامت فیزیکی
+                </div>
+            </div>
+            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
+                <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
+                    &nbsp;موجود در انبار
+                </div>
+                <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
+                    &nbsp;ناموجود
+                </div>
+            </div>
+            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
+                fxLayoutAlign="end end">
+                <div *ngIf="product.SpecialOffer">
+                    <div class="discount">
+                        فروش ویژه
+                    </div>
+                </div>
+                <div *ngIf="product.Sale">
+                    <div class="discountDecoration">
+                        {{product.DiscountPrice}}
+                    </div>
+                    <div class="discount">
+                        {{product.DiscountPercent}}%
+                    </div>
+                </div>
+                <div *ngIf="!product.Sale">
+                    <div class="discountDecoration">
+                        &nbsp;
+                    </div>
+                    <div class="discount" style="background-color: transparent;">
+                        &nbsp;
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
+                    <h2 style="color: #ef394e;">تومان</h2>
+                </div>
+            </div>
+            <div (click)="addToCart(product)" style="width: 85%;padding: 18px;">
+                <button
+                    [ngClass]="{'buyButt': product.isProductAvailable === true,'buyButtDisable':product.isProductAvailable===false}">افزودن
+                    به سبد خرید</button>
             </div>
         </div>
-        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
-            <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
-                fxLayoutAlign="start center">
-                <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
-                &nbsp;موجود در انبار
-            </div>
-            <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
-                fxLayoutAlign="start center">
-                <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
-                &nbsp;ناموجود
-            </div>
-        </div>
-        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
-            fxLayoutGap="10px" fxLayoutAlign="end end">
-            <div *ngIf="product.SpecialOffer">
-                <div class="discount">
-                    فروش ویژه
-                </div>
-            </div>
-            <div *ngIf="product.Sale">
-                <div class="discountDecoration">
-                    {{product.DiscountPrice}}
-                </div>
-                <div class="discount">
-                    {{product.DiscountPercent}}%
-                </div>
-            </div>
-            <div *ngIf="!product.Sale">
-                <div class="discountDecoration">
-                    &nbsp;
-                </div>
-                <div class="discount" style="background-color: transparent;">
-                    &nbsp;
-                </div>
-            </div>
-            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
-                <h2 style="color: #ef394e;">تومان</h2>
-            </div>
-        </div>
-        <div (click)="addToCart(product)" style="width: 85%;padding: 18px;">
-            <button [ngClass]="{'buyButt': product.isProductAvailable === true,'buyButtDisable':product.isProductAvailable===false}">افزودن به سبد خرید</button>
-        </div>
-    </div>
 
     </div>
 
@@ -111,7 +111,7 @@
     <div fxHide.gt-xs>
         <app-product-view-image [imagePaths]="imagePaths"></app-product-view-image>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;margin-top: 10px;">
-            <section class="fieldset">
+            <section class="fieldset" style="height: 100%;">
                 <h1>{{product.Name}}</h1>
                 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;">
                     <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start"
@@ -122,6 +122,55 @@
                         <div style="direction: ltr;">
                             <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
                         </div>
+
+                        <div fxLayout="column"  fxLayoutAlign="start center"
+                            style="font-size: 0.9rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 100%;min-width: 280px;">
+                            <div style="width: 85%;padding: 10px;">
+                                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                                    <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
+                                    &nbsp;گواهی اصالات و سلامت فیزیکی
+                                </div>
+                            </div>
+                            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 10px;">
+                                <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
+                                    fxLayoutAlign="start center">
+                                    <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
+                                    &nbsp;موجود در انبار
+                                </div>
+                                <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
+                                    fxLayoutAlign="start center">
+                                    <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
+                                    &nbsp;ناموجود
+                                </div>
+                            </div>
+                            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
+                                fxLayoutGap="10px" fxLayoutAlign="center center">
+                                <div *ngIf="product.SpecialOffer">
+                                    <div class="discount">
+                                        فروش ویژه
+                                    </div>
+                                </div>
+                                <div *ngIf="product.Sale">
+                                    <div class="discountDecoration">
+                                        {{product.DiscountPrice}}
+                                    </div>
+                                    <div class="discount">
+                                        {{product.DiscountPercent}}%
+                                    </div>
+                                </div>
+                                <div *ngIf="!product.Sale">
+                                    <div class="discountDecoration">
+                                    </div>
+                                    <div class="discount" style="background-color: transparent;">
+                                    </div>
+                                </div>
+                                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                                    <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
+                                    <h2 style="color: #ef394e;">تومان</h2>
+                                </div>
+                            </div>
+                        </div>
+
                         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 14px;">
                             <div>برند : &nbsp;{{product.BrandName}}</div>
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
@@ -146,64 +195,18 @@
                             </ng-container>
                         </div>
                     </div>
-
-                    
                 </div>
-            </section>
 
-            <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
-                        style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 100%;min-width: 280px;">
-                        <div style="width: 85%;padding: 18px;">
-                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                                <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
-                                &nbsp;گواهی اصالات و سلامت فیزیکی
-                            </div>
-                        </div>
-                        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
-                            <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
-                                fxLayoutAlign="start center">
-                                <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
-                                &nbsp;موجود در انبار
-                            </div>
-                            <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
-                                fxLayoutAlign="start center">
-                                <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
-                                &nbsp;ناموجود
-                            </div>
-                        </div>
-                        <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
-                            fxLayoutGap="10px" fxLayoutAlign="end end">
-                            <div *ngIf="product.SpecialOffer">
-                                <div class="discount">
-                                    فروش ویژه
-                                </div>
-                            </div>
-                            <div *ngIf="product.Sale">
-                                <div class="discountDecoration">
-                                    {{product.DiscountPrice}}
-                                </div>
-                                <div class="discount">
-                                    {{product.DiscountPercent}}%
-                                </div>
-                            </div>
-                            <div *ngIf="!product.Sale">
-                                <div class="discountDecoration">
-                                    &nbsp;
-                                </div>
-                                <div class="discount" style="background-color: transparent;">
-                                    &nbsp;
-                                </div>
-                            </div>
-                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                                <h2 style="color: #ef394e;font-size: 30px;">{{product.Price | number}}</h2>
-                                <h2 style="color: #ef394e;">تومان</h2>
-                            </div>
-                        </div>
-                        <div (click)="addToCart(product)" style="width: 85%;padding: 18px;">
-                            <button [ngClass]="{'buyButt': product.isProductAvailable === true,'buyButtDisable':product.isProductAvailable===false}">افزودن به سبد خرید</button>
-                        </div>
-                    </div>
-                    
+            </section>
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
+            style="bottom: 0;position: fixed; margin: -12px;font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 100%;min-width: 280px;">
+            <div (click)="addToCart(product)" style="width: 85%;padding: 18px;">
+                <button
+                    [ngClass]="{'buyButt': product.isProductAvailable === true,'buyButtDisable':product.isProductAvailable===false}">افزودن
+                    به سبد خرید</button>
+            </div>
         </div>
     </div>
 </div>
