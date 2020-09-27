@@ -98,7 +98,9 @@
                             font-size: 1.2rem;
                             border-radius: 7px;
                             outline: none;
-                            cursor: pointer;" routerLink="/confirmcart/{{productIds}}/{{userId}}">ادامه فرآیند
+                            cursor: pointer;" 
+                            (click)="endProccess()"
+                            routerLink="/confirmcart/{{productIds}}/{{userId}}">ادامه فرآیند
                 خرید</button>
         </div>
         <div style="width: 85%;padding: 18px;" *ngIf="totalPrice<=0">
