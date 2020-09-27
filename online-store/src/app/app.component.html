@@ -139,6 +139,9 @@
       </div>
 
     </div>
+    
+    <div fxHide fxShow.gt-xs  style="color: gray;margin-right: 14px;">{{userName}}</div>
+
     <div>
       <div fxHide fxShow.gt-xs style="padding: 10px;background-color: aliceblue;border-top: lightgray solid thin;"
         [ngClass]="{'showMenu': scrollPosition,'topMenu': scrollPosition === false }">
@@ -239,7 +242,7 @@
       </mat-nav-list>
 
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content style="overflow: hidden;">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

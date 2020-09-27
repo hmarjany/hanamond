@@ -70,7 +70,7 @@
 </div>
 
 <!-- Mobile view -->
-<div fxHide.gt-xs style="margin: 15px; display: flow-root;">
+<div *ngIf="isDataAvailable" fxHide.gt-xs style="margin: 15px; display: flow-root;">
     <app-product-item [productList]="productList" [CartPage]="true" [MobileView]="true"
         (ProductEvent)="OnProductChange($event)" (RemoveEvent)="OnProductRemove($event)"></app-product-item>
 

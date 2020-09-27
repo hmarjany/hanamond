@@ -126,7 +126,7 @@
 </div>
 
 <!-- Mobile view -->
-<div fxHide.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="margin: 15px;">
+<div *ngIf="isDataAvailable" fxHide.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="margin: 15px;">
     <section class="sectionَSelectedAddress" *ngIf="!editAddress">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
             <div>
