@@ -67,11 +67,11 @@ export class AppComponent implements OnInit {
           menuItem._id = item._id;
           menuItem.CategoryName = Category.map(menuItem._id.Category);
           item.SubCategory.forEach((scat,j)=>{
-            if(menuItem.SubCategory != undefined && menuItem.SubCategory.includes(scat)){
+            if(menuItem.SubCategory != undefined && menuItem.SubCategory.find(x=>x.SubCategory == scat.SubCategory)){
               var categoryTypeItem = new CategoryTypeItem();
-              categoryTypeItem.CategoryType = menuItem.SubCategory[j].CategoryType;
-              categoryTypeItem.CategoryTypeName = CategoryType.map(menuItem.SubCategory[j].CategoryType);
-              menuItem.SubCategory[j].CategoryTypes.push(categoryTypeItem);
+              categoryTypeItem.CategoryType = scat.CategoryType;
+              categoryTypeItem.CategoryTypeName = CategoryType.map(scat.CategoryType);
+              menuItem.SubCategory[i].CategoryTypes.push(categoryTypeItem);
             }else{
               var subCategory = new SubCategoryItem();
               subCategory.SubCategory = scat.SubCategory;

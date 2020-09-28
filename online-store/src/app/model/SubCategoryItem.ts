@@ -7,4 +7,5 @@ export class SubCategoryItem{
     SubCategoryName: string;
     CategoryType:CategoryType;
     CategoryTypes:Array<CategoryTypeItem>;
+    ShowSubSubMenu = false;
 }

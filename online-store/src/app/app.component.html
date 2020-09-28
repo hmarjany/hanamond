@@ -224,14 +224,14 @@
                   {{categoryType.CategoryTypeName}}</a>
               </ng-container>
 
-              <mat-list-item (click)="menuItem.ShowSubSubMenu = !menuItem.ShowSubSubMenu"  *ngIf="subCategory.SubCategory!=0" class="parent">
+              <mat-list-item (click)="subCategory.ShowSubSubMenu = !subCategory.ShowSubSubMenu"  *ngIf="subCategory.SubCategory!=0" class="parent">
                 <span class="full-width" *ngIf="isExpanded || isShowing">{{subCategory.SubCategoryName}}</span>
-                <mat-icon class="menu-button" [ngClass]="{'rotated' : menuItem.ShowSubSubMenu}"
+                <mat-icon class="menu-button" [ngClass]="{'rotated' : subCategory.ShowSubSubMenu}"
                   *ngIf="isExpanded || isShowing">
                   expand_more</mat-icon>
               </mat-list-item>
               <ng-container *ngIf="subCategory.SubCategory!=0">
-                <div class="submenu" [ngClass]="{'expanded' : menuItem.ShowSubSubMenu}" *ngIf="isShowing || isExpanded">
+                <div class="submenu" [ngClass]="{'expanded' : subCategory.ShowSubSubMenu}" *ngIf="isShowing || isExpanded">
                 <ng-container *ngFor="let categoryType of subCategory.CategoryTypes; index as i;">
                   <a mat-list-item (click)="sidenav.toggle()"
                     routerLink="/product/{{menuItem._id.Category}}/{{subCategory.SubCategory}}/{{categoryType.CategoryType}}">

@@ -7,5 +7,5 @@ export class MenuItems{
     SubCategory: Array<SubCategoryItem>;
     SubCategoryName: string;
     ShowSubMenu = false;
-    ShowSubSubMenu = false;
+    
 }
