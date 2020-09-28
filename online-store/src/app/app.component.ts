@@ -11,6 +11,14 @@ import { Router, NavigationError, NavigationCancel, NavigationEnd, NavigationSta
 import { MatSidenav } from '@angular/material/sidenav';
 import { LoaderService } from './service/Loader/loader.service';
 import { CartService } from './service/Cart/cart.service';
+import { HttpClient } from '@angular/common/http';
+import { MenuItems } from './model/MenuItems';
+import { server } from './Helper/server';
+import { SubCategoryItem } from './model/SubCategoryItem';
+import { CategoryType } from './model/enum/CategoryType';
+import { CategoryTypeItem } from './model/CategoryTypeItem';
+import { SubCategory } from './model/enum/SubCategory';
+import { Category } from './model/enum/category';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,8 +49,52 @@ export class AppComponent implements OnInit {
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
+  mobileProductViewFooter: boolean;
+  menuItems: Array<MenuItems>;
 
   ngOnInit() {
+    this.router.events
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.mobileProductViewFooter = (!event.url.includes('/productview'))
+        }
+      });
+
+      this.http.get<Array<MenuItems>>(server.serverUrl + 'product/menuItems').subscribe(data => {
+        this.menuItems = new Array<MenuItems>();
+        data.forEach((item , i)=>{
+          var menuItem = new MenuItems();
+          menuItem._id = item._id;
+          menuItem.CategoryName = Category.map(menuItem._id.Category);
+          item.SubCategory.forEach((scat,j)=>{
+            if(menuItem.SubCategory != undefined && menuItem.SubCategory.includes(scat)){
+              var categoryTypeItem = new CategoryTypeItem();
+              categoryTypeItem.CategoryType = menuItem.SubCategory[j].CategoryType;
+              categoryTypeItem.CategoryTypeName = CategoryType.map(menuItem.SubCategory[j].CategoryType);
+              menuItem.SubCategory[j].CategoryTypes.push(categoryTypeItem);
+            }else{
+              var subCategory = new SubCategoryItem();
+              subCategory.SubCategory = scat.SubCategory;
+              subCategory.SubCategoryName = SubCategory.map(scat.SubCategory)
+              if(subCategory.CategoryTypes === undefined){
+                subCategory.CategoryTypes = new Array<CategoryTypeItem>();
+              }
+              var categoryTypeItem = new CategoryTypeItem();
+              categoryTypeItem.CategoryType = scat.CategoryType;
+              categoryTypeItem.CategoryTypeName = CategoryType.map(scat.CategoryType);
+              subCategory.CategoryTypes.push(categoryTypeItem)
+              if(menuItem.SubCategory === undefined){
+                menuItem.SubCategory = new Array<SubCategoryItem>();
+              }
+              menuItem.SubCategory.push(subCategory)
+            }
+
+          })
+
+          this.menuItems.push(menuItem);
+        })
+
+      });
     window.addEventListener('scroll', this.scroll, true);
     this.cartService.itemsCountChange.subscribe((value) => {
       this.cartItems = value;
@@ -50,22 +102,27 @@ export class AppComponent implements OnInit {
 
     this.authService.currentUser.subscribe(x => {
       this.currentUser = x;
-      this.userName = 'سلام '+ x.name + ' !';
+      if (x != null) {
+        this.userName = 'سلام ' + x.name + ' !';
+      }
     });
 
     this.cartService.getItemsCount();
   }
 
+  onActivate(event) {
+    window.scroll(0, 0);
+  }
 
   scroll = (event): void => {
-    if ( window.pageYOffset > 130) {
+    if (window.pageYOffset > 130) {
       this.scrollPosition = true;
       this.changeDetectorRef.detectChanges();
     } else {
       this.scrollPosition = false;
     }
 
-    if ( window.pageYOffset < 30) {
+    if (window.pageYOffset < 30) {
       this.changeDetectorRef.detectChanges();
     }
   };
@@ -77,9 +134,10 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private loaderService: LoaderService,
-    private cartService: CartService) {
+    private cartService: CartService,
+    private http: HttpClient) {
 
-    
+
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -92,8 +150,8 @@ export class AppComponent implements OnInit {
     this.dataService.getData().subscribe(x => {
       this.showMenu = (x === "true");
       if (isNullOrUndefined(x)) {
-        if(this.currentUser != null){
-          this.userName = 'سلام '+ this.currentUser.name + ' !';
+        if (this.currentUser != null) {
+          this.userName = 'سلام ' + this.currentUser.name + ' !';
         }
 
         this.showMenu = true;
@@ -159,8 +217,8 @@ export class AppComponent implements OnInit {
   cartMouseLeave() {
     this.showCart = false;
   }
-  
-  onOrder(){
+
+  onOrder() {
     this.cartMouseLeave();
   }
 
