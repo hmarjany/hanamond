@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.email,Validators.required]],
+      phone: ['', [Validators.required, Validators.pattern("[0-9 ]{10}")]],
       password: ['', [Validators.required, Validators.min(6)]],
       confirmPass: ['']
     }, { validator:[ this.checkPasswords, this.checkPasswordsLength] });
@@ -72,6 +73,7 @@ export class RegisterComponent implements OnInit {
     user.email = val.email;
     user.name = val.name;
     user.password = val.password;
+    user.phoneNumber = val.phone;
 
     if (val.email && val.password) {
       this.authService.register(user)

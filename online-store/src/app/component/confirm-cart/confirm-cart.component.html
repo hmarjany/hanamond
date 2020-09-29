@@ -20,13 +20,13 @@
                         <div style="color: gray">{{selectedAddress}}</div>
 
                     </div>
-                    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center" style="font-size:16px">
-                        <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
-                        <div style="color: gray">{{selectedAddressDeliverTo}}</div>
-                    </div>
                     <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
                         <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">phone</mat-icon>
                         <div style="color: gray">{{selectedAddressPhone}}</div>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center" style="font-size:16px">
+                        <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
+                        <div style="color: gray">{{selectedAddressDeliverTo}}</div>
                     </div>
                     <a style="color: #7bbcf5;cursor: pointer;" (click)="editAddressView()">
                         تغییر یا ویرایش آدرس
@@ -34,7 +34,7 @@
                 </div>
             </section>
             <div *ngIf="editAddress">
-                <div style="background-color: greenyellow;padding: 5px;">
+                <div *ngIf="showSaveRibbon" style="background-color: greenyellow;padding: 5px;">
                     <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start center">
                         <button style="cursor: pointer;" (click)="saveAddress()">
                             <mat-icon style="cursor: pointer;">save</mat-icon>
@@ -47,7 +47,9 @@
                         </button>
                     </div>
                 </div>
-                <app-address [addressList]="address" (selectAddressChangeEvent)="onAddressChange($event)"></app-address>
+                <app-address [addressList]="address" (addNewAddressEvent)="onAddNewAddressEvent()" 
+                (addOrEditAddressEvent)="onAddOrEditAddressEvent()"
+                (selectAddressChangeEvent)="onAddressChange($event)"></app-address>
             </div>
 
             <section class="sectionَSelectedAddress" *ngIf="!editAddress">
@@ -94,7 +96,7 @@
             </section>
 
         </div>
-        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
+        <div *ngIf="!editAddress" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
             style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: white;border-radius: 4px;width: 30%;min-width: 280px;">
             
             <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
@@ -139,20 +141,21 @@
                 <div style="color: gray">{{selectedAddress}}</div>
             </div>
             <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
-                <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
-                <div style="color: gray">{{selectedAddressDeliverTo}}</div>
-            </div>
-            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
                 <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">phone</mat-icon>
                 <div style="color: gray">{{selectedAddressPhone}}</div>
             </div>
+            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+                <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
+                <div style="color: gray">{{selectedAddressDeliverTo}}</div>
+            </div>
+            
             <a style="color: #7bbcf5;cursor: pointer;" (click)="editAddressView()">
                 تغییر یا ویرایش آدرس
             </a>
         </div>
     </section>
     <div *ngIf="editAddress" style="width: 100%;">
-        <div style="background-color: greenyellow;padding: 5px;">
+        <div *ngIf="showSaveRibbon" style="background-color: greenyellow;padding: 5px;">
             <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start center">
                 <button style="cursor: pointer;" (click)="saveAddress()">
                     <mat-icon style="cursor: pointer;">save</mat-icon>
@@ -165,7 +168,9 @@
                 </button>
             </div>
         </div>
-        <app-address [addressList]="address" (selectAddressChangeEvent)="onAddressChange($event)"></app-address>
+        <app-address [addressList]="address" (addNewAddressEvent)="onAddNewAddressEvent()" 
+        (addOrEditAddressEvent)="onAddOrEditAddressEvent()"
+        (selectAddressChangeEvent)="onAddressChange($event)"></app-address>
     </div>
 
     <section class="sectionَSelectedAddress" *ngIf="!editAddress">
@@ -211,7 +216,7 @@
         </div>
     </section>
 
-    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
+    <div *ngIf="!editAddress" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
         style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f8f6f6;border-radius: 4px;width: 100%;">
         
         <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
