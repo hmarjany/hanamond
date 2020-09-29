@@ -64,7 +64,7 @@
               </a>
             </div>
           </div>
-          <div (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()">
+          <div *ngIf="ConfirmCartBasket" (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()">
             <mat-icon style="color: gray;" matBadge="{{cartItems}}" matBadgeColor="warn">
               local_grocery_store</mat-icon>
             <app-cart (OrderEvent)="onOrder()" *ngIf="showCart && cartItems > 0" style="position: absolute;z-index: 999999999999999;
@@ -125,8 +125,8 @@
               </a>
             </div>
           </div>
-          <div style="font-size: 30px;padding: 14px; color: gray;">|</div>
-          <div (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()" style="width: 30px;height: auto;">
+          <div *ngIf="ConfirmCartBasket" style="font-size: 30px;padding: 14px; color: gray;">|</div>
+          <div *ngIf="ConfirmCartBasket" (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()" style="width: 30px;height: auto;">
             <mat-icon style="color: gray;direction: ltr;cursor: pointer;width: 40px;
             height: 28px;
             margin-right: -16px;" matBadge="{{cartItems}}" matBadgeColor="warn">

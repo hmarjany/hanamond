@@ -50,6 +50,7 @@ export class AppComponent implements OnInit {
   isShowing = false;
   showSubSubMenu: boolean = false;
   mobileProductViewFooter: boolean;
+  ConfirmCartBasket: boolean;
   menuItems: Array<MenuItems>;
 
   ngOnInit() {
@@ -57,6 +58,10 @@ export class AppComponent implements OnInit {
       .subscribe((event) => {
         if (event instanceof NavigationEnd) {
           this.mobileProductViewFooter = (!event.url.includes('/productview'))
+        }
+
+        if (event instanceof NavigationEnd) {
+          this.ConfirmCartBasket = (!event.url.includes('/confirmcart'))
         }
       });
 
