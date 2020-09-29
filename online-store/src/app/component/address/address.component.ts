@@ -36,8 +36,8 @@ export class AddressComponent implements OnInit {
     })
   }
 
-  onEditSubmit(event) {
-    if (event.submitter.id === "closeButton") {
+  onEditSubmit() {
+    if (document.activeElement.id === "closeButton") {
       this.ShowView = false;
       if (this.isNewAddress) {
         this.addressList.splice(this.addressList.length - 1, 1);
