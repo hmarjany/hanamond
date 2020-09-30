@@ -12,6 +12,8 @@ export class AddressComponent implements OnInit {
 
   @Output() addresses = new EventEmitter<Address[]>();
   @Output() selectAddressChangeEvent = new EventEmitter<number>();
+  @Output() addNewAddressEvent = new EventEmitter();
+  @Output() addOrEditAddressEvent = new EventEmitter();
   @Input() addressList: Address[] = [];
   @Input() ProfileView: boolean = false;
   ShowView: boolean = false;
@@ -19,6 +21,7 @@ export class AddressComponent implements OnInit {
   editForm: FormGroup;
   isNewAddress = false;
   contentAfterWidth: any;
+  lastCureentAddressIndex: number;
 
   constructor(private formBuilder: FormBuilder) {
   }
@@ -30,18 +33,20 @@ export class AddressComponent implements OnInit {
   ngOnInit(): void {
       this.editForm = this.formBuilder.group({
       address: ['', Validators.required],
-      mobilePhone: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      postalCode: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+      mobilePhone: ['', [Validators.required, Validators.pattern("[0-9 ]{10}")]],
+      postalCode: ['', [Validators.required, Validators.pattern("[0-9 ]{10}")]],
       deliverTo: ['', Validators.required]
     })
   }
 
-  onEditSubmit(event) {
-    if (event.submitter.id === "closeButton") {
+  onEditSubmit() {
+    this.addOrEditAddressEvent.emit();
+    if (document.activeElement.id === "closeButton") {
       this.ShowView = false;
       if (this.isNewAddress) {
         this.addressList.splice(this.addressList.length - 1, 1);
         this.isNewAddress = false;
+        this.addressList[this.lastCureentAddressIndex].isCurrent = true;
       }
     } else {
       this.ShowView = false;
@@ -72,9 +77,13 @@ export class AddressComponent implements OnInit {
     }
   }
   newAddress() {
+    this.addNewAddressEvent.emit();
     this.isNewAddress = true;
     if(this.addressList != undefined && this.addressList != null && this.addressList.length > 0){
-      this.addressList.map(item=>{
+      this.addressList.map((item, i)=>{
+        if(item.isCurrent){
+          this.lastCureentAddressIndex = i;
+        }
         item.isCurrent = false;
       })
     }
@@ -86,6 +95,7 @@ export class AddressComponent implements OnInit {
   }
 
   showViewToggle(index) {
+    this.addNewAddressEvent.emit();
     this.selectedAddressIndex = index;
     this.editForm.patchValue({
       address: this.addressList[index].address,

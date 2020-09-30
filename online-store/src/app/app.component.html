@@ -64,10 +64,10 @@
               </a>
             </div>
           </div>
-          <div (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()">
+          <div *ngIf="ConfirmCartBasket" (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()">
             <mat-icon style="color: gray;" matBadge="{{cartItems}}" matBadgeColor="warn">
               local_grocery_store</mat-icon>
-            <app-cart (OrderEvent) ="onOrder()" *ngIf="showCart && cartItems > 0" style="position: absolute;z-index: 999999999999999;
+            <app-cart (OrderEvent)="onOrder()" *ngIf="showCart && cartItems > 0" style="position: absolute;z-index: 999999999999999;
             margin-top: 24px;
             margin-right: -28px;">
 
@@ -125,20 +125,24 @@
               </a>
             </div>
           </div>
-          <div style="font-size: 30px;padding: 14px; color: gray;">|</div>
-          <div (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()" style="width: 30px;height: auto;">
+          <div *ngIf="ConfirmCartBasket" style="font-size: 30px;padding: 14px; color: gray;">|</div>
+          <div *ngIf="ConfirmCartBasket" (mouseover)="showCart=true" (mouseleave)="cartMouseLeave()" style="width: 30px;height: auto;">
             <mat-icon style="color: gray;direction: ltr;cursor: pointer;width: 40px;
             height: 28px;
             margin-right: -16px;" matBadge="{{cartItems}}" matBadgeColor="warn">
               local_grocery_store
             </mat-icon>
             <app-cart *ngIf="showCart && cartItems > 0" style="position: absolute;z-index: 999999999999999;
-            margin-top: 24px;margin-right: -40px;width: 300px;margin-right: -300px;" (OrderEvent) ="onOrder()"></app-cart>
+            margin-top: 24px;margin-right: -40px;width: 300px;margin-right: -300px;" (OrderEvent)="onOrder()">
+            </app-cart>
           </div>
         </div>
       </div>
 
     </div>
+
+    <div fxHide fxShow.gt-xs style="color: gray;margin-right: 14px;height: 20px;">{{userName}}</div>
+
     <div>
       <div fxHide fxShow.gt-xs style="padding: 10px;background-color: aliceblue;border-top: lightgray solid thin;"
         [ngClass]="{'showMenu': scrollPosition,'topMenu': scrollPosition === false }">
@@ -160,55 +164,34 @@
                       <mat-icon style="color: gray;">home</mat-icon>
                     </div>
                   </a></li>
-                <li><a href="#">زنانه</a>
+                <li *ngFor="let menuItem of menuItems; index as i;">
+                  <a href="#">
+                    {{menuItem.CategoryName}}
+                  </a>
                   <ul>
-                    <li><a routerLink="/product/1/1/1">کفش</a></li>
-                    <li><a routerLink="/product/0/2/2">لباس شب</a></li>
-                    <li><a href="#">لباس راحتی</a></li>
-                    <!-- <li><a href="#">Sub Menu 4</a>
-                      <ul>
-                        <li><a href="#">Deep Menu 1</a>
-                          <ul>
-                            <li><a href="#">Sub Deep 1</a></li>
-                            <li><a href="#">Sub Deep 2</a></li>
-                            <li><a href="#">Sub Deep 3</a></li>
-                            <li><a href="#">Sub Deep 4</a></li>
-                          </ul>
+
+                    <li *ngFor="let subCategory of menuItem.SubCategory; index as i;">
+                      <ng-container *ngFor="let categoryType of subCategory.CategoryTypes; index as i;">
+                        <a *ngIf="subCategory.SubCategory==0"
+                          routerLink="/product/{{menuItem._id.Category}}/{{subCategory.SubCategory}}/{{categoryType.CategoryType}}">
+                          {{categoryType.CategoryTypeName}}</a>
+                      </ng-container>
+
+                      <a *ngIf="subCategory.SubCategory!=0">{{subCategory.SubCategoryName}}</a>
+                      <ul *ngIf="subCategory.SubCategory!=0">
+                        <li *ngFor="let categoryType of subCategory.CategoryTypes; index as i;">
+                          <a
+                            routerLink="/product/{{menuItem._id.Category}}/{{subCategory.SubCategory}}/{{categoryType.CategoryType}}">
+                            {{categoryType.CategoryTypeName}}</a>
                         </li>
-                        <li><a href="#">Deep Menu 2</a></li>
-                      </ul>
-                    </li> -->
-                    <!-- <li><a href="#">Sub Menu 5</a></li> -->
-                  </ul>
-                </li>
-                <li><a href="#">مردانه</a>
-                  <ul>
-                    <li><a href="#">کفش</a></li>
-                    <li><a href="#">لباس رسمی</a></li>
-                    <li><a href="#">لباس راحتی</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">بچگانه</a>
-                  <ul>
-                    <li class="dir"><a href="#">Sub Menu 1</a></li>
-                    <li class="dir"><a href="#">Sub Menu 2 THIS IS SO LONG IT MIGHT CAUSE AN ISSEUE BUT MAYBE NOT?</a>
-                      <ul>
-                        <li><a href="#">Category 1</a></li>
-                        <li><a href="#">Category 2</a></li>
-                        <li><a href="#">Category 3</a></li>
-                        <li><a href="#">Category 4</a></li>
-                        <li><a href="#">Category 5</a></li>
                       </ul>
                     </li>
-                    <li><a href="#">Sub Menu 3</a></li>
-                    <li><a href="#">Sub Menu 4</a></li>
-                    <li><a href="#">Sub Menu 5</a></li>
                   </ul>
                 </li>
+
                 <li><a href="#">فروش ویژه</a></li>
-                <!-- <li><a href="#">Menu 5</a></li>
-                <li><a href="#">Menu 6</a></li> -->
                 <li><a href="#">پیگیری سفارش</a></li>
+
               </ul>
             </nav>
           </div>
@@ -223,25 +206,55 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" #sidenav
       class="example-sidenav" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
       <mat-nav-list>
-        <a mat-list-item (click)="sidenav.toggle()" routerLink="/">
-          <div translate>Home</div>
+        <a mat-list-item (click)="sidenav.toggle()" routerLink="/home">
+          <div>صفحه اصلی</div>
         </a>
+        <ng-container *ngFor="let menuItem of menuItems; index as i;">
+          <mat-list-item (click)="menuItem.ShowSubMenu = !menuItem.ShowSubMenu" class="parent">
+            <span class="full-width" *ngIf="isExpanded || isShowing">{{menuItem.CategoryName}}</span>
+            <mat-icon class="menu-button" [ngClass]="{'rotated' : menuItem.ShowSubMenu}"
+              *ngIf="isExpanded || isShowing">
+              expand_more</mat-icon>
+          </mat-list-item>
+          <div class="submenu" [ngClass]="{'expanded' : menuItem.ShowSubMenu}" *ngIf="isShowing || isExpanded">
+            <ng-container *ngFor="let subCategory of menuItem.SubCategory; index as i;">
+              <ng-container *ngFor="let categoryType of subCategory.CategoryTypes; index as i;">
+                <a mat-list-item (click)="sidenav.toggle()" *ngIf="subCategory.SubCategory==0"
+                  routerLink="/product/{{menuItem._id.Category}}/{{subCategory.SubCategory}}/{{categoryType.CategoryType}}">
+                  {{categoryType.CategoryTypeName}}</a>
+              </ng-container>
 
-        <mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
-          <span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
-          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}" *ngIf="isExpanded || isShowing">
-            expand_more</mat-icon>
-        </mat-list-item>
-        <div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
-          <a mat-list-item (click)="sidenav.toggle()" routerLink="/register">SubSubmenu Item 1</a>
-          <a mat-list-item (click)="sidenav.toggle()" routerLink="/login">SubSubmenu Item 2</a>
-        </div>
+              <mat-list-item (click)="subCategory.ShowSubSubMenu = !subCategory.ShowSubSubMenu"  *ngIf="subCategory.SubCategory!=0" class="parent">
+                <span class="full-width" *ngIf="isExpanded || isShowing">{{subCategory.SubCategoryName}}</span>
+                <mat-icon class="menu-button" [ngClass]="{'rotated' : subCategory.ShowSubSubMenu}"
+                  *ngIf="isExpanded || isShowing">
+                  expand_more</mat-icon>
+              </mat-list-item>
+              <ng-container *ngIf="subCategory.SubCategory!=0">
+                <div class="submenu" [ngClass]="{'expanded' : subCategory.ShowSubSubMenu}" *ngIf="isShowing || isExpanded">
+                <ng-container *ngFor="let categoryType of subCategory.CategoryTypes; index as i;">
+                  <a mat-list-item (click)="sidenav.toggle()"
+                    routerLink="/product/{{menuItem._id.Category}}/{{subCategory.SubCategory}}/{{categoryType.CategoryType}}">
+                    {{categoryType.CategoryTypeName}}</a>
+                </ng-container>
+              </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+        <a mat-list-item (click)="sidenav.toggle()" routerLink="/home">
+          <div>فروش ویژه</div>
+        </a>
+        <a mat-list-item (click)="sidenav.toggle()" routerLink="/home">
+          <div>پیگیری سفارش</div>
+        </a>
       </mat-nav-list>
 
     </mat-sidenav>
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
+    <mat-sidenav-content style="overflow: hidden;">
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-  <app-footer></app-footer>
+  <app-footer fxHide fxShow.gt-xs></app-footer>
+  <app-footer fxHide.gt-xs *ngIf="mobileProductViewFooter"></app-footer>
 </div>

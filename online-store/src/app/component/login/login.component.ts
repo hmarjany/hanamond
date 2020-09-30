@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
                private route: ActivatedRoute) {
 
       this.form = this.fb.group({
-          username: ['',Validators.required],
+          username: ['', [Validators.email,Validators.required]],
           password: ['',Validators.required]
       });
       

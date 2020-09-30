@@ -27,6 +27,7 @@ export class ConfirmCartComponent implements OnInit {
   selectedAddressPhone: string = '';
   isDataAvailable = false;
   totalPrice: number = 0;
+  showSaveRibbon = true;
 
   constructor(private route: ActivatedRoute,
     private http: HttpClient,
@@ -76,6 +77,14 @@ export class ConfirmCartComponent implements OnInit {
 
       this.isDataAvailable = true;
     });
+  }
+
+  onAddNewAddressEvent(){
+    this.showSaveRibbon = false;
+  }
+
+  onAddOrEditAddressEvent(){
+    this.showSaveRibbon = true;
   }
 
   editAddressView() {

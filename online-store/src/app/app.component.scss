@@ -45,7 +45,7 @@
     }
   
     .showMenu{
-      transform: translateY(-50px);
+      transform: translateY(-70px);
       transition-timing-function: ease-in;
       transition: 0.5s;
       position: fixed;
@@ -208,11 +208,14 @@
 }
 .submenu {
   overflow-y: hidden;
-  transition: transform 300ms ease;
+  transition: transform 100ms ease-out;
   transform: scaleY(0);
   transform-origin: top;
   padding-left: 30px;
+  max-height: 0;
 }
 .submenu.expanded {
   transform: scaleY(1);
+  transition: transform 100ms ease-in;
+  max-height: 100%;
 }
