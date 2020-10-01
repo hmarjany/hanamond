@@ -56,15 +56,15 @@ export class ProductItemComponent implements OnInit {
   customOptions: OwlOptions = {
     autoWidth: true,
     loop: true,
-    mouseDrag: false,
-    touchDrag: false,
+    mouseDrag: true,
+    touchDrag: true,
     pullDrag: false,
-    center: true,
+    center: false,
     autoHeight: true,
     autoplay: true,
-    navSpeed: 700,
+    navSpeed: 1000,
     rtl: true,
-    dots: false,
+    dots: true,
     navText: ['', ''],
     responsive: {
       0: {

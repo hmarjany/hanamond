@@ -64,6 +64,12 @@ $width: 100%;
   padding: 0px;
 }
 
+.containerNewProduct {
+  display: flex;
+  list-style: none;
+  padding: 0px;
+}
+
 .sectionProduct {
   flex: 1 0 20.333%;
   display: flex;
@@ -274,12 +280,13 @@ $width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 40px;
+  margin: 2px;
   border: thin solid #00000047;
   padding: 25px;
   background: whitesmoke;
   border-radius: 5px;
   height: 280px;
+  min-width: 200px;
 }
 
 .sectionNewProduct > p {
