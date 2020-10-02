@@ -3,12 +3,6 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~@angular/material/theming';
 @import '~ngx-bar-rating/themes/br-default-theme';
-@import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
-@import "../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
-
-.ag-theme-alpine {
-    @include ag-theme-alpine();
-}
 
 $custom-typography: mat-typography-config($font-family: '"yekan", sans-serif;');
 @include mat-core($custom-typography);

@@ -13,7 +13,9 @@ export class JwtInterceptor implements HttpInterceptor {
         private loaderService: LoaderService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.loaderService.show();
+        if (request.url != "http://api.hanamond.ir/product/search") {
+            this.loaderService.show();
+        }
         const currentUser = this.authenticationService.currentUserValue;
         const isLoggedIn = currentUser && currentUser.token;
         const isApiUrl = request.url.startsWith(server.serverUrl);
@@ -25,31 +27,36 @@ export class JwtInterceptor implements HttpInterceptor {
             });
         }
         console.log(request);
-        
+
         return next.handle(request).pipe(
             retry(1),
 
             catchError((error: HttpErrorResponse) => {
-     
-              let errorMessage = '';
-     
-              if (error instanceof ErrorEvent) {
-     
-                errorMessage = `Error: ${error}`;
-     
-              } else {
-     
-                // server-side error
-     
-                errorMessage = `${error}`;
-     
-              }
-     
-              return throwError(errorMessage);
-     
+
+                let errorMessage = '';
+
+                if (error instanceof ErrorEvent) {
+
+                    errorMessage = `Error: ${error}`;
+
+                } else {
+
+                    // server-side error
+
+                    errorMessage = `${error}`;
+
+                }
+
+                return throwError(errorMessage);
+
             }),
-            
-            finalize(() => this.loaderService.hide())
+
+            finalize(() => {
+                if (request.url != "http://api.hanamond.ir/product/search") {
+                    this.loaderService.hide();
+                }
+            }
+            )
         );
     }
 }

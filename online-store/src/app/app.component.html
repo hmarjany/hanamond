@@ -87,7 +87,6 @@
         <div fxLayout="row" fxLayoutAlign="end center">
           <img [src]="'assets/logo/logo.png'" />
         </div>
-
       </div>
 
       <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
@@ -140,11 +139,14 @@
       </div>
 
     </div>
-
     <div fxHide fxShow.gt-xs style="color: gray;margin-right: 14px;height: 20px;">{{userName}}</div>
 
+    <div style="padding: 10px;">
+      <app-search-bar></app-search-bar>
+    </div>
+
     <div>
-      <div fxHide fxShow.gt-xs style="padding: 10px;background-color: aliceblue;border-top: lightgray solid thin;"
+      <div fxHide fxShow.gt-xs style="padding: 10px;padding-bottom: 24px;background-color: aliceblue;border-top: lightgray solid thin;"
         [ngClass]="{'showMenu': scrollPosition,'topMenu': scrollPosition === false }">
         <div fxLayout="column" fxLayoutAlign="space-around center">
           <div fxFlex="50% 0 50%">

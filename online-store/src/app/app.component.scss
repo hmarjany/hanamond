@@ -45,7 +45,7 @@
     }
   
     .showMenu{
-      transform: translateY(-70px);
+      transform: translateY(-130px);
       transition-timing-function: ease-in;
       transition: 0.5s;
       position: fixed;
@@ -59,7 +59,7 @@
   
     .topMenu{
       position: absolute;
-      z-index: 100000;
+      z-index: 2;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.6);
     }
