@@ -64,7 +64,7 @@ export class ProductItemComponent implements OnInit {
     autoplay: true,
     navSpeed: 1000,
     rtl: true,
-    dots: true,
+    dots: false,
     navText: ['', ''],
     responsive: {
       0: {

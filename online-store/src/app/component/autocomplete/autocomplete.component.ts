@@ -1,4 +1,4 @@
-  
+
 import {
   AfterViewInit,
   Component, ContentChild,
@@ -12,10 +12,16 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {fromEvent, Observable} from 'rxjs';
-import {debounceTime, filter, map} from 'rxjs/operators';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { fromEvent, Observable } from 'rxjs';
+import { debounceTime, filter, map } from 'rxjs/operators';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HighlightPipe } from './highlight.pipe';
+import { Product } from 'src/app/model/Product';
+import { server } from 'src/app/Helper/server';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Category } from 'src/app/model/enum/category';
+import { SubCategory } from 'src/app/model/enum/SubCategory';
+import { CategoryType } from 'src/app/model/enum/CategoryType';
 
 /**
  * Keyboard events
@@ -38,7 +44,7 @@ const isTab = keyCode => keyCode === 9;
     '(document:click)': 'handleClick($event)',
     'class': 'ng-autocomplete'
   },
-  providers: [ HighlightPipe ]
+  providers: [HighlightPipe]
 })
 
 export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, ControlValueAccessor {
@@ -161,7 +167,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
     this.propagateChange(event.target.value);
   }
 
-  constructor(elementRef: ElementRef, private renderer: Renderer2) {
+  constructor(elementRef: ElementRef, private renderer: Renderer2, private http: HttpClient) {
     this.elementRef = elementRef;
   }
 
@@ -228,15 +234,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
     this.initSearchHistory();
     if (this.query != null && this.data) {
       this.toHighlight = this.query;
-      this.filteredList = this.data.filter((item: any) => {
-        if (typeof item === 'string') {
-          // string logic, check equality of strings
-          return item.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-        } else if (typeof item === 'object' && item.constructor === Object) {
-          // object logic, check property equality
-          return item[this.searchKeyword].toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-        }
-      });
+      this.filteredList = this.data;
     } else {
       this.notFound = false;
     }
@@ -419,6 +417,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
     this.inputCleared.emit();
     this.propagateChange(this.query);
     this.setPanelState(e);
+    this.handleClose();
+    this.filteredList = [];
+    this.data = [];
+    this.historyList = [];
   }
 
   /**
@@ -533,8 +535,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
           !isTab(e.keyCode)),
         debounceTime(this.debounceTime)
       ).subscribe(e => {
-      this.onKeyUp(e);
-    });
+        this.onKeyUp(e);
+      });
 
     // cursor up & down
     this.inputKeyDown$.pipe(filter(
@@ -582,29 +584,47 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
    * @param e event
    */
   onKeyUp(e) {
-    this.notFound = false; // search results are unknown while typing
-    // if input is empty
-    if (!this.query) {
-      this.notFound = false;
-      this.inputChanged.emit(e.target.value);
-      this.inputCleared.emit();
-      //this.filterList();
-      this.setPanelState(e);
-    }
-    // note that '' can be a valid query
-    if (!this.query && this.query !== '') {
-      return;
-    }
-    // if query >= to minQueryLength
-    if (this.query.length >= this.minQueryLength) {
-      this.inputChanged.emit(e.target.value);
-      this.filterList();
+    let httpParams = new HttpParams()
+      .set('searchString', e.target.value)
+    this.http.get<Product[]>(server.serverUrl + 'product/search', { params: httpParams }).subscribe(products => {
+      this.data = new Array<Product>();
 
-      // If no results found
-      if (!this.filteredList.length && !this.isLoading) {
-        this.notFoundText ? this.notFound = true : this.notFound = false;
+      products.map((item, i) => {
+        item.CategoryName = Category.map(item.Category);
+        item.CategoryTypeName = CategoryType.map(item.CategoryType);
+        item.SubCategoryName = SubCategory.map(item.SubCategory);
+        item.ImagePath.forEach((path, i) => {
+          var splitPath = path.split('/');
+          item.ImagePath[i] = 'assets/cartView/' + splitPath[splitPath.length - 1];
+        });
+      })
+
+      this.data = products;
+      this.notFound = false; // search results are unknown while typing
+      // if input is empty
+      if (!this.query) {
+        this.notFound = false;
+        this.inputChanged.emit(e.target.value);
+        this.inputCleared.emit();
+        //this.filterList();
+        this.setPanelState(e);
       }
-    }
+      // note that '' can be a valid query
+      if (!this.query && this.query !== '') {
+        return;
+      }
+      // if query >= to minQueryLength
+      if (this.query.length >= this.minQueryLength) {
+        this.inputChanged.emit(e.target.value);
+        this.filterList();
+
+        // If no results found
+        if (!this.filteredList.length && !this.isLoading) {
+          this.notFoundText ? this.notFound = true : this.notFound = false;
+        }
+      }
+    });
+
   }
 
 

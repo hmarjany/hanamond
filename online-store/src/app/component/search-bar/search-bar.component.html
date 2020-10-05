@@ -1,7 +1,7 @@
 <div class="ng-autocomplete">
     <app-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
         (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate"
+        
         placeHolder="جستجو در هانامُند">
     </app-autocomplete>
     <ng-template #itemTemplate let-item>
@@ -14,7 +14,4 @@
         </div>
     </ng-template>
 
-    <ng-template #notFoundTemplate let-notFound>
-        <div>جستجو نتیجه ای نداشت !</div>
-    </ng-template>
 </div>

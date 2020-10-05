@@ -15,8 +15,7 @@ import { Product } from 'src/app/model/Product';
 export class SearchBarComponent implements OnInit {
 
   constructor(private http: HttpClient,
-    private router: Router,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -32,24 +31,7 @@ export class SearchBarComponent implements OnInit {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
 
-    let httpParams = new HttpParams()
-        .set('searchString', val)
-      this.http.get<Product[]>(server.serverUrl + 'product/search', { params: httpParams }).subscribe(products => {
-        this.data = new Array<Product>();
-
-        products.map((item, i)=>{
-          item.CategoryName = Category.map(item.Category);
-          item.CategoryTypeName = CategoryType.map(item.CategoryType);
-          item.SubCategoryName = SubCategory.map(item.SubCategory);
-          item.ImagePath.forEach((path, i) => {
-            var splitPath = path.split('/');
-            item.ImagePath[i] = 'assets/cartView/' + splitPath[splitPath.length - 1];
-          });
-        })
-
-        this.data = products;
-        this.changeDetectorRef.detectChanges();
-    });
+    
   }
   
   onFocused(e){
