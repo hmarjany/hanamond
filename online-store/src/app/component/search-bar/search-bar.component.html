@@ -1,14 +1,20 @@
 <div class="ng-autocomplete">
-    <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+    <app-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
         (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate">
-    </ng-autocomplete>
-
+        [notFoundTemplate]="notFoundTemplate"
+        placeHolder="جستجو در هانامُند">
+    </app-autocomplete>
     <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.name"></a>
+        <div class="item">
+            <!-- <img src="{{item.ImagePath[0]}}" height="36" style="padding: 5px;"> -->
+            <mat-icon style="color: lightgrey;margin-left: 10px;">view_agenda</mat-icon>
+            <span [innerHTML]="item.Name"></span> &nbsp;&nbsp;  
+            <span style="color: lightsalmon;">{{item.Sepcification}}</span> &nbsp; 
+            <small style="color: royalblue;">در دسته {{item.CategoryName}}&nbsp;{{item.SubCategoryName}}&nbsp;{{item.CategoryTypeName}}</small>
+        </div>
     </ng-template>
 
     <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
+        <div>جستجو نتیجه ای نداشت !</div>
     </ng-template>
 </div>

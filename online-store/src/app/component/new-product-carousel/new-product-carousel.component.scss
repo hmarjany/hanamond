@@ -1,0 +1,81 @@
+  @function makelongshadow($color) {
+    $val: 0px 0px $color;
+    @for $i from 300 through 0 {
+      $val: #{$val}, #{$i * -1}px #{$i}px #{$color};
+    }
+    @return $val;
+  }
+  
+  $color: #aeb;
+  
+  .text {
+  }
+  
+  p {
+    display: inline-block;
+    font-size: 0px;
+    font-weight: bolder;
+    color:#017369;
+  }
+  
+  @for $i from 1 to 30 {
+    p:nth-child(#{$i}) { 
+    text-shadow: makelongshadow(adjust-hue($color, $i * 30));
+    animation: showup 10s /*infinite*/forwards $i * 0.20s; }
+  }
+  
+  @keyframes showup {
+    0% {
+      font-size:0px;
+      transform:rotate(90deg);
+    }
+    5% {
+      font-size:50px;
+      
+    }
+    10% {
+      font-size:50px;
+      transform:rotate(0deg);
+    }
+    60% {
+      font-size:50px;
+      //opacity: 1; 
+    }
+    71% {
+      //opacity: 0;
+    }
+    100% {
+      //opacity: 0;
+      font-size:50px;
+      transform:rotate(0deg);
+    }
+  }
+  
+  @media only screen and (max-width: 600px) {
+    @keyframes showup {
+        0% {
+          font-size:0px;
+          transform:rotate(90deg);
+        }
+        5% {
+          font-size:25px;
+          
+        }
+        10% {
+          font-size:25px;
+          transform:rotate(0deg);
+        }
+        60% {
+          font-size:25px;
+          //opacity: 1; 
+        }
+        71% {
+          //opacity: 0;
+        }
+        100% {
+          //opacity: 0;
+          font-size:25px;
+          transform:rotate(0deg);
+        }
+      }
+  }

@@ -46,7 +46,8 @@ import { ConfirmCartComponent } from './component/confirm-cart/confirm-cart.comp
 import { AddressComponent } from './component/address/address.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { AutocompleteComponent } from './component/autocomplete/autocomplete.component';
+import { HighlightPipe } from './component/autocomplete/highlight.pipe';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,9 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     ConfirmCartComponent,
     AddressComponent,
     FooterComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    AutocompleteComponent,
+    HighlightPipe
   ],
   imports: [
     BrowserModule,
@@ -95,9 +98,9 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     PinchZoomModule,
     BarRatingModule,
     MatBadgeModule,
-    AutocompleteLibModule
   ],
   providers: [
+    HighlightPipe,
     LoaderService,
     DataService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
