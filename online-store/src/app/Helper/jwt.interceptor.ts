@@ -13,7 +13,7 @@ export class JwtInterceptor implements HttpInterceptor {
         private loaderService: LoaderService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (request.url != "http://api.hanamond.ir/product/search") {
+        if (request.url != "https://api.hanamond.ir/product/search") {
             this.loaderService.show();
         }
         const currentUser = this.authenticationService.currentUserValue;
@@ -52,7 +52,7 @@ export class JwtInterceptor implements HttpInterceptor {
             }),
 
             finalize(() => {
-                if (request.url != "http://api.hanamond.ir/product/search") {
+                if (request.url != "https://api.hanamond.ir/product/search") {
                     this.loaderService.hide();
                 }
             }
