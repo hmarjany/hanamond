@@ -38,6 +38,14 @@ export class AuthService {
     return this.http.post<User>(server.serverUrl + 'users', user);
   }
 
+  changePassword(user: User) {
+    return this.http.post<User>(server.serverUrl + 'users/changepassword', user);
+  }
+
+  resetPasword(user: User) {
+    return this.http.post<User>(server.serverUrl + 'users/forgetpassword', user);
+  }
+
   logout() {
     this.http.post<User>(server.serverUrl + 'users/me/logout', this.currentUserSubject.value)
       .subscribe(

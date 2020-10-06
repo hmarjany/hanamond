@@ -18,21 +18,21 @@
             </div>
 
             <div>
-                <mat-form-field style="text-align: left">
+                <mat-form-field style="text-align: left;direction: ltr;">
                     <mat-label>نام کاربری (E-Mail)</mat-label>
                     <input type="text" matInput placeholder="مثال sample@gmail.com" formControlName="email" autocomplete="off">
                 </mat-form-field>
             </div>
 
             <div>
-                <mat-form-field style="text-align: left">
+                <mat-form-field style="text-align: left;direction: ltr;">
                     <mat-label>تلفن همراه</mat-label>
                     <input type="number" matInput placeholder="مثال 09120000000" formControlName="phone" autocomplete="off">
                 </mat-form-field>
             </div>
 
             <div>
-                <mat-form-field style="text-align: left">
+                <mat-form-field style="text-align: left;direction: ltr;">
                     <input type="password" matInput placeholder="کلمه عبور" formControlName="password" required minlength="6"
                     [errorStateMatcher]="matcher">
                     <mat-error *ngIf="form.hasError('passLength')">

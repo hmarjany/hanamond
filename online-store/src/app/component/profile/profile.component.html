@@ -1,4 +1,4 @@
-<div *ngIf="!isDataAvailable" >
+<div *ngIf="!isDataAvailable">
   <app-loading [strictLoading]="!isDataAvailable">
   </app-loading>
 </div>
@@ -18,18 +18,53 @@
         <ng-template matStepLabel>مشخصات عمومی</ng-template>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">
           <mat-form-field>
-            <input matInput placeholder="نام و نام خانوادگی" formControlName="name" [(ngModel)]="currentUser.name" required autocomplete="off">
+            <input matInput placeholder="نام و نام خانوادگی" formControlName="name" [(ngModel)]="currentUser.name"
+              required autocomplete="off">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="شماره همراه" formControlName="phone" [(ngModel)]="currentUser.phoneNumber" required autocomplete="off">
+            <input matInput placeholder="شماره همراه" formControlName="phone" [(ngModel)]="currentUser.phoneNumber"
+              required autocomplete="off">
           </mat-form-field>
         </div>
       </form>
     </mat-step>
+
+    <mat-step [stepControl]="changePasswordFormGroup">
+      <form [formGroup]="changePasswordFormGroup" (ngSubmit)="passwordChange()">
+        <ng-template matStepLabel>تغییر کلمه عبور</ng-template>
+        <div>
+          <mat-form-field style="text-align: left;direction: ltr;">
+            <input type="password" matInput placeholder="کلمه عبور" formControlName="password" required minlength="6"
+              [errorStateMatcher]="matcher">
+            <mat-error *ngIf="changePasswordFormGroup.hasError('passLength')">
+              حداقل تعدا کارکترهای کلمه عبور باید 6 عدد باشد
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field style="text-align: left;direction: ltr;">
+            <input type="password" matInput placeholder="تکرار کلمه عبور" formControlName="confirmPass"
+              [errorStateMatcher]="matcher">
+            <mat-error *ngIf="changePasswordFormGroup.hasError('notSame')">
+              تکرار کلمه عبور اشتباه است
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <button type="submit" [disabled]="changePasswordFormGroup.hasError('passLength') ||
+        changePasswordFormGroup.hasError('notSame')"
+         style="cursor: pointer;">
+          <mat-icon style="cursor: pointer;">update</mat-icon>
+          <div>تغییر کلمه عبور</div>
+        </button>
+      </form>
+    </mat-step>
+
     <mat-step [stepControl]="secondFormGroup">
       <ng-template matStepLabel>آدرس ها</ng-template>
-      <app-address [addressList] = "address" [ProfileView]="true" (addresses) ="onAddresses($event)"></app-address>
+      <app-address [addressList]="address" [ProfileView]="true" (addresses)="onAddresses($event)"></app-address>
     </mat-step>
+
 
   </mat-vertical-stepper>
 </div>

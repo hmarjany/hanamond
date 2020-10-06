@@ -9,6 +9,7 @@ import { ProductComponent } from './component/product/product.component';
 import { ProductViewComponent } from './component/product-view/product-view.component';
 import { CartViewComponent } from './component/cart-view/cart-view.component';
 import { ConfirmCartComponent } from './component/confirm-cart/confirm-cart.component';
+import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
 
 const routes: Routes = [
   { 
@@ -22,6 +23,9 @@ const routes: Routes = [
   },
   {
     path: 'register', component: RegisterComponent
+  },
+  {
+    path: 'forget', component: ForgetPasswordComponent
   },
   {
     path: 'home', component: HomeComponent

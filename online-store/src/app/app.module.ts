@@ -48,6 +48,7 @@ import { FooterComponent } from './component/footer/footer.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { AutocompleteComponent } from './component/autocomplete/autocomplete.component';
 import { HighlightPipe } from './component/autocomplete/highlight.pipe';
+import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { HighlightPipe } from './component/autocomplete/highlight.pipe';
     FooterComponent,
     SearchBarComponent,
     AutocompleteComponent,
-    HighlightPipe
+    HighlightPipe,
+    ForgetPasswordComponent
   ],
   imports: [
     BrowserModule,
