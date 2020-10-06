@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/service/Auth/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
-  isLinear = true;
+  isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   changePasswordFormGroup: FormGroup;
