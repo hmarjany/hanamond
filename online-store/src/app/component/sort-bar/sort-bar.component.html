@@ -1,0 +1,40 @@
+<div fxHide fxShow.gt-xs  fxLayout="row" fxLayoutAlign="start center"
+    style="width: 100%;padding: 10px;background: white;border: whitesmoke thin solid;color: #807e7e; height: 50px;margin-bottom: -14px;">
+    <mat-icon>sort</mat-icon>&nbsp;
+    مرتب سازی بر اساس : &nbsp;
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="bold">پـر فروش ترین</mat-button-toggle>
+        <mat-button-toggle value="bold">پر بازدیدترین</mat-button-toggle>
+        <mat-button-toggle value="bold">جــدیـدتــرین</mat-button-toggle>
+        <mat-button-toggle value="bold">گـران تـــریـن</mat-button-toggle>
+        <mat-button-toggle value="bold">ارزان تـــریـن</mat-button-toggle>
+
+    </mat-button-toggle-group>
+</div>
+
+<div fxHide.gt-xs fxLayout="row" fxLayoutAlign="start center"
+    style="width: 100%;padding: 10px;background: white;border: whitesmoke thin solid;color: #807e7e; height: 70px;">
+    <mat-form-field >
+    <mat-label>
+        <mat-icon>sort</mat-icon>
+        مرتب سازی بر اساس : &nbsp;
+    </mat-label>
+    <mat-select>
+      <mat-option value="0">
+        پـرفروش ترین
+      </mat-option>
+      <mat-option value="1">
+        پر بازدیدتریـن
+      </mat-option>
+      <mat-option value="2">
+        جــدیـدتــریـن
+      </mat-option>
+      <mat-option value="3">
+        گـران تـــریــن
+      </mat-option>
+      <mat-option value="4">
+        ارزان تـــریــن
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+</div>

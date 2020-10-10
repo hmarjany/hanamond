@@ -25,10 +25,16 @@
                             <div>برند : &nbsp;{{product.BrandName}}</div>
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
                                 دسته بندی :&nbsp;
-                                <a style="text-decoration: none;"
+                                <a style="text-decoration: none;display: inherit;"
                                     routerLink="/product/{{product.Category}}/{{product.SubCategory}}/{{product.CategoryType}}">
-                                    <div>
-                                        {{product.CategoryName}}&nbsp;/&nbsp;{{product.SubCategoryName}}&nbsp;/&nbsp;{{product.CategoryTypeName}}
+                                    <div fxLayout="row"  fxLayoutAlign="start center" >
+                                        {{product.CategoryName}}
+                                        <div *ngIf="product.SubCategoryName != ''">
+                                            <mat-icon>keyboard_arrow_left</mat-icon>
+                                            {{product.SubCategoryName}}
+                                        </div>
+                                        <mat-icon>keyboard_arrow_left</mat-icon>
+                                        {{product.CategoryTypeName}}
                                     </div>
                                 </a>
                             </div>
@@ -109,10 +115,12 @@
 
     <!-- mobile view -->
     <div *ngIf="isDataAvailable" fxHide.gt-xs>
-        <app-product-view-image [imagePaths]="imagePaths"></app-product-view-image>
+        
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;margin-top: 10px;margin-bottom: 90px;">
+            
             <section class="fieldset" style="height: 100%;">
                 <h1>{{product.Name}}</h1>
+                <app-product-view-image [imagePaths]="imagePaths"></app-product-view-image>
                 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;">
                     <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start"
                         style="font-size: 18px; padding: 5px;width: 100%;">
@@ -175,10 +183,16 @@
                             <div>برند : &nbsp;{{product.BrandName}}</div>
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
                                 دسته بندی :&nbsp;
-                                <a style="text-decoration: none;"
+                                <a style="text-decoration: none;display: inherit;"
                                     routerLink="/product/{{product.Category}}/{{product.SubCategory}}/{{product.CategoryType}}">
-                                    <div>
-                                        {{product.CategoryName}}&nbsp;/&nbsp;{{product.SubCategoryName}}&nbsp;/&nbsp;{{product.CategoryTypeName}}
+                                    <div fxLayout="row"  fxLayoutAlign="start center" >
+                                        {{product.CategoryName}}
+                                        <div *ngIf="product.SubCategoryName != ''">
+                                            <mat-icon>keyboard_arrow_left</mat-icon>
+                                            {{product.SubCategoryName}}
+                                        </div>
+                                        <mat-icon>keyboard_arrow_left</mat-icon>
+                                        {{product.CategoryTypeName}}
                                     </div>
                                 </a>
                             </div>

@@ -1,0 +1,23 @@
+<div fxLayout="row" fxLayoutAlign="start center"
+    style="width: 100%;padding: 10px;background: transparent;border: whitesmoke thin solid;color: #807e7e;">
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <a style="text-decoration: none;"
+            routerLink="/home">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            هانامند<mat-icon>keyboard_arrow_left</mat-icon>
+        </div>
+        </a>
+        <a style="text-decoration: none;display: inherit;"
+            routerLink="/product/{{product.Category}}/{{product.SubCategory}}/{{product.CategoryType}}">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                {{product.CategoryName}}<mat-icon>keyboard_arrow_left</mat-icon>
+            </div>
+            <div *ngIf="product.SubCategoryName != ''" fxLayout="row" fxLayoutAlign="center center">
+                {{product.SubCategoryName}}<mat-icon>keyboard_arrow_left</mat-icon>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                {{product.CategoryTypeName}}
+            </div>
+        </a>
+    </div>
+</div>

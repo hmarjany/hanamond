@@ -49,6 +49,10 @@ import { SearchBarComponent } from './component/search-bar/search-bar.component'
 import { AutocompleteComponent } from './component/autocomplete/autocomplete.component';
 import { HighlightPipe } from './component/autocomplete/highlight.pipe';
 import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
+import { NavigationBarComponent } from './component/navigation-bar/navigation-bar.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { SortBarComponent } from './component/sort-bar/sort-bar.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -78,7 +82,9 @@ import { ForgetPasswordComponent } from './component/forget-password/forget-pass
     SearchBarComponent,
     AutocompleteComponent,
     HighlightPipe,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    NavigationBarComponent,
+    SortBarComponent
   ],
   imports: [
     BrowserModule,
@@ -100,6 +106,8 @@ import { ForgetPasswordComponent } from './component/forget-password/forget-pass
     PinchZoomModule,
     BarRatingModule,
     MatBadgeModule,
+    MatButtonToggleModule,
+    MatSelectModule
   ],
   providers: [
     HighlightPipe,
