@@ -30,4 +30,7 @@ export class Product{
     skip?: number = 0;
     limit?: number = 0;
     isProductAvailable: boolean;
+    ViewCount: number;
+    SaleCount: number;
+    CreateDate: Date;
 }

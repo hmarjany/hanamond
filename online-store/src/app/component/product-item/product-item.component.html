@@ -1,4 +1,4 @@
-<ul class="container" style="--content-after: {{contentAfterWidth}};--content-after-padding:{{contentAfterPadding}};--content-after-margin:{{contentAfterMargin}}" *ngIf="PrdouctPage === true">
+<ul class="container"  *ngIf="PrdouctPage === true">
     <li class="sectionProduct" *ngFor="let product of productList; index as i;">
         <div *ngIf="product.SpecialOffer" fxLayout="row" fxLayoutAlign="center center" class="specilaOffer">
             <div>

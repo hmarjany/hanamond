@@ -137,7 +137,8 @@
 	position:relative;
 	float:right;
 	margin:0;
-	padding:0
+  padding:0;
+  border-top: thin dotted aliceblue;
 }
 
 #primary_nav_wrap ul li.current-menu-item
@@ -147,7 +148,7 @@
 
 #primary_nav_wrap ul li:hover
 {
-	background:#f6f6f6
+	background:rgb(231, 230, 230)
 }
 
 #primary_nav_wrap ul ul
@@ -157,7 +158,8 @@
 	top:100%;
 	right: 0;
 	background:#fff;
-	padding:0
+  padding:0;
+  border: thin solid whitesmoke;
 }
 
 #primary_nav_wrap ul ul li
@@ -218,4 +220,8 @@
   transform: scaleY(1);
   transition: transform 100ms ease-in;
   max-height: 100%;
+}
+
+hr{
+  border:thin solid lightgray;
 }
