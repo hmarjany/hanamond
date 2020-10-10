@@ -53,6 +53,7 @@ import { NavigationBarComponent } from './component/navigation-bar/navigation-ba
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SortBarComponent } from './component/sort-bar/sort-bar.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ZarinpalComponent } from './component/zarinpal/zarinpal.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { MatSelectModule } from '@angular/material/select';
     HighlightPipe,
     ForgetPasswordComponent,
     NavigationBarComponent,
-    SortBarComponent
+    SortBarComponent,
+    ZarinpalComponent
   ],
   imports: [
     BrowserModule,
