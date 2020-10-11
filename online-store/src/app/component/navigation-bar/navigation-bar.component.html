@@ -18,6 +18,9 @@
             <div fxLayout="row" fxLayoutAlign="center center">
                 {{product.CategoryTypeName}}
             </div>
+            <div fxLayout="row" *ngIf="productView" fxLayoutAlign="center center">
+                <mat-icon>keyboard_arrow_left</mat-icon>{{product.Name}}
+            </div>
         </a>
     </div>
 </div>

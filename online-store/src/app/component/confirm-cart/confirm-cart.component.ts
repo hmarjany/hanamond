@@ -124,7 +124,7 @@ export class ConfirmCartComponent implements OnInit {
     var purchasedItems = new Array<PurchasedItem>();
     this.productList.forEach(item => {
       var purchasedItem = new PurchasedItem();
-      purchasedItem.count = 1;
+      purchasedItem.count = item.Count;
       purchasedItem.name = item.Name.toString();
       purchasedItem.productId = item._id;
       purchasedItems.push(purchasedItem)
@@ -132,6 +132,8 @@ export class ConfirmCartComponent implements OnInit {
 
     order.purchasedItem = purchasedItems;
     order.totalPrice = this.totalPrice;
+    //order.authority =
+    //order.zarinStatus =
 
     var purchased = new Purchased();
     purchased.address = this.selectedAddress;

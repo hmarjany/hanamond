@@ -54,6 +54,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SortBarComponent } from './component/sort-bar/sort-bar.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ZarinpalComponent } from './component/zarinpal/zarinpal.component';
+import { OrderTrackingComponent } from './component/order-tracking/order-tracking.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,8 @@ import { ZarinpalComponent } from './component/zarinpal/zarinpal.component';
     ForgetPasswordComponent,
     NavigationBarComponent,
     SortBarComponent,
-    ZarinpalComponent
+    ZarinpalComponent,
+    OrderTrackingComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +100,7 @@ import { ZarinpalComponent } from './component/zarinpal/zarinpal.component';
     MatSidenavModule,
     MatButtonModule,
     MatListModule,
+    MatExpansionModule,
     FlexLayoutModule,
     MatStepperModule,
     MatFormFieldModule,

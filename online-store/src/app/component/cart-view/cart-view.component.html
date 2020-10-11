@@ -5,25 +5,15 @@
 <div *ngIf="isDataAvailable" class="topset">
     <div fxHide fxShow.gt-xs fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="start start" style="
     margin: 15px;
-    min-width: 950px;">
+    min-width: 950px;
+    padding-top: 5px;">
         <app-product-item (ProductEvent)="OnProductChange($event)" (RemoveEvent)="OnProductRemove($event)"
             style="width: 70%;" [productList]="productList" [CartPage]="true"></app-product-item>
 
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
             style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: white;border-radius: 4px;width: 30%;min-width: 280px;">
-            <div style="width: 85%;padding: 18px;">
-                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
-                    &nbsp;گواهی اصالات و سلامت فیزیکی
-                </div>
-            </div>
-            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;">
-                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
-                    &nbsp;تحویل فوری
-                </div>
-            </div>
-            <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
+            
+            <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
                 fxLayoutAlign="end center">
 
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
@@ -47,7 +37,7 @@
                                 border-radius: 7px;
                                 outline: none;
                                 cursor: pointer;" (click)="endProccess()"
-                    routerLink="/confirmcart/{{productIds}}/{{userId}}">ادامه فرآیند
+                    routerLink="/confirmcart/{{productIds}}">ادامه فرآیند
                     خرید</button>
             </div>
             <div style="width: 85%;padding: 18px;" *ngIf="totalPrice<=0">
@@ -100,7 +90,7 @@
                             outline: none;
                             cursor: pointer;" 
                             (click)="endProccess()"
-                            routerLink="/confirmcart/{{productIds}}/{{userId}}">ادامه فرآیند
+                            routerLink="/confirmcart/{{productIds}}">ادامه فرآیند
                 خرید</button>
         </div>
         <div style="width: 85%;padding: 18px;" *ngIf="totalPrice<=0">

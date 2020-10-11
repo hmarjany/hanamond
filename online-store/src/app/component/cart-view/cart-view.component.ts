@@ -59,7 +59,7 @@ export class CartViewComponent implements OnInit {
         })
 
         this.cartService.setItems(this.productList);
-        this.userId = JSON.parse(localStorage.getItem('currentUser'))._id;
+        //sthis.userId = JSON.parse(localStorage.getItem('currentUser'))._id;
         this.changeDetectorRef.detectChanges();
         this.isDataAvailable = true;
       });

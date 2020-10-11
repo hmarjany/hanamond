@@ -1,0 +1,65 @@
+<div class="topset">
+    <mat-accordion>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>list</mat-icon>&nbsp;لیست سفارش های شما
+                </mat-panel-title>
+                <mat-panel-description>
+
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="true" > <!-- ngfor -->
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    سفارش شماره
+                </mat-panel-title>
+                <mat-panel-description>
+
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-horizontal-stepper style="font-size: 25px;" labelPosition="bottom" #stepper>
+                <mat-step state="success" [editable]="false">
+                    <ng-template matStepLabel>ثبت سفارش</ng-template>
+                    <div class="stepperContent">
+                        سفارش شما با شماره پیگیری 65634743 با موفقیت ثبت شد
+                    </div>
+                </mat-step>
+                <mat-step state="sumup" [editable]="false">
+                    <ng-template matStepLabel>جمع آوری سفارش</ng-template>
+                    <div class="stepperContent">
+                        سفارش شما با شماره پیگیری 65634743 با موفقیت ثبت شد
+                    </div>
+                </mat-step>
+                <mat-step state="send" [editable]="false">
+                    <ng-template matStepLabel>ارسال سفارش</ng-template>
+                    <div class="stepperContent">
+                        سفارش شما با شماره پیگیری 65634743 با موفقیت ثبت شد
+                    </div>
+                </mat-step>
+                <mat-step state="delivered" [editable]="false">
+                    <ng-template matStepLabel>سفارش تحویل شد</ng-template>
+                    <div class="stepperContent">
+                        سفارش شما با شماره پیگیری 65634743 با موفقیت ثبت شد
+                    </div>
+                </mat-step>
+
+                <!-- Icon overrides. -->
+                <ng-template matStepperIcon="success">
+                    <mat-icon>assignment_turned_in</mat-icon>
+                </ng-template>
+                <ng-template matStepperIcon="sumup">
+                    <mat-icon>business_center</mat-icon>
+                </ng-template>
+                <ng-template matStepperIcon="send">
+                    <mat-icon>rv_hookup</mat-icon>
+                </ng-template>
+                <ng-template matStepperIcon="delivered">
+                    <mat-icon>done_all</mat-icon>
+                </ng-template>
+            </mat-horizontal-stepper>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

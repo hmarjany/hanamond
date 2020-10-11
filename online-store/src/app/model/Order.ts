@@ -14,4 +14,6 @@ export class Order{
     deliverTo: string;
     deliverToPhone: string;
     purchasedUserDetails:Purchased;
+    authority: any;
+    zarinStatus: any;
 }

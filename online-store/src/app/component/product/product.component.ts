@@ -1,9 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/model/Product';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Count } from 'src/app/model/Count';
 import { server } from 'src/app/Helper/server';
+import { SubCategory } from 'src/app/model/enum/SubCategory';
+import { Brand } from 'src/app/model/enum/Brand';
+import { Category } from 'src/app/model/enum/category';
+import { CategoryType } from 'src/app/model/enum/CategoryType';
 
 @Component({
   selector: 'app-product',
@@ -20,6 +24,7 @@ export class ProductComponent implements OnInit {
   defualtImagePath = 'assets/carousel-1bg.png';
   totalPage :any;
   isDataAvailable = false;
+  product: Product = new Product();
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {
     this.productList = []
@@ -83,7 +88,13 @@ export class ProductComponent implements OnInit {
           }
         });
         this.productList = data;
+        this.product = this.productList[0];
+        this.product.BrandName = Brand.map(this.product.Barnd);
+        this.product.CategoryName = Category.map(this.product.Category);
+        this.product.CategoryTypeName = CategoryType.map(this.product.CategoryType);
+        this.product.SubCategoryName = SubCategory.map(this.product.SubCategory);
         this.isDataAvailable = true;
+        
       });
     });
   }

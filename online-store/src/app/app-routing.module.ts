@@ -10,6 +10,7 @@ import { ProductViewComponent } from './component/product-view/product-view.comp
 import { CartViewComponent } from './component/cart-view/cart-view.component';
 import { ConfirmCartComponent } from './component/confirm-cart/confirm-cart.component';
 import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
+import { OrderTrackingComponent } from './component/order-tracking/order-tracking.component';
 
 const routes: Routes = [
   { 
@@ -38,10 +39,13 @@ const routes: Routes = [
     path: 'productview/:productId', component: ProductViewComponent
   },
   {
-    path: 'cartview/:productIds', component: CartViewComponent, data:{Product:'product'}, canActivate: [AuthGuard]
+    path: 'cartview/:productIds', component: CartViewComponent, data:{Product:'product'}
   },
   {
-    path: 'confirmcart/:productIds/:userId', component: ConfirmCartComponent, canActivate: [AuthGuard]
+    path: 'confirmcart/:productIds', component: ConfirmCartComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'orderTracking', component: OrderTrackingComponent, canActivate: [AuthGuard]
   }
   
 ];

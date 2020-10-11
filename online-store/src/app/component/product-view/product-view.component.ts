@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/service/Cart/cart.service';
 import { Product } from 'src/app/model/Product';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -20,10 +20,13 @@ export class ProductViewComponent implements OnInit {
   defualtImagePath = 'assets/carousel-1bg.png'
   imagePaths: Array<String>;
   isDataAvailable = false;
+  items: Array<Product>;
+  productIds: Array<any> = new Array<any>();
 
   constructor(private route: ActivatedRoute,
     private cartService: CartService,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private router: Router) {
 
   }
 
@@ -65,6 +68,11 @@ export class ProductViewComponent implements OnInit {
     if (product.isProductAvailable) {
       this.cartService.addToCart(product);
       this.cartService.getItemsCount();
+      this.items = this.cartService.getItems();
+      this.items.forEach(item => {
+        this.productIds.push(item._id);
+      });
+      this.router.navigateByUrl('/cartview/' + this.productIds);
     }
   }
 }

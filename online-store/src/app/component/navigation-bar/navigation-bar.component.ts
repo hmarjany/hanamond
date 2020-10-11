@@ -12,7 +12,7 @@ import { Product } from 'src/app/model/Product';
 export class NavigationBarComponent implements OnInit {
 
   @Input() product: Product;
-
+  @Input() productView = false;
   constructor() { 
     
   }
@@ -22,7 +22,7 @@ export class NavigationBarComponent implements OnInit {
     this.product.CategoryName = Category.map(this.product.Category);
     this.product.CategoryTypeName = CategoryType.map(this.product.CategoryType);
     this.product.SubCategoryName = SubCategory.map(this.product.SubCategory);
-    
+
   }
 
 }

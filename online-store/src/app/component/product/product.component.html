@@ -3,7 +3,7 @@
     </app-loading>
 </div>
 <div *ngIf="isDataAvailable" class="mainContainer">
-    <app-navigation-bar [product]="productList[0]"></app-navigation-bar>
+    <app-navigation-bar [product]="product"></app-navigation-bar>
     <div class="secondContainer">
         <app-sort-bar></app-sort-bar>
         <app-product-item [productList]="productList" [PrdouctPage]="true"></app-product-item>
