@@ -123,11 +123,7 @@ export class ConfirmCartComponent implements OnInit {
   }
 
   payment() {
-
-
-
     var order = new Order();
-
     var purchasedItems = new Array<PurchasedItem>();
     this.productList.forEach(item => {
       var purchasedItem = new PurchasedItem();

@@ -33,8 +33,6 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,) { }
   ngAfterViewInit(): void {
-    // need loop to all step get color
-    //this.stepper.selectedIndex = 0;
 
   }
 
@@ -57,6 +55,7 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
             this.refId = data.refId;
             zarinpal.refId = data.refId;
             zarinpal.Authority = params.Authority;
+            this.cartService.clearCart();
             this.http.post(server.serverUrl + 'purchased/updaterefid', zarinpal).subscribe(response => {
               this.getUserPurchasedHistory();
             });
