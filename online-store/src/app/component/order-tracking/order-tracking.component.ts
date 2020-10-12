@@ -38,6 +38,14 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.productList = this.cartService.getFinalItems();
+    if(this.productList === undefined){
+      return;
+    }
+
+    if(this.productList === null){
+      return;
+    }
+    
     this.productList.map((item, i) => {
       this.totalPrice += item.Count * item.Price;
     })
