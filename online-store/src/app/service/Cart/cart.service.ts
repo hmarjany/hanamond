@@ -56,6 +56,14 @@ export class CartService {
     return this.items;
   }
 
+  setAuthority(authority: any){
+    localStorage.setItem('hanamondAuthority', JSON.stringify(authority));
+  }
+
+  getAuthority(){
+    JSON.parse(localStorage.getItem('hanamondAuthority'));
+  }
+
   removeFromCart(product: Product) {
 
     if (this.items.find(x => x._id === product._id) != null) {

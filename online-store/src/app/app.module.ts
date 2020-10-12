@@ -56,6 +56,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ZarinpalComponent } from './component/zarinpal/zarinpal.component';
 import { OrderTrackingComponent } from './component/order-tracking/order-tracking.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { JalaliPipe } from './pipe/jalali.pipe';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     NavigationBarComponent,
     SortBarComponent,
     ZarinpalComponent,
-    OrderTrackingComponent
+    OrderTrackingComponent,
+    JalaliPipe
   ],
   imports: [
     BrowserModule,

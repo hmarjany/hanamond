@@ -5,6 +5,7 @@ export class Order{
     purchasedItem:Array<PurchasedItem>;
     pickUp: boolean = false;
     deliverdStatus: boolean = false;
+    recieve: boolean = false;
     totalPrice: number;
     paymentStatus: boolean;
     deliverDate: Date;
@@ -14,6 +15,7 @@ export class Order{
     deliverTo: string;
     deliverToPhone: string;
     purchasedUserDetails:Purchased;
-    authority: any;
+    athority: any;
     zarinStatus: any;
+    refId: any;
 }

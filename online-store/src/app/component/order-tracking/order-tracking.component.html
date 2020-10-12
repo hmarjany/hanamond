@@ -1,4 +1,8 @@
-<div class="topset">
+<div *ngIf="!isDataAvailable">
+    <app-loading [strictLoading]="!isDataAvailable">
+    </app-loading>
+</div>
+<div class="topset" *ngIf="isDataAvailable">
     <mat-accordion>
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
@@ -11,38 +15,58 @@
             </mat-expansion-panel-header>
 
         </mat-expansion-panel>
-        <mat-expansion-panel [expanded]="true" > <!-- ngfor -->
+        <mat-expansion-panel (opened)="expansion(i)" *ngFor="let history of purchasedHistory; index as i;"
+            [expanded]="i === 0">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    سفارش شماره
+                    <div fxLayout="column" fxLayoutAlign="start start" style="color: darkgrey;">
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            سفارش با شماره پیگیری : &nbsp;<span style="color: red;">{{history.refId}}</span>
+                        </div>
+                        <div>
+                            در تاریخ:&nbsp; {{history.purchaseDate | jalali}}
+                        </div>
+                    </div>
                 </mat-panel-title>
                 <mat-panel-description>
-
+                    
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-horizontal-stepper style="font-size: 25px;" labelPosition="bottom" #stepper>
-                <mat-step state="success" [editable]="false">
+            <div fxLayout="column" fxLayoutAlign="start start">
+                <div>اقلام خریداری شده</div>
+                <div *ngFor="let item of history.purchasedItem; index as i;" fxLayout="column" fxLayoutGap="10px"
+                    fxLayoutAlign="start center">
+                        <a  fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="text-decoration: none;" routerLink="/productview/{{item.productId}}">
+                            <div> &#9679; {{item.name}}</div>
+                            <div>تعداد : &nbsp;{{item.count}}</div>
+                        </a>
+                </div>
+            </div>
+            <mat-horizontal-stepper style="font-size: 25px;" labelPosition="bottom"
+                [selectedIndex]="history.selectedIndex">
+                
+                <mat-step state="success" [completed]="history.selectedIndex > 0" [editable]="false">
                     <ng-template matStepLabel>ثبت سفارش</ng-template>
                     <div class="stepperContent">
-                        سفارش شما با شماره پیگیری 65634743 با موفقیت ثبت شد
+                        سفارش شما با شماره پیگیری تراکنش {{history.refId}} با موفقیت ثبت شد
                     </div>
                 </mat-step>
-                <mat-step state="sumup" [editable]="false">
+                <mat-step state="sumup" [completed]="history.selectedIndex > 1" [editable]="false">
                     <ng-template matStepLabel>جمع آوری سفارش</ng-template>
                     <div class="stepperContent">
-                        سفارش شما با شماره پیگیری 65634743 با موفقیت ثبت شد
+                        سفارش بسته بندی شده و آماده تحویل می باشد
                     </div>
                 </mat-step>
-                <mat-step state="send" [editable]="false">
+                <mat-step state="send" [completed]="history.selectedIndex > 2" [editable]="false">
                     <ng-template matStepLabel>ارسال سفارش</ng-template>
                     <div class="stepperContent">
-                        سفارش شما با شماره پیگیری 65634743 با موفقیت ثبت شد
+                        سفارش فرستاده شد
                     </div>
                 </mat-step>
-                <mat-step state="delivered" [editable]="false">
+                <mat-step state="delivered" [completed]="history.selectedIndex >= 3" [editable]="false">
                     <ng-template matStepLabel>سفارش تحویل شد</ng-template>
                     <div class="stepperContent">
-                        سفارش شما با شماره پیگیری 65634743 با موفقیت ثبت شد
+                        سفارش تحویل داده شد
                     </div>
                 </mat-step>
 

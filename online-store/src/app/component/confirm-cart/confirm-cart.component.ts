@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/model/Product';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Address } from 'src/app/model/Address';
 import { User } from 'src/app/model/User';
 import { Purchased } from 'src/app/model/Purchased';
@@ -9,6 +9,8 @@ import { PurchasedItem } from 'src/app/model/PurchasedItem';
 import { CartService } from 'src/app/service/Cart/cart.service';
 import { server } from 'src/app/Helper/server';
 import { Order } from 'src/app/model/Order';
+import { Zarinpal } from 'src/app/model/Zarinpal';
+import { LoaderService } from 'src/app/service/Loader/loader.service';
 
 @Component({
   selector: 'app-confirm-cart',
@@ -31,20 +33,22 @@ export class ConfirmCartComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private http: HttpClient,
-    private cartService: CartService) {
-      
+    private cartService: CartService,
+    private router: Router,
+    private loaderService: LoaderService) {
+
   }
 
   ngOnInit(): void {
     this.loadAddress();
     this.productList = this.cartService.getFinalItems();
-      this.productList.map((item, i)=>{
-        this.totalPrice += item.Count * item.Price;
-        item.ImagePath.forEach((path, i) => {
-          var splitPath = path.split('/');
-          item.ImagePath[i] = 'assets/cartView/' + splitPath[splitPath.length - 1];
-        });
-      })
+    this.productList.map((item, i) => {
+      this.totalPrice += item.Count * item.Price;
+      item.ImagePath.forEach((path, i) => {
+        var splitPath = path.split('/');
+        item.ImagePath[i] = 'assets/cartView/' + splitPath[splitPath.length - 1];
+      });
+    })
   }
 
   private loadAddress() {
@@ -79,11 +83,11 @@ export class ConfirmCartComponent implements OnInit {
     });
   }
 
-  onAddNewAddressEvent(){
+  onAddNewAddressEvent() {
     this.showSaveRibbon = false;
   }
 
-  onAddOrEditAddressEvent(){
+  onAddOrEditAddressEvent() {
     this.showSaveRibbon = true;
   }
 
@@ -95,7 +99,7 @@ export class ConfirmCartComponent implements OnInit {
     }
   }
 
-  onAddressChange(index: number){
+  onAddressChange(index: number) {
   }
 
   saveAddress() {
@@ -119,8 +123,11 @@ export class ConfirmCartComponent implements OnInit {
   }
 
   payment() {
+
+
+
     var order = new Order();
-    
+
     var purchasedItems = new Array<PurchasedItem>();
     this.productList.forEach(item => {
       var purchasedItem = new PurchasedItem();
@@ -132,8 +139,7 @@ export class ConfirmCartComponent implements OnInit {
 
     order.purchasedItem = purchasedItems;
     order.totalPrice = this.totalPrice;
-    //order.authority =
-    //order.zarinStatus =
+
 
     var purchased = new Purchased();
     purchased.address = this.selectedAddress;
@@ -146,15 +152,36 @@ export class ConfirmCartComponent implements OnInit {
     purchased.userId = this.currentUser._id;
     purchased.userName = this.currentUser.name.toString();
     purchased.userNamePhone = this.currentUser.phoneNumber.toString();
-    
+
     order.address = this.selectedAddress;
     order.deliverTo = this.selectedAddressDeliverTo;
     order.deliverToPhone = this.selectedAddressPhone;
 
-    order.purchasedUserDetails = purchased;
+    
 
-    this.http.post<Order>(server.serverUrl + 'purchased/save', order).subscribe(data => {
+    let zarinpal = new Zarinpal();
 
+    zarinpal.Amount = order.totalPrice;
+    zarinpal.Description = 'خرید از فروشگاه آنلاین هانامند';
+    zarinpal.Email =  this.currentUser.email;
+    zarinpal.Mobile = this.currentUser.phoneNumber;
+    
+    this.http.post<Zarinpal>(server.serverUrl + 'zarinpal/paymentrequest', zarinpal)
+    .subscribe(data => {
+      order.athority = data.Authority;
+      order.zarinStatus = data.status;
+      purchased.athority = data.Authority;
+      purchased.zarinStatus = data.status;
+      order.purchasedUserDetails = purchased;
+      if(data.status!=100){
+        return;
+      }
+      
+      this.http.post<Order>(server.serverUrl + 'purchased/save', order).subscribe(orderResponse => {
+        this.loaderService.show();
+        window.location.href = data.result;
+      });
     });
+    
   }
 }

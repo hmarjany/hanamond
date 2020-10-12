@@ -1,4 +1,5 @@
 import { Address } from './Address';
+import { Purchased } from './Purchased';
 
 export class User {
     _id: any;
@@ -8,5 +9,6 @@ export class User {
     password: String;
     tokens: [{ token: { type: String, requierd: true } }];
     token: String;
-    address: Address[]
+    address: Address[];
+    purchased: Purchased[];
 }

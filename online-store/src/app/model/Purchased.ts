@@ -11,5 +11,8 @@ export class Purchased{
     deliverToPhone: string;
     userName: string;
     userNamePhone: string;
-    
+    athority: any;
+    zarinStatus: any;
+    refId: any;
+    selectedIndex = 0;
 }
