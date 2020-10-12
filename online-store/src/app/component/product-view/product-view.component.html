@@ -186,7 +186,7 @@
                                     routerLink="/product/{{product.Category}}/{{product.SubCategory}}/{{product.CategoryType}}">
                                     <div fxLayout="row"  fxLayoutAlign="start center" >
                                         {{product.CategoryName}}
-                                        <div *ngIf="product.SubCategoryName != ''">
+                                        <div *ngIf="product.SubCategoryName != ''" fxLayout="row"  fxLayoutAlign="start center">
                                             <mat-icon>keyboard_arrow_left</mat-icon>
                                             {{product.SubCategoryName}}
                                         </div>
