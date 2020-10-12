@@ -1,6 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { MatStepper } from '@angular/material/stepper';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CartService } from 'src/app/service/Cart/cart.service';
 import { Product } from 'src/app/model/Product';
@@ -38,17 +37,11 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.productList = this.cartService.getFinalItems();
-    if(this.productList === undefined){
-      return;
+    if (this.productList != undefined && this.productList != null) {
+      this.productList.map((item, i) => {
+        this.totalPrice += item.Count * item.Price;
+      })
     }
-
-    if(this.productList === null){
-      return;
-    }
-    
-    this.productList.map((item, i) => {
-      this.totalPrice += item.Count * item.Price;
-    })
 
     this.route.queryParams.subscribe(params => {
       let zarinpal = new Zarinpal();
@@ -67,7 +60,7 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
             this.http.post(server.serverUrl + 'purchased/updaterefid', zarinpal).subscribe(response => {
               this.getUserPurchasedHistory();
             });
-          }else{
+          } else {
             this.getUserPurchasedHistory();
           }
         });
@@ -81,11 +74,11 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
       .set('userId', JSON.parse(localStorage.getItem('currentUser'))._id);
     this.http.get<User>(server.serverUrl + 'users/getFullById', { params: httpParamsUser }).subscribe(users => {
       this.currentUser = users;
-      this.purchasedHistory = this.currentUser[0].purchased.sort((n1, n2)=>{
-        if(n1.purchaseDate > n2.purchaseDate){
+      this.purchasedHistory = this.currentUser[0].purchased.sort((n1, n2) => {
+        if (n1.purchaseDate > n2.purchaseDate) {
           return -1;
         }
-        if(n1.purchaseDate < n2.purchaseDate){
+        if (n1.purchaseDate < n2.purchaseDate) {
           return 1;
         }
       });
@@ -93,24 +86,24 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
     });
   }
 
-  expansion(index){
+  expansion(index) {
     let httpParamsUser = new HttpParams()
       .set('Authority', this.purchasedHistory[index].athority);
     this.http.get<Order>(server.serverUrl + 'order/getByAuthority', { params: httpParamsUser }).subscribe(order => {
       this.purchasedHistory[index].selectedIndex = 0;
-      if(order === null){
+      if (order === null) {
         return;
       }
 
-      if(order.pickUp){
+      if (order.pickUp) {
         this.purchasedHistory[index].selectedIndex = 1;
       }
 
-      if(order.deliverdStatus){
+      if (order.deliverdStatus) {
         this.purchasedHistory[index].selectedIndex = 2;
       }
 
-      if(order.recieve){
+      if (order.recieve) {
         this.purchasedHistory[index].selectedIndex = 3;
       }
       this.changeDetectorRef.detectChanges();

@@ -106,7 +106,7 @@ export class CartService {
     this.items = JSON.parse(localStorage.getItem('hanamondcartsatatus'));
 
     localStorage.setItem('hanamondcartfinalsatatus', null);
-    this.finalItems = JSON.parse(localStorage.getItem('hanamondcartsatatus'));
+    this.finalItems = JSON.parse(localStorage.getItem('hanamondcartfinalsatatus'));
   }
 
   getItemsCount() {
@@ -120,6 +120,8 @@ export class CartService {
 
     if (itemlength === 0) {
       itemlength = undefined;
+      localStorage.setItem('hanamondcartfinalsatatus', null);
+      this.finalItems = JSON.parse(localStorage.getItem('hanamondcartfinalsatatus'));
     }
 
     this.itemsCountChange.next(itemlength);

@@ -62,10 +62,10 @@ export class AppComponent implements OnInit {
 
         if (event instanceof NavigationEnd) {
           this.ConfirmCartBasket = true;
-          if(!event.url.includes('/confirmcart')){
+          if(event.url.includes('/confirmcart')){
             this.ConfirmCartBasket = false;
           }
-          if(!event.url.includes('/orderTracking')){
+          if(event.url.includes('/orderTracking')){
             this.ConfirmCartBasket = false;
           }
         }
