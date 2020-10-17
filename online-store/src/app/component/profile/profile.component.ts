@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/model/User';
 import { Address } from 'src/app/model/Address';
@@ -23,10 +23,12 @@ export class ProfileComponent implements OnInit {
   currentUser: User;
   isDataAvailable = false;
   matcher = new ErrorStateMatcher();
+  passChange = false;
 
   constructor(private _formBuilder: FormBuilder,
     private http: HttpClient,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef) {
     this.currentUser = new User();
   }
 
@@ -41,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
     this.firstFormGroup = this._formBuilder.group({
       name: [this.currentUser.name, Validators.required],
-      phone: [this.currentUser.phoneNumber, Validators.required]
+      phone: [this.currentUser.phoneNumber,[Validators.required, Validators.pattern("[0-9 ]{10}")]]
     });
 
     this.changePasswordFormGroup = this._formBuilder.group({
@@ -76,6 +78,10 @@ export class ProfileComponent implements OnInit {
     return { passLength: false };
   }
 
+  onPassChange(){
+    this.passChange = false;
+  }
+
   passwordChange() {
     const val = this.changePasswordFormGroup.value;
     var user = new User();
@@ -90,10 +96,12 @@ export class ProfileComponent implements OnInit {
       this.authService.changePassword(user)
         .subscribe(
           data => {
-            console.log(data);
+            this.passChange = true;
+            this.changePasswordFormGroup.reset();
+
           },
           error => {
-            console.log(error);
+            this.passChange = false;
           },
           () => {
 

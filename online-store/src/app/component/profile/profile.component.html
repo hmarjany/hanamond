@@ -12,7 +12,7 @@
       </button>
     </div>
   </div>
-  <mat-vertical-stepper [linear]="isLinear" #stepper>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>مشخصات عمومی</ng-template>
@@ -22,20 +22,21 @@
               required autocomplete="off">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="شماره همراه" formControlName="phone" [(ngModel)]="currentUser.phoneNumber"
+            <mat-label>تلفن همراه</mat-label>
+            <input matInput type="number" placeholder="مثال 9120000000" formControlName="phone" [(ngModel)]="currentUser.phoneNumber"
               required autocomplete="off">
           </mat-form-field>
         </div>
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="changePasswordFormGroup">
+    <mat-step [stepControl]="changePasswordFormGroup" >
       <form [formGroup]="changePasswordFormGroup" (ngSubmit)="passwordChange()">
         <ng-template matStepLabel>تغییر کلمه عبور</ng-template>
         <div>
           <mat-form-field style="text-align: left;direction: ltr;">
             <input type="password" matInput placeholder="کلمه عبور" formControlName="password" required minlength="6"
-              [errorStateMatcher]="matcher">
+              [errorStateMatcher]="matcher" (input)="onPassChange()">
             <mat-error *ngIf="changePasswordFormGroup.hasError('passLength')">
               حداقل تعدا کارکترهای کلمه عبور باید 6 عدد باشد
             </mat-error>
@@ -52,9 +53,10 @@
           </mat-form-field>
         </div>
         <button type="submit" [disabled]="changePasswordFormGroup.hasError('passLength') ||
-        changePasswordFormGroup.hasError('notSame')"
+        changePasswordFormGroup.hasError('notSame') || passChange"
          style="cursor: pointer;">
-          <mat-icon style="cursor: pointer;">update</mat-icon>
+          <mat-icon *ngIf="!passChange" style="cursor: pointer;">update</mat-icon>
+          <mat-icon *ngIf="passChange" style="cursor: pointer;color: green;">check</mat-icon>
           <div>تغییر کلمه عبور</div>
         </button>
       </form>
@@ -66,5 +68,5 @@
     </mat-step>
 
 
-  </mat-vertical-stepper>
+  </mat-horizontal-stepper>
 </div>

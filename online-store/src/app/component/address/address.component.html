@@ -6,7 +6,7 @@
                     <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">
                         <button type="submit" style="cursor: pointer;" [disabled]="!editForm.valid">
                             <mat-icon>add</mat-icon>
-                            <div>اضافه کردن آدرس جدید</div>
+                            <div>اضافه/ویرایش آدرس</div>
                         </button>
                     </div>
 
@@ -19,20 +19,20 @@
                 </div>
             </div>
 
-            <mat-form-field class="example-full-width" style="width: 60vw;">
-                <textarea matInput formControlName="address" placeholder="آدرس پستی" autocomplete="off" required></textarea>
+            <mat-form-field class="example-full-width" style="width: 70%;">
+                <textarea matInput formControlName="address" placeholder="آدرس پستی (فقط تهران)" autocomplete="off" required></textarea>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width" style="width: 70%;">
                 <mat-label>تلفن همراه</mat-label>
-                <input type="number" matInput formControlName="mobilePhone" placeholder="مثال 09120000000" autocomplete="off" required />
+                <input type="number" matInput formControlName="mobilePhone" placeholder="مثال 9120000000" autocomplete="off" required />
             </mat-form-field>
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width" style="width: 70%;">
                 <input type="number" matInput formControlName="postalCode" placeholder="کد پستی" autocomplete="off" required />
             </mat-form-field>
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width" style="width: 70%;">
                 <input matInput formControlName="deliverTo" placeholder="تحویل گیرنده" autocomplete="off" required />
             </mat-form-field>
         </div>
@@ -50,7 +50,10 @@
                     </label>
             </div>
             <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="end start">
-                <h2 style="height: 180px;white-space: break-spaces;">
+                <h2 style="height: 100px;white-space: break-spaces;overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;">
                     {{address.address}}
                 </h2>
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center"
