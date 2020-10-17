@@ -9,7 +9,8 @@ import { Product } from 'src/app/model/Product';
 })
 export class NewProductCarouselComponent implements OnInit {
 
-  @Input() productList: Product[];
+  @Input() specialOfferProductList: Product[];
+  @Input() saleProductList: Product[];
   
   constructor() {}
 

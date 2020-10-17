@@ -200,8 +200,8 @@
                   </ul>
                 </li>
 
-                <li><a href="#">فروش ویژه</a></li>
-                <li><a href="#">پیگیری سفارش</a></li>
+                <li><a routerLink="/specialOffer">فروش ویژه</a></li>
+                <li><a routerLink="/orderTracking">پیگیری سفارش</a></li>
 
               </ul>
             </nav>
@@ -262,13 +262,13 @@
           </div>
         </ng-container>
         <hr>
-        <a mat-list-item (click)="sidenav.toggle()" routerLink="/home">
+        <a mat-list-item (click)="sidenav.toggle()" routerLink="/specialOffer">
           <div fxLayout="row" fxLayoutAlign="start center">
             <mat-icon style="color: gray;">business</mat-icon>&nbsp;
             فروش ویژه</div>
         </a>
         <hr>
-        <a mat-list-item (click)="sidenav.toggle()" routerLink="/home">
+        <a mat-list-item (click)="sidenav.toggle()" routerLink="/orderTracking">
           <div fxLayout="row"  fxLayoutAlign="start center">
             <mat-icon style="color: gray;">assignment</mat-icon>&nbsp;
           پیگیری سفارش</div>

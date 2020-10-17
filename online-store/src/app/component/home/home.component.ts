@@ -10,22 +10,24 @@ import { Product } from 'src/app/model/Product';
 })
 export class HomeComponent implements OnInit {
 
-  @Input() productList: Product[];
+  specialOfferProductList: Product[];
+  saleProductList: Product[];
   defualtImagePath = 'assets/carousel-1bg.png';
   isDataAvailable = false;
 
   constructor(private http: HttpClient) { 
-    this.productList =[
-    ];
+    this.specialOfferProductList =[];
   }
 
   ngOnInit(): void {
-    let httpParams = new HttpParams()
-        .set('Category', '1')
-        .set('CategoryType', '1')
-        .set('SubCategory', '0');
-    this.http.get<Product[]>(server.serverUrl + 'product/getListByPaging', { params: httpParams}).subscribe(data => {
-      data.forEach((item) => {
+    var productFilter = new Product();
+      productFilter.limit = 12;
+      productFilter.skip = 0;
+      let httpParams = new HttpParams()
+        .set('limit', productFilter.limit.toString())
+        .set('skip', productFilter.skip.toString());
+    this.http.get<Product[]>(server.serverUrl + 'product/getSpecialOffer', { params: httpParams }).subscribe(specialOffers => {
+      specialOffers.forEach((item) => {
         item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
         item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;
         if (item.ImagePath === undefined || item.ImagePath === null) {
@@ -36,8 +38,22 @@ export class HomeComponent implements OnInit {
           item.ImagePath[0] = 'assets/productItem/' + item.ImagePath[0];
         }
       });
-      this.productList = data;
-      this.isDataAvailable = true;
+      this.specialOfferProductList = specialOffers;
+      this.http.get<Product[]>(server.serverUrl + 'product/getSale').subscribe(sales => {
+        sales.forEach((item) => {
+          item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
+          item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;
+          if (item.ImagePath === undefined || item.ImagePath === null) {
+            item.ImagePath = new Array<String>();
+            item.ImagePath.push(this.defualtImagePath);
+          }
+          else {
+            item.ImagePath[0] = 'assets/productItem/' + item.ImagePath[0];
+          }
+        });
+        this.saleProductList = sales;
+        this.isDataAvailable = true;
+      });
     });
   }
 

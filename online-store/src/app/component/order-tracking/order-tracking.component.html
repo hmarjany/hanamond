@@ -2,7 +2,17 @@
     <app-loading [strictLoading]="!isDataAvailable">
     </app-loading>
 </div>
-<div class="topset" *ngIf="isDataAvailable">
+<div class="topset" *ngIf="transactionFaild">
+    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center" style="padding: 20px;background-color: lightsalmon;font-size: 25px;">
+    <div style="color: red;">
+        تراکنش ناموفق
+    </div>
+    <div>
+        در صورتی که موجودی شما کسر گردیده ظرف 72 ساعت به حساب شما باز میگردد
+    </div>
+</div>
+</div>
+<div class="topset" *ngIf="isDataAvailable && !transactionFaild">
     <mat-accordion>
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
@@ -16,7 +26,7 @@
 
         </mat-expansion-panel>
         <mat-expansion-panel (opened)="expansion(i)" *ngFor="let history of purchasedHistory; index as i;"
-            [expanded]="i === 0">
+            [expanded]="i === 0 && transactionOk">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <div fxLayout="column" fxLayoutAlign="start start" style="color: darkgrey;">

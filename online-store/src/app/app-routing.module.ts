@@ -11,6 +11,7 @@ import { CartViewComponent } from './component/cart-view/cart-view.component';
 import { ConfirmCartComponent } from './component/confirm-cart/confirm-cart.component';
 import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
 import { OrderTrackingComponent } from './component/order-tracking/order-tracking.component';
+import { SpecialOfferComponent } from './component/special-offer/special-offer.component';
 
 const routes: Routes = [
   { 
@@ -46,6 +47,9 @@ const routes: Routes = [
   },
   {
     path: 'orderTracking', component: OrderTrackingComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'specialOffer', component: SpecialOfferComponent
   }
   
 ];

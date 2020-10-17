@@ -26,6 +26,8 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
   purchasedHistory = new Array<Purchased>();
   isDataAvailable = false;
   refId: string;
+  transactionFaild = false;
+  transactionOk = false;
 
   constructor(private http: HttpClient,
     private cartService: CartService,
@@ -59,14 +61,32 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
             this.cartService.clearCart();
             this.cartService.getItemsCount();
             this.http.post(server.serverUrl + 'purchased/updaterefid', zarinpal).subscribe(response => {
+              this.transactionOk = true;
               this.getUserPurchasedHistory();
             });
           } else {
-            this.getUserPurchasedHistory();
+            this.getRefIdByAuthority(zarinpal.Authority);
+
           }
         });
       }
     })
+  }
+
+  private getRefIdByAuthority(authority) {
+    let httpParamsUser = new HttpParams()
+      .set('authority', authority);
+    this.http.get<Purchased>(server.serverUrl + 'purchased/getRefIdByAuthority', { params: httpParamsUser }).subscribe(purchased => {
+      if (purchased != undefined && purchased != null) {
+        if (purchased.refId != undefined && purchased.refId != null) {
+          this.transactionOk = true;
+          this.getUserPurchasedHistory();
+        } else {
+          this.transactionFaild = true;
+          this.isDataAvailable = true;
+        }
+      }
+    });
   }
 
 
@@ -75,15 +95,19 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
       .set('userId', JSON.parse(localStorage.getItem('currentUser'))._id);
     this.http.get<User>(server.serverUrl + 'users/getFullById', { params: httpParamsUser }).subscribe(users => {
       this.currentUser = users;
-      this.purchasedHistory = this.currentUser[0].purchased.sort((n1, n2) => {
-        if (n1.purchaseDate > n2.purchaseDate) {
-          return -1;
-        }
-        if (n1.purchaseDate < n2.purchaseDate) {
-          return 1;
-        }
-      });
+      let purchased = this.currentUser[0].purchased.filter(x => x.refId != undefined && x.refId != null);
+      if (purchased != undefined && purchased != null) {
+        this.purchasedHistory = purchased.sort((n1, n2) => {
+          if (n1.purchaseDate > n2.purchaseDate) {
+            return -1;
+          }
+          if (n1.purchaseDate < n2.purchaseDate) {
+            return 1;
+          }
+        });
+      }
       this.isDataAvailable = true;
+
     });
   }
 

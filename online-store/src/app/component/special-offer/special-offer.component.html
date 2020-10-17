@@ -1,0 +1,12 @@
+<div *ngIf="!isDataAvailable">
+    <app-loading [strictLoading]="!isDataAvailable">
+    </app-loading>
+</div>
+<div *ngIf="isDataAvailable" class="mainContainer">
+    <div style="padding: 5px;color: red;font-size: 20px;">فروش ویژه</div>
+    <div class="secondContainer">
+        <app-sort-bar></app-sort-bar>
+        <app-product-item [productList]="productList" [PrdouctPage]="true"></app-product-item>
+        <app-paging [pageCount]="totalPage" (pageNumber)="onPageNumber($event)"></app-paging>
+    </div>
+</div>
