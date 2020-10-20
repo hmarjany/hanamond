@@ -19,39 +19,47 @@
                         <div>
                             {{product.Sepcification}}
                         </div>
-                        <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                        <div *ngIf="product.Quantity > 0" fxLayout="row" fxLayoutGap="10px"
+                            fxLayoutAlign="start center">
                             <mat-icon style="color: #7bbcf5;">check_box</mat-icon>
                             &nbsp;موجود در انبار
                         </div>
-                        <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                        <div *ngIf="product.Quantity <= 0" fxLayout="row" fxLayoutGap="10px"
+                            fxLayoutAlign="start center">
                             <mat-icon style="color: #f82c25;">check_box_outline_blank</mat-icon>
                             &nbsp;ناموجود
                         </div>
-                        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                            <mat-icon style="color: #7bbcf5;">verified_user</mat-icon>
-                            &nbsp;ضمانت اصالات و سلامت فیزیکی
+                        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
+                            دسته بندی :&nbsp;
+                            <a style="text-decoration: none;display: inherit;"
+                                routerLink="/product/{{product.Category}}/{{product.SubCategory}}/{{product.CategoryType}}">
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    {{product.CategoryName}}
+                                    <div *ngIf="product.SubCategoryName != ''" fxLayout="row"
+                                        fxLayoutAlign="start center">
+                                        <mat-icon>keyboard_arrow_left</mat-icon>
+                                        {{product.SubCategoryName}}
+                                    </div>
+                                    <mat-icon>keyboard_arrow_left</mat-icon>
+                                    {{product.CategoryTypeName}}
+                                </div>
+                            </a>
                         </div>
                         <div style="direction: ltr;">
                             <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
                         </div>
-                        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
-                            <div>برند : &nbsp;{{product.BrandName}}</div>
-                            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="font-size: 16px;">
-                                دسته بندی :&nbsp;
-                                <a style="text-decoration: none;display: inherit;"
-                                    routerLink="/product/{{product.Category}}/{{product.SubCategory}}/{{product.CategoryType}}">
-                                    <div fxLayout="row"  fxLayoutAlign="start center" >
-                                        {{product.CategoryName}}
-                                        <div *ngIf="product.SubCategoryName != ''" fxLayout="row"  fxLayoutAlign="start center">
-                                            <mat-icon>keyboard_arrow_left</mat-icon>
-                                            {{product.SubCategoryName}}
-                                        </div>
-                                        <mat-icon>keyboard_arrow_left</mat-icon>
-                                        {{product.CategoryTypeName}}
-                                    </div>
-                                </a>
-                            </div>
+                        
+                        <div *ngIf="product.Size && product.Size.length > 0" fxLayout="row" fxLayoutAlign="start center"
+                            style="font-size: 14px; border: none ; background: white;border: whitesmoke thin solid;color: #807e7e; height: 50px;margin-bottom: -14px;">
+                            سایزها : &nbsp;
+                            <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onSizeValChange(group.value)">
+                                <mat-button-toggle *ngFor="let size of product.Size; index as i;" value="{{size.size}}">
+                                    {{size.sizeName}}</mat-button-toggle>
+
+                            </mat-button-toggle-group>
                         </div>
+                        
+                        <div>برند : &nbsp;{{product.BrandName}}</div>
                         <div fxLayout="column" fxLayoutAlign="start center" style="font-size: 14px;">
                             <div>ویژگی های محصول</div>
                             <ng-container *ngIf="product.AdditinalInfos">
@@ -63,6 +71,8 @@
                                 </ul>
                             </ng-container>
                         </div>
+
+                        
                     </div>
 
 
@@ -73,9 +83,8 @@
         </div>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
             style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 30%;min-width: 280px;">
-            
-            <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
-                fxLayoutAlign="center center">
+
+            <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
                 <div *ngIf="product.SpecialOffer">
                     <div class="discount">
                         فروش ویژه
@@ -114,9 +123,10 @@
 
     <!-- mobile view -->
     <div *ngIf="isDataAvailable" fxHide.gt-xs>
-        
-        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;margin-top: 10px;margin-bottom: 90px;">
-            
+
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start"
+            style="width: 100%;margin-top: 10px;margin-bottom: 90px;">
+
             <section class="fieldset" style="height: 100%;">
                 <h1>{{product.Name}}</h1>
                 <app-product-view-image [imagePaths]="imagePaths"></app-product-view-image>
@@ -125,6 +135,15 @@
                         style="font-size: 18px; padding: 5px;width: 100%;">
                         <div>
                             {{product.Sepcification}}
+                        </div>
+                        <div *ngIf="product.Size && product.Size.length > 0" fxLayout="row" fxLayoutAlign="start center"
+                            style="font-size: 14px; border: none; background: white;border: whitesmoke thin solid;color: #807e7e; height: 50px;margin-bottom: -14px;">
+                            سایزها : &nbsp;
+                            <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onSizeValChange(group.value)">
+                                <mat-button-toggle *ngFor="let size of product.Size; index as i;" value="bold">
+                                    {{size.sizeName}}</mat-button-toggle>
+
+                            </mat-button-toggle-group>
                         </div>
                         <div style="direction: ltr;">
                             <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
@@ -184,9 +203,10 @@
                                 دسته بندی :&nbsp;
                                 <a style="text-decoration: none;display: inherit;"
                                     routerLink="/product/{{product.Category}}/{{product.SubCategory}}/{{product.CategoryType}}">
-                                    <div fxLayout="row"  fxLayoutAlign="start center" >
+                                    <div fxLayout="row" fxLayoutAlign="start center">
                                         {{product.CategoryName}}
-                                        <div *ngIf="product.SubCategoryName != ''" fxLayout="row"  fxLayoutAlign="start center">
+                                        <div *ngIf="product.SubCategoryName != ''" fxLayout="row"
+                                            fxLayoutAlign="start center">
                                             <mat-icon>keyboard_arrow_left</mat-icon>
                                             {{product.SubCategoryName}}
                                         </div>

@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="center center" (click)="active($event)" style="width: 100%;margin-top: -14px; padding: 10px;background: white;border: whitesmoke thin solid;">
+<div fxLayout="row" fxLayoutAlign="center center" (click)="active($event)" class="container">
     <a [ngClass]="(pageNumber==0)?'pageElement active':'pageElement'" *ngFor="let pageNumber of pages;index as i;">
         {{pageNumber+1}}
     </a>

@@ -1,6 +1,7 @@
 export enum Brand{
     Ecco,
-    Pecco
+    Pecco,
+    Lapilo
 }
 
 export namespace Brand {
@@ -11,6 +12,10 @@ export namespace Brand {
 
         if(parseInt(index) === 1){
             return 'پکو';
+        }
+
+        if(parseInt(index) === 2){
+            return 'لاپیلو';
         }
     }
 }

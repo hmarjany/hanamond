@@ -8,6 +8,7 @@ import { Category } from 'src/app/model/enum/category';
 import { CategoryType } from 'src/app/model/enum/CategoryType';
 import { SubCategory } from 'src/app/model/enum/SubCategory';
 import { server } from 'src/app/Helper/server';
+import { Sizes } from 'src/app/model/enum/Sizes';
 
 @Component({
   selector: 'app-product-view',
@@ -44,6 +45,15 @@ export class ProductViewComponent implements OnInit {
           })
         }
 
+        let quantity = 0;
+        if(item.Size != undefined && item.Size != null){
+          item.Size.map((itemProduct,i) => {
+            item.Size[i].sizeName = Sizes.map(itemProduct.size);
+            quantity += itemProduct.quantity;
+          })
+        }
+
+        item.Quantity = quantity;
         item.AdditinalInfos.forEach((addInfo, i) => {
           if (addInfo.value === '') {
             item.AdditinalInfos.splice(i);
@@ -64,7 +74,17 @@ export class ProductViewComponent implements OnInit {
     });
   }
 
+  onSizeValChange(value:Sizes){
+    this.product.selectedSize = value;
+  }
+
   addToCart(product: Product) {
+    if(this.product.Size != undefined && this.product.Size != null && this.product.Size.length >0 ){
+      if(this.product.selectedSize === undefined || this.product.selectedSize === null){
+        alert('zart');
+        return;
+      }
+    }
     if (product.isProductAvailable) {
       this.cartService.addToCart(product);
       this.cartService.getItemsCount();

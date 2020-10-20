@@ -8,6 +8,7 @@ import { SubCategory } from 'src/app/model/enum/SubCategory';
 import { Brand } from 'src/app/model/enum/Brand';
 import { Category } from 'src/app/model/enum/category';
 import { CategoryType } from 'src/app/model/enum/CategoryType';
+import { Sizes } from 'src/app/model/enum/Sizes';
 
 @Component({
   selector: 'app-product',
@@ -77,6 +78,7 @@ export class ProductComponent implements OnInit {
         .set('skip', productFilter.skip.toString());
       this.http.get<Product[]>(server.serverUrl + 'product/getListByPaging', { params: httpParams }).subscribe(data => {
         data.forEach((item) => {
+          let quantity = 0;
           item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
           item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;
           if (item.ImagePath === undefined || item.ImagePath === null) {
@@ -86,6 +88,15 @@ export class ProductComponent implements OnInit {
           else {
             item.ImagePath[0] = 'assets/productItem/' + item.ImagePath[0];
           }
+
+          if(item.Size != undefined && item.Size != null){
+            item.Size.map((itemProduct,i) => {
+              item.Size[i].sizeName = Sizes.map(itemProduct.size);
+              quantity += itemProduct.quantity;
+            })
+          }
+
+          item.Quantity = quantity;
         });
         this.productList = data;
         this.product = this.productList[0];
@@ -93,6 +104,7 @@ export class ProductComponent implements OnInit {
         this.product.CategoryName = Category.map(this.product.Category);
         this.product.CategoryTypeName = CategoryType.map(this.product.CategoryType);
         this.product.SubCategoryName = SubCategory.map(this.product.SubCategory);
+        
         this.isDataAvailable = true;
         
       });

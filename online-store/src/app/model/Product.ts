@@ -3,6 +3,8 @@ import { SubCategory } from './enum/SubCategory';
 import { CategoryType } from './enum/CategoryType';
 import { AdditionalInfo } from './AdditionalInfo';
 import { Brand } from './enum/Brand';
+import { Size } from './Size';
+import { Sizes } from './enum/Sizes';
 
 export class Product{
     _id: any;
@@ -24,6 +26,7 @@ export class Product{
     SpecialOffer: Boolean;
     Sepcification: String;
     AdditinalInfos: Array<AdditionalInfo>;
+    Size:Array<Size>;
     Comments: Comment;
     Quantity: number;
     Count: number = 1;
@@ -33,4 +36,5 @@ export class Product{
     ViewCount: number;
     SaleCount: number;
     CreateDate: Date;
+    selectedSize: Sizes;
 }

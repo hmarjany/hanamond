@@ -1,4 +1,4 @@
-.active{
+.active {
     padding: 10px;
     font-size: 24px;
     background: #8d9bff;
@@ -10,11 +10,29 @@
     cursor: pointer;
 }
 
-.pageElement{
+.pageElement {
     padding: 10px;
     font-size: 24px;
     width: 15px;
     height: 16px;
     line-height: 12px;
     cursor: pointer;
+}
+
+.container {
+    width: 100%;
+    margin-top: -14px;
+    padding: 10px;
+    background: white;
+    border: whitesmoke thin solid;
+}
+
+@media (min-width: 0px) and (max-width: 600px) {
+    .container {
+        width: 100%;
+        margin-top: 0px;
+        padding: 10px;
+        background: white;
+        border: whitesmoke thin solid;
+    }
 }

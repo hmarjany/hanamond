@@ -1,6 +1,8 @@
 export enum Category{
     Wears,
-    Food
+    Food,
+    Toddler,
+    Child
 }
 
 export namespace Category {
@@ -11,6 +13,14 @@ export namespace Category {
 
         if(parseInt(index) === 1){
             return 'غذا';
+        }
+
+        if(parseInt(index) === 2){
+            return 'نوزاد';
+        }
+
+        if(parseInt(index) === 3){
+            return 'کودک';
         }
     }
 }

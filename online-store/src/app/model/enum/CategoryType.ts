@@ -1,7 +1,9 @@
 export enum CategoryType{
     Shoe,
     UnderWear,
-    Wear
+    Wear,
+    FemailChild,
+    MaleChild
 }
 
 export namespace CategoryType {
@@ -17,5 +19,14 @@ export namespace CategoryType {
         if(parseInt(index) === 2){
             return 'لباس';
         }
+
+        if(parseInt(index) === 3){
+            return 'دختربچه';
+        }
+
+        if(parseInt(index) === 4){
+            return 'پسربچه';
+        }
+
     }
 }
