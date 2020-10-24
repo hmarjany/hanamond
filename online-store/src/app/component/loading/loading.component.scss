@@ -197,7 +197,8 @@
     -ms-user-select: none;
     user-select: none;
     cursor: default;
-    height: 90vh;
+    min-height: 100vh;
+    height: 100%;
     background: #00000059;
     z-index: 999999999;
   }

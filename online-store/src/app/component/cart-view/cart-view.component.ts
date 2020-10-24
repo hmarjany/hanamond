@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Product } from 'src/app/model/Product';
 import { server } from 'src/app/Helper/server';
+import { Sizes } from 'src/app/model/enum/Sizes';
 
 @Component({
   selector: 'app-cart-view',
@@ -122,10 +123,10 @@ export class CartViewComponent implements OnInit {
     this.cartService.setItems(this.productList);
   }
 
-  endProccess(){
+  endProccess() {
     var finalProductItems = new Array<Product>();
-    this.productList.forEach((item, i)=>{
-      if(item.Quantity>=1){
+    this.productList.forEach((item, i) => {
+      if (item.Quantity >= 1) {
         finalProductItems.push(item);
       }
     })

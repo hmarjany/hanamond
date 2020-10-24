@@ -1,3 +1,5 @@
+import { ProductInventory } from './ProductInventory';
+
 export class Zarinpal{
     result: any;
     status: any;
@@ -8,4 +10,5 @@ export class Zarinpal{
     Mobile: any; 
     Authority : any;
     userId: any;
+    productInventory: Array<ProductInventory>;
 }

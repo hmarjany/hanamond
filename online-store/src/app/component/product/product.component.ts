@@ -78,7 +78,6 @@ export class ProductComponent implements OnInit {
         .set('skip', productFilter.skip.toString());
       this.http.get<Product[]>(server.serverUrl + 'product/getListByPaging', { params: httpParams }).subscribe(data => {
         data.forEach((item) => {
-          let quantity = 0;
           item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
           item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;
           if (item.ImagePath === undefined || item.ImagePath === null) {
@@ -92,11 +91,9 @@ export class ProductComponent implements OnInit {
           if(item.Size != undefined && item.Size != null){
             item.Size.map((itemProduct,i) => {
               item.Size[i].sizeName = Sizes.map(itemProduct.size);
-              quantity += itemProduct.quantity;
             })
           }
 
-          item.Quantity = quantity;
         });
         this.productList = data;
         this.product = this.productList[0];

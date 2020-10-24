@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CartService } from 'src/app/service/Cart/cart.service';
 import { Product } from 'src/app/model/Product';
+import { Sizes } from 'src/app/model/enum/Sizes';
 
 @Component({
   selector: 'app-cart',
@@ -37,6 +38,7 @@ export class CartComponent implements OnInit {
         item.ImagePath[i] = 'assets/cartView/' + splitPath[splitPath.length - 1];
       });
     });
+    
   }
 
   ngOnChanges(){

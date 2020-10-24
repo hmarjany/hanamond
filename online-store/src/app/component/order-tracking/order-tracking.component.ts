@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/model/User';
 import { Purchased } from 'src/app/model/Purchased';
 import { Order } from 'src/app/model/Order';
+import { ProductInventory } from 'src/app/model/ProductInventory';
+import { Size } from 'src/app/model/Size';
 
 @Component({
   selector: 'app-order-tracking',
@@ -38,10 +40,24 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    let productInventory = Array<ProductInventory>();
     this.productList = this.cartService.getFinalItems();
     if (this.productList != undefined && this.productList != null) {
       this.productList.map((item, i) => {
         this.totalPrice += item.Count * item.Price;
+        let productInventoryItem = new ProductInventory();
+        productInventoryItem.quantity = item.Count;
+        if(item.selectedSize != undefined && item.selectedSize != null){
+          let size = new Size();
+          size.size = item.selectedSize;
+          size.quantity = item.Quantity;
+          productInventoryItem.SelectedSize = size;
+        }else{
+          productInventoryItem.SelectedSize = null;
+        }
+
+        productInventoryItem.productId = item._id;
+        productInventory.push(productInventoryItem);
       })
     }
 
@@ -49,6 +65,7 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
       let zarinpal = new Zarinpal();
       zarinpal.Amount = this.totalPrice;
       zarinpal.Authority = params.Authority;
+      
 
       if (zarinpal.Authority === undefined) {
         this.getUserPurchasedHistory();
@@ -58,6 +75,7 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
             this.refId = data.refId;
             zarinpal.refId = data.refId;
             zarinpal.Authority = params.Authority;
+            zarinpal.productInventory = productInventory;
             this.cartService.clearCart();
             this.cartService.getItemsCount();
             this.http.post(server.serverUrl + 'purchased/updaterefid', zarinpal).subscribe(response => {

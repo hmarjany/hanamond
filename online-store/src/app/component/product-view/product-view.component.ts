@@ -23,6 +23,7 @@ export class ProductViewComponent implements OnInit {
   isDataAvailable = false;
   items: Array<Product>;
   productIds: Array<any> = new Array<any>();
+  selectSize = false;
 
   constructor(private route: ActivatedRoute,
     private cartService: CartService,
@@ -45,15 +46,12 @@ export class ProductViewComponent implements OnInit {
           })
         }
 
-        let quantity = 0;
         if(item.Size != undefined && item.Size != null){
           item.Size.map((itemProduct,i) => {
             item.Size[i].sizeName = Sizes.map(itemProduct.size);
-            quantity += itemProduct.quantity;
           })
         }
 
-        item.Quantity = quantity;
         item.AdditinalInfos.forEach((addInfo, i) => {
           if (addInfo.value === '') {
             item.AdditinalInfos.splice(i);
@@ -81,10 +79,13 @@ export class ProductViewComponent implements OnInit {
   addToCart(product: Product) {
     if(this.product.Size != undefined && this.product.Size != null && this.product.Size.length >0 ){
       if(this.product.selectedSize === undefined || this.product.selectedSize === null){
-        alert('zart');
+        this.selectSize = true;
         return;
       }
     }
+
+    this.selectSize = false;
+
     if (product.isProductAvailable) {
       this.cartService.addToCart(product);
       this.cartService.getItemsCount();

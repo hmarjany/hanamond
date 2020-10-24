@@ -11,6 +11,7 @@ import { server } from 'src/app/Helper/server';
 import { Order } from 'src/app/model/Order';
 import { Zarinpal } from 'src/app/model/Zarinpal';
 import { LoaderService } from 'src/app/service/Loader/loader.service';
+import { Sizes } from 'src/app/model/enum/Sizes';
 
 @Component({
   selector: 'app-confirm-cart',
@@ -128,7 +129,11 @@ export class ConfirmCartComponent implements OnInit {
     this.productList.forEach(item => {
       var purchasedItem = new PurchasedItem();
       purchasedItem.count = item.Count;
-      purchasedItem.name = item.Name.toString();
+      let size = '';
+      if(item.selectedSize != undefined && item.selectedSize != null ){
+        size = Sizes.map(item.selectedSize);
+      }
+      purchasedItem.name = item.Name.toString() + ' ' + size;
       purchasedItem.productId = item._id;
       purchasedItems.push(purchasedItem)
     })
@@ -142,7 +147,8 @@ export class ConfirmCartComponent implements OnInit {
     purchased.deliver = false;
     purchased.deliverTo = this.selectedAddressDeliverTo;
     purchased.deliverToPhone = this.selectedAddressPhone;
-    purchased.payOnline = false;
+    //todo
+    purchased.payOnline = true;
     purchased.purchaseDate = new Date();
     purchased.purchasedItem = purchasedItems;
     purchased.userId = this.currentUser._id;
@@ -157,8 +163,13 @@ export class ConfirmCartComponent implements OnInit {
 
     let zarinpal = new Zarinpal();
 
+    let desc = '';
+    purchasedItems.map(item =>{
+      desc = item.count + ' ' + item.name + ' ';
+    })
+
     zarinpal.Amount = order.totalPrice;
-    zarinpal.Description = 'خرید از فروشگاه آنلاین هانامند';
+    zarinpal.Description = desc;
     zarinpal.Email =  this.currentUser.email;
     zarinpal.Mobile = this.currentUser.phoneNumber;
     
