@@ -42,14 +42,17 @@ export class CartViewComponent implements OnInit {
               item.ImagePath[i] = 'assets/' + path;
             })
           }
+
           this.productIds.push(item._id);
           item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
           item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;
           var product = cachItems.find(x => x._id === item._id);
+
           if (product != null) {
             if (item.Count != 0 || item.Count != null || item.Count != undefined) {
               if (!this.productList.find(x => x._id === item._id)) {
                 item.Count = product.Count;
+                item.selectedSize = product.selectedSize;
                 if (item.Quantity > 0) {
                   this.totalPrice += item.Count * item.Price;
                 }

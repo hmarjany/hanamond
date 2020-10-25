@@ -12,6 +12,7 @@ import { Order } from 'src/app/model/Order';
 import { Zarinpal } from 'src/app/model/Zarinpal';
 import { LoaderService } from 'src/app/service/Loader/loader.service';
 import { Sizes } from 'src/app/model/enum/Sizes';
+import { DeliverTime } from 'src/app/model/enum/DeliverTime';
 
 @Component({
   selector: 'app-confirm-cart',
@@ -31,14 +32,15 @@ export class ConfirmCartComponent implements OnInit {
   isDataAvailable = false;
   totalPrice: number = 0;
   showSaveRibbon = true;
+  deliverDate: Date = null;
+  deliverTime: DeliverTime = null;
+  selectDate: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private http: HttpClient,
     private cartService: CartService,
     private router: Router,
-    private loaderService: LoaderService) {
-
-  }
+    private loaderService: LoaderService) {  }
 
   ngOnInit(): void {
     this.loadAddress();
@@ -123,7 +125,22 @@ export class ConfirmCartComponent implements OnInit {
     this.editAddress = false;
   }
 
+  deliverTimeChange(deliverTime){
+    this.deliverTime = deliverTime;
+  }
+
+  dateChange(deliverDate: Date){
+    this.deliverDate = deliverDate;
+  }
+  
   payment() {
+    if(this.deliverDate === null || this.deliverTime === null){
+      this.selectDate = true;
+      return;
+    }else{
+      this.selectDate = false;
+    }
+
     var order = new Order();
     var purchasedItems = new Array<PurchasedItem>();
     this.productList.forEach(item => {
@@ -135,12 +152,13 @@ export class ConfirmCartComponent implements OnInit {
       }
       purchasedItem.name = item.Name.toString() + ' ' + size;
       purchasedItem.productId = item._id;
-      purchasedItems.push(purchasedItem)
+      purchasedItems.push(purchasedItem);
     })
 
     order.purchasedItem = purchasedItems;
     order.totalPrice = this.totalPrice;
-
+    order.deliverDate = this.deliverDate;
+    order.deliverTime = this.deliverTime;
 
     var purchased = new Purchased();
     purchased.address = this.selectedAddress;
@@ -186,6 +204,8 @@ export class ConfirmCartComponent implements OnInit {
       
       this.http.post<Order>(server.serverUrl + 'purchased/save', order).subscribe(orderResponse => {
         this.loaderService.show();
+        this.deliverDate = null;
+        this.deliverTime = null;
         window.location.href = data.result;
       });
     });

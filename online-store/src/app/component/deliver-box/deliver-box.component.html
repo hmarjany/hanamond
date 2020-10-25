@@ -1,0 +1,24 @@
+<div style="width: 100%;">
+    <div style="margin-bottom: 10px;">تاریخ و زمان دریافت/ارسال بسته</div>
+    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="border-bottom: solid silver thin;">
+
+        <div fxLayout="row" fxLayoutGap="3px" fxLayoutAlign="start center">
+        <div fxLayout="row" fxLayoutGap="3px" fxLayoutAlign="start center" style="font-size: 12px;">
+            <input type="radio" id="9-15" name="deliverTime" value="_9_15" (change)="changeDeliverTime($event)">
+            <label for="9-15">بازه زمانی 9 تا 15</label>
+        </div>
+        <div fxLayout="row" fxLayoutGap="3px" fxLayoutAlign="start center" style="font-size: 12px;">
+            <input type="radio" id="15-20" name="deliverTime" value="_15_20" (change)="changeDeliverTime($event)">
+            <label for="15-20">بازه زمانی 15 تا 20</label>
+        </div>
+    </div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="3px" fxLayoutAlign="start start">
+        <div *ngFor="let date of deliverDate" fxLayout="row" fxLayoutGap="3px" fxLayoutAlign="center center"
+            style="font-size: 12px;">
+            <input type="radio" id="{{date}}" name="deliverDate" value="{{date}}" (change)="changeDeliverDate($event)">
+            <label for="{{date}}">{{date | jalali}}</label>
+        </div>
+
+    </div>
+</div>

@@ -1,3 +1,4 @@
+import { DeliverTime } from './enum/DeliverTime';
 import { Purchased } from './Purchased';
 import { PurchasedItem } from './PurchasedItem';
 
@@ -9,6 +10,7 @@ export class Order{
     totalPrice: number;
     paymentStatus: boolean;
     deliverDate: Date;
+    deliverTime: DeliverTime;
     paymentDate:Date;
     payOnline: boolean;
     address: string;

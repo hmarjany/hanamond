@@ -2,17 +2,40 @@
     <app-loading [strictLoading]="!isDataAvailable">
     </app-loading>
 </div>
+<div *ngIf="showReject" style="z-index: 2;position: absolute;left: 0;top: 0;
+background-color: gray;opacity: 0.8;width: 100%;height: 100vh;"></div>
+<div id="editForm" *ngIf="showReject" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" style="background-color: white;border: thin gray solid;padding: 10px;position: absolute;top: 24%;left: 50%;
+ transform: translate(-50%, -50%);z-index: 4;overflow: auto;text-align: center;">
+    <div>تعداد {{rejectInstance.count}} عدد از کالای</div>
+    <div>{{rejectInstance.ProductName}}خریداری شده</div>
+    <div>توسط {{rejectInstance.deliverTo}}</div>
+    <div>با حساب کاربری خانم/آقای {{rejectInstance.userName}}</div>
+    <div>به آدرس {{rejectInstance.deliverToAddress}}</div>
+    <div>و شماره تلفن {{rejectInstance.deliverToPhone}}</div>
+    <div>برگشت داده شود </div>
+    <app-deliver-box (deliverTimeChangeEvent)="deliverTimeChange($event)" (dateChangeEvent)="dateChange($event)"></app-deliver-box>
+    <div *ngIf="selectDate">
+        <div style="color: red;">
+            لطفا بازه و زمان ارسال را تعیین کنید !
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start center">
+        <button (click)="acceptReject()">تایید و برگشت کالا</button>
+        <button (click)="cancelReject()">لغو</button>
+    </div>
+</div>
 <div class="topset" *ngIf="transactionFaild">
-    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center" style="padding: 20px;background-color: lightsalmon;font-size: 25px;">
-    <div style="color: red;">
-        تراکنش ناموفق
-    </div>
-    <div>
-        در صورتی که موجودی شما کسر گردیده ظرف 72 ساعت به حساب شما باز میگردد
+    <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
+        style="padding: 20px;background-color: lightsalmon;font-size: 25px;">
+        <div style="color: red;">
+            تراکنش ناموفق
+        </div>
+        <div>
+            در صورتی که موجودی شما کسر گردیده ظرف 72 ساعت به حساب شما باز میگردد
+        </div>
     </div>
 </div>
-</div>
-<div class="topset" *ngIf="isDataAvailable && !transactionFaild"  style="padding: 10px;">
+<div class="topset" *ngIf="isDataAvailable && !transactionFaild" style="padding: 10px;">
     <mat-accordion>
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
@@ -39,22 +62,30 @@
                     </div>
                 </mat-panel-title>
                 <mat-panel-description>
-                    
+
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div fxLayout="column" fxLayoutAlign="start start">
                 <div>اقلام خریداری شده</div>
                 <div *ngFor="let item of history.purchasedItem; index as i;" fxLayout="column" fxLayoutGap="10px"
                     fxLayoutAlign="start center">
-                        <a  fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="text-decoration: none;" routerLink="/productview/{{item.productId}}">
-                            <div> &#9679; {{item.name}}</div>
-                            <div>تعداد : &nbsp;{{item.count}}</div>
+                    <div fxLayout="column" fxLayoutGap="1px" fxLayoutAlign="start start">
+                        <a (click)="reject(history,item)" *ngIf="rejectDate.getTime() < history.rejectDate.getTime() "
+                            style="text-decoration: none;color: red;cursor: pointer;">
+                            برگشت تا تاریخ : {{history.rejectDate | jalali}}
                         </a>
+                        <a fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" style="text-decoration: none;"
+                            routerLink="/productview/{{item.productId}}">
+                            <div> &#9679; {{item.name}}</div>
+                            <div>تعداد : &nbsp;{{item.count}}&nbsp;</div>
+
+                        </a>
+                    </div>
                 </div>
             </div>
             <mat-horizontal-stepper style="font-size: 25px;" labelPosition="bottom"
                 [selectedIndex]="history.selectedIndex">
-                
+
                 <mat-step state="success" [completed]="history.selectedIndex > 0" [editable]="false">
                     <ng-template matStepLabel>ثبت سفارش</ng-template>
                     <div class="stepperContent">

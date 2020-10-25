@@ -48,7 +48,9 @@ export class ProductViewComponent implements OnInit {
 
         if(item.Size != undefined && item.Size != null){
           item.Size.map((itemProduct,i) => {
-            item.Size[i].sizeName = Sizes.map(itemProduct.size);
+            if(item.Size[i].quantity > 0){
+              item.Size[i].sizeName = Sizes.map(itemProduct.size);
+            }
           })
         }
 

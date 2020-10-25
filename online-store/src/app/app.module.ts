@@ -58,6 +58,8 @@ import { OrderTrackingComponent } from './component/order-tracking/order-trackin
 import { MatExpansionModule } from '@angular/material/expansion';
 import { JalaliPipe } from './pipe/jalali.pipe';
 import { SpecialOfferComponent } from './component/special-offer/special-offer.component';
+import { DeliverBoxComponent } from './component/deliver-box/deliver-box.component';
+
 
 @NgModule({
   declarations: [
@@ -93,7 +95,8 @@ import { SpecialOfferComponent } from './component/special-offer/special-offer.c
     ZarinpalComponent,
     OrderTrackingComponent,
     JalaliPipe,
-    SpecialOfferComponent
+    SpecialOfferComponent,
+    DeliverBoxComponent
   ],
   imports: [
     BrowserModule,

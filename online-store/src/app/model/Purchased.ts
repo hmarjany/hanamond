@@ -1,11 +1,12 @@
 import { PurchasedItem } from './PurchasedItem';
 
-export class Purchased{
+export class Purchased {
     userId: any;
-    purchasedItem:Array<PurchasedItem>;
+    purchasedItem: Array<PurchasedItem>;
     purchaseDate: Date;
-    deliver:boolean;
-    payOnline:boolean;
+    rejectDate: Date;
+    deliver: boolean;
+    payOnline: boolean;
     address: string;
     deliverTo: string;
     deliverToPhone: string;

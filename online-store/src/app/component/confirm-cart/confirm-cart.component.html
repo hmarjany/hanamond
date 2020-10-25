@@ -47,9 +47,9 @@
                         </button>
                     </div>
                 </div>
-                <app-address [addressList]="address" (addNewAddressEvent)="onAddNewAddressEvent()" 
-                (addOrEditAddressEvent)="onAddOrEditAddressEvent()"
-                (selectAddressChangeEvent)="onAddressChange($event)"></app-address>
+                <app-address [addressList]="address" (addNewAddressEvent)="onAddNewAddressEvent()"
+                    (addOrEditAddressEvent)="onAddOrEditAddressEvent()"
+                    (selectAddressChangeEvent)="onAddressChange($event)"></app-address>
             </div>
 
             <section class="sectionَSelectedAddress" *ngIf="!editAddress">
@@ -98,9 +98,16 @@
         </div>
         <div *ngIf="!editAddress" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
             style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: white;border-radius: 4px;width: 30%;min-width: 280px;">
-            
-            <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
-                fxLayoutAlign="center center">
+            <div *ngIf="selectDate">
+                <div style="color: red;">
+                    لطفا بازه و زمان ارسال را تعیین کنید !
+                </div>
+            </div>
+            <app-deliver-box (deliverTimeChangeEvent)="deliverTimeChange($event)" (dateChangeEvent)="dateChange($event)" >
+
+            </app-deliver-box>
+            <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+
                 <div class="discount">
                     مبلغ قابل پرداخت
                 </div>
@@ -128,7 +135,8 @@
 </div>
 
 <!-- Mobile view -->
-<div *ngIf="isDataAvailable" fxHide.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="margin: 15px;">
+<div *ngIf="isDataAvailable" fxHide.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start"
+    style="margin: 15px;">
     <section class="sectionَSelectedAddress" *ngIf="!editAddress">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
             <div>
@@ -148,7 +156,7 @@
                 <mat-icon style="color: gray;margin-top: 8px;transform: scale(1);">person_outline</mat-icon>
                 <div style="color: gray">{{selectedAddressDeliverTo}}</div>
             </div>
-            
+
             <a style="color: #7bbcf5;cursor: pointer;" (click)="editAddressView()">
                 تغییر یا ویرایش آدرس
             </a>
@@ -168,9 +176,9 @@
                 </button>
             </div>
         </div>
-        <app-address [addressList]="address" (addNewAddressEvent)="onAddNewAddressEvent()" 
-        (addOrEditAddressEvent)="onAddOrEditAddressEvent()"
-        (selectAddressChangeEvent)="onAddressChange($event)"></app-address>
+        <app-address [addressList]="address" (addNewAddressEvent)="onAddNewAddressEvent()"
+            (addOrEditAddressEvent)="onAddOrEditAddressEvent()" (selectAddressChangeEvent)="onAddressChange($event)">
+        </app-address>
     </div>
 
     <section class="sectionَSelectedAddress" *ngIf="!editAddress">
@@ -218,9 +226,15 @@
 
     <div *ngIf="!editAddress" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
         style="font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f8f6f6;border-radius: 4px;width: 100%;">
-        
-        <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
-            fxLayoutAlign="center center">
+        <div *ngIf="selectDate">
+            <div style="color: red;">
+                لطفا بازه و زمان ارسال را تعیین کنید !
+            </div>
+        </div>
+        <app-deliver-box (deliverTimeChangeEvent)="deliverTimeChange($event)" (dateChangeEvent)="dateChange($event)">
+
+        </app-deliver-box>
+        <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
             <div class="discount">
                 مبلغ قابل پرداخت
             </div>

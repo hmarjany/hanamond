@@ -48,17 +48,20 @@
                         <div style="direction: ltr;">
                             <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
                         </div>
-                        
+
                         <div *ngIf="product.Size && product.Size.length > 0" fxLayout="row" fxLayoutAlign="start center"
                             style="font-size: 14px; border: none ; background: white;border: whitesmoke thin solid;color: #807e7e; height: 50px;margin-bottom: -14px;">
                             سایزها : &nbsp;
-                            <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onSizeValChange(group.value)">
-                                <mat-button-toggle *ngFor="let size of product.Size; index as i;" value="{{size.size}}">
-                                    {{size.sizeName}}</mat-button-toggle>
-
+                            <mat-button-toggle-group #group="matButtonToggleGroup"
+                                (change)="onSizeValChange(group.value)">
+                                <ng-container *ngFor="let size of product.Size; index as i;">
+                                    <mat-button-toggle *ngIf="size.sizeName" value="{{size.size}}">
+                                        {{size.sizeName}}
+                                    </mat-button-toggle>
+                                </ng-container>
                             </mat-button-toggle-group>
                         </div>
-                        
+
                         <div>برند : &nbsp;{{product.BrandName}}</div>
                         <div fxLayout="column" fxLayoutAlign="start center" style="font-size: 14px;">
                             <div>ویژگی های محصول</div>
@@ -72,7 +75,7 @@
                             </ng-container>
                         </div>
 
-                        
+
                     </div>
 
 
@@ -144,10 +147,13 @@
                         <div *ngIf="product.Size && product.Size.length > 0" fxLayout="row" fxLayoutAlign="start center"
                             style="font-size: 14px; border: none; background: white;border: whitesmoke thin solid;color: #807e7e; height: 50px;margin-bottom: -14px;">
                             سایزها : &nbsp;
-                            <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onSizeValChange(group.value)">
-                                <mat-button-toggle *ngFor="let size of product.Size; index as i;" value="bold">
-                                    {{size.sizeName}}</mat-button-toggle>
-
+                            <mat-button-toggle-group #group="matButtonToggleGroup"
+                                (change)="onSizeValChange(group.value)">
+                                <ng-container *ngFor="let size of product.Size; index as i;">
+                                    <mat-button-toggle *ngIf="size.sizeName" value="{{size.size}}">
+                                        {{size.sizeName}}
+                                    </mat-button-toggle>
+                                </ng-container>
                             </mat-button-toggle-group>
                         </div>
                         <div style="direction: ltr;">
@@ -176,7 +182,7 @@
                             </div>
                             <div style="border-top:#e4e4e4 thin solid ;width: 85%;padding: 18px;" fxLayout="column"
                                 fxLayoutGap="10px" fxLayoutAlign="center center">
-                               
+
                                 <div *ngIf="product.SpecialOffer">
                                     <div class="discount">
                                         فروش ویژه

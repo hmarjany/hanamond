@@ -11,6 +11,9 @@ import { Purchased } from 'src/app/model/Purchased';
 import { Order } from 'src/app/model/Order';
 import { ProductInventory } from 'src/app/model/ProductInventory';
 import { Size } from 'src/app/model/Size';
+import { PurchasedItem } from 'src/app/model/PurchasedItem';
+import { Reject } from 'src/app/model/Reject';
+import { DeliverTime } from 'src/app/model/enum/DeliverTime';
 
 @Component({
   selector: 'app-order-tracking',
@@ -30,11 +33,17 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
   refId: string;
   transactionFaild = false;
   transactionOk = false;
+  rejectDate = new Date();
+  showReject: boolean = false;
+  rejectInstance: Reject;
+  deliverDate: Date = null;
+  deliverTime: DeliverTime = null;
+  selectDate: boolean = false;
 
   constructor(private http: HttpClient,
     private cartService: CartService,
     private route: ActivatedRoute,
-    private changeDetectorRef: ChangeDetectorRef,) { }
+    private changeDetectorRef: ChangeDetectorRef,) {}
   ngAfterViewInit(): void {
 
   }
@@ -50,7 +59,7 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
         if(item.selectedSize != undefined && item.selectedSize != null){
           let size = new Size();
           size.size = item.selectedSize;
-          size.quantity = item.Quantity;
+          size.count = item.Count;
           productInventoryItem.SelectedSize = size;
         }else{
           productInventoryItem.SelectedSize = null;
@@ -115,6 +124,7 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
       this.currentUser = users;
       let purchased = this.currentUser[0].purchased.filter(x => x.refId != undefined && x.refId != null);
       if (purchased != undefined && purchased != null) {
+        
         this.purchasedHistory = purchased.sort((n1, n2) => {
           if (n1.purchaseDate > n2.purchaseDate) {
             return -1;
@@ -123,6 +133,15 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
             return 1;
           }
         });
+      }
+
+      if(this.purchasedHistory != undefined && this.purchasedHistory != null){
+        this.purchasedHistory.map(item => {
+          let purchaseDate = new Date(item.purchaseDate);
+          let rejectDate = new Date();
+          rejectDate.setDate(purchaseDate.getDate() + 5);
+          item.rejectDate = rejectDate;
+        })
       }
       this.isDataAvailable = true;
 
@@ -151,5 +170,48 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
       }
       this.changeDetectorRef.detectChanges();
     });
+  }
+
+  reject(history: Purchased,item: PurchasedItem){
+    this.showReject = true;
+    this.rejectInstance = new Reject();
+    this.rejectInstance.productId = item.productId;
+    this.rejectInstance.count = item.count;
+    this.rejectInstance.deliverToPhone = history.deliverToPhone;
+    this.rejectInstance.deliverTo = history.deliverTo;
+    this.rejectInstance.deliverToAddress = history.address;
+    this.rejectInstance.userName = history.userName;
+    this.rejectInstance.ProductName = item.name;
+  }
+
+  deliverTimeChange(deliverTime){
+    this.deliverTime = deliverTime;
+  }
+
+  dateChange(deliverDate: Date){
+    this.deliverDate = deliverDate;
+  }
+
+  cancelReject(){
+    this.showReject = false;
+  }
+
+  acceptReject(){
+    if(this.deliverDate === null || this.deliverTime === null){
+      this.selectDate = true;
+      return;
+    }else{
+      this.selectDate = false;
+    }
+    this.rejectInstance.deliverDate = this.deliverDate;
+    this.rejectInstance.deliverTime = this.deliverTime;
+    this.rejectInstance.rejected = true;
+    
+    this.http.post(server.serverUrl + 'order/saveReject', this.rejectInstance).subscribe(response => {
+      this.deliverDate = null;
+      this.deliverTime = null;
+      this.showReject = false;
+    });
+    
   }
 }
