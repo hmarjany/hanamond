@@ -5,5 +5,5 @@ export class Size {
     size: Sizes;
     sizeName: string;
     quantity: number;
-    count:number;
+    count:number  = 0;
 }

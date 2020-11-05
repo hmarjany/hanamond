@@ -127,7 +127,20 @@
             </div>
         </div>
 
+           
     </div>
+    <div fxHide fxShow.gt-xs>
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="توضیحات">
+                <div style="margin: 10px;padding: 10px;border: lightgray solid thin;background-color: white;font-size: 16px;">
+                    برای نی نی شما عالیه این محصول
+                </div>
+            </mat-tab>
+            <mat-tab label="نظرات">
+                <app-comment></app-comment>
+            </mat-tab>
+          </mat-tab-group>
+    </div> 
 
     <!-- mobile view -->
     <div *ngIf="isDataAvailable" fxHide.gt-xs>
@@ -241,12 +254,19 @@
                         </div>
                     </div>
                 </div>
-
+                <div>
+                    <mat-tab-group mat-align-tabs="start">
+                        <mat-tab label="توضیحات">Content 1</mat-tab>
+                        <mat-tab label="نظرات">
+                            <app-comment></app-comment>
+                        </mat-tab>
+                      </mat-tab-group>
+                </div>
             </section>
         </div>
-
+        
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"
-            style="bottom: 0;position: fixed; margin: -12px;font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 100%;min-width: 280px;">
+            style="z-index: 1; bottom: 0;position: fixed; margin: -12px;font-size: 1.2rem; padding: 5px; border: #e4e4e4 thin solid;background-color: #f5f5f5;border-radius: 4px;width: 100%;min-width: 280px;">
             <div *ngIf="selectSize">
                 <div style="color: red;">
                     لطفا سایز را انتخاب کنید !
@@ -259,4 +279,5 @@
             </div>
         </div>
     </div>
+    
 </div>

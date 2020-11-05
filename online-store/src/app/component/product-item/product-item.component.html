@@ -109,7 +109,7 @@
             <div fxLayout="row" style="width: 30%;" fxLayoutAlign="start center">
                 <div fxLayout="column" style="margin-right: 30px;" fxLayoutGap="10px" fxLayoutAlign="start start">
                     <a class="rLink" routerLink="/productview/{{product._id}}">
-                        <h2>{{product.Name}}</h2>
+                        <h2>{{product.Name}}&nbsp;{{product.selectedSizeName}}</h2>
                     </a>
                     <div *ngIf="ConfirmCartView" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
                         <div style="direction: ltr;">
@@ -131,6 +131,8 @@
                             <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
                         </div>
                     </div>
+                    <div *ngIf="!product.notExist" style="color: white;">.</div>
+                    <div *ngIf="product.notExist" style="color: red;">موجودی به تعداد انتخاب شده در انبار نیست</div>
                     <div class="number-input">
                         <button (click)="stepUp(product)" class="plus"></button>
                         <input class="quantity" min="1" name="quantity" value="{{product.Count}}" type="number">
@@ -217,6 +219,8 @@
                         <bar-rating [theme]="'default'" [rate]="4.1" [max]="5"></bar-rating>
                     </div>
                 </div>
+                <div *ngIf="!product.notExist" style="color: white;">.</div>
+                <div *ngIf="product.notExist" style="color: red;">موجودی به تعداد انتخاب شده در انبار نیست</div>
                 <div *ngIf="!ConfirmCartView" class="number-input">
                     <div class="number-input">
                         <button (click)="stepUp(product)" class="plus"></button>

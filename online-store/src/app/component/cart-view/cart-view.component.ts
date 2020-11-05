@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef, SimpleChange } from '@angular/core';
 import { CartService } from 'src/app/service/Cart/cart.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Product } from 'src/app/model/Product';
 import { server } from 'src/app/Helper/server';
 import { Sizes } from 'src/app/model/enum/Sizes';
+import { Size } from 'src/app/model/Size';
 
 @Component({
   selector: 'app-cart-view',
@@ -13,62 +14,26 @@ import { Sizes } from 'src/app/model/enum/Sizes';
 })
 export class CartViewComponent implements OnInit {
 
-  productList: Array<Product> = new Array<Product>();
+  productList: Array<Product> ;
   defualtImagePath = 'assets/carousel-1bg.png';
   userId: any;
   totalPrice: number = 0;
   productIds: Array<any> = new Array<any>();
-  isDataAvailable = false;
+  isDataAvailable = true;
+  proccessFaild = false;
+  notExistMesseage: string;
+  notExist = false;
 
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private http: HttpClient,
     private cartService: CartService,
     private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    var cachItems = this.cartService.getItems();
-    this.productList = [];
-    this.route.params.subscribe(params => {
-      let httpParams = new HttpParams()
-        .set('productIds', params['productIds'].toString());
-      this.http.get<Array<Product>>(server.serverUrl + 'product/getByIds', { params: httpParams }).subscribe(items => {
-        items.map((item, i) => {
-          if (item.ImagePath === undefined || item.ImagePath === null) {
-            item.ImagePath = new Array<String>();
-            item.ImagePath.push(this.defualtImagePath);
-          } else {
-            item.ImagePath.forEach((path, i) => {
-              item.ImagePath[i] = 'assets/' + path;
-            })
-          }
-
-          this.productIds.push(item._id);
-          item.DiscountPrice = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? item.LastPrice : 0;
-          item.DiscountPercent = item.LastPrice != undefined && item.LastPrice != 0 && item.LastPrice != null ? Math.round(100 - ((item.Price * 100) / item.LastPrice)) : 0;
-          var product = cachItems.find(x => x._id === item._id);
-
-          if (product != null) {
-            if (item.Count != 0 || item.Count != null || item.Count != undefined) {
-              if (!this.productList.find(x => x._id === item._id)) {
-                item.Count = product.Count;
-                item.selectedSize = product.selectedSize;
-                if (item.Quantity > 0) {
-                  this.totalPrice += item.Count * item.Price;
-                }
-                this.productList.push(item)
-              }
-            }
-          }
-        })
-
-        this.cartService.setItems(this.productList);
-        //sthis.userId = JSON.parse(localStorage.getItem('currentUser'))._id;
-        this.changeDetectorRef.detectChanges();
-        this.isDataAvailable = true;
-      });
-    });
-
+    this.getListFromCach();
+  
     this.cartService.getRemoveEventEmitter().subscribe((item: Product) => {
       var productItem = this.productList.find(x => x._id === item._id);
       if (productItem === undefined || productItem === null) {
@@ -82,29 +47,47 @@ export class CartViewComponent implements OnInit {
       }
 
       this.totalPrice = 0;
-      this.productList.map(item => {
+      this.productList.forEach(item => {
         this.totalPrice += item.Count * item.Price;
       })
     })
   }
 
+  private getListFromCach() {
+    this.productList = this.cartService.getItems();
+    this.productList.forEach((item, i) => {
+      if (item.ImagePath === undefined || item.ImagePath === null) {
+        item.ImagePath = new Array<String>();
+        item.ImagePath.push(this.defualtImagePath);
+      } else {
+        item.ImagePath.forEach((path, i) => {
+          item.ImagePath[i] = 'assets/' + path;
+        });
+      }
+      item.selectedSizeName = Sizes.map(item.selectedSize);
+      if (item.Quantity > 0) {
+        this.totalPrice += item.Count * item.Price;
+      }
+    });
+  }
+
   OnProductRemove(product: Product) {
-    var productItem = this.productList.find(x => x._id === product._id);
-    if (productItem === undefined || productItem === null) {
-      return;
-    }
-
+    this.getListFromCach();
     this.totalPrice = 0;
-    this.productList.splice(this.productList.indexOf(productItem), 1);
-    this.productList.map(item => {
-      this.totalPrice += item.Count * item.Price;
+    this.productList.forEach(item => {
+      if(item.Quantity > 0){
+        this.totalPrice += item.Count * item.Price;
+      }
     })
-
-    this.cartService.setItems(this.productList);
   }
 
   OnProductChange(product: Product) {
-    var productItem = this.productList.find(x => x._id === product._id);
+    let productItem = null;
+    if(product.Size != undefined && product.Size != null && product.Size.length > 0){
+      productItem = this.productList.find(x => x._id === product._id && x.selectedSize === product.selectedSize);
+    }else{
+      productItem = this.productList.find(x => x._id === product._id);
+    }
     if (productItem === undefined || productItem === null) {
       return;
     }
@@ -115,24 +98,47 @@ export class CartViewComponent implements OnInit {
       this.productList.splice(this.productList.indexOf(productItem), 1);
     }
 
-    this.productList.map(item => {
-      if (item._id === product._id) {
-        item.Count = product.Count;
+    this.totalPrice = 0;
+    this.productList.forEach(item => {
+      if(item.Quantity > 0){
+        this.totalPrice += item.Count * item.Price;
       }
-
-      this.totalPrice += item.Count * item.Price;
     })
-
+    
     this.cartService.setItems(this.productList);
   }
 
   endProccess() {
+    this.notExist = false;
+    this.proccessFaild = false;
     var finalProductItems = new Array<Product>();
     this.productList.forEach((item, i) => {
+      if(item.selectedSize != null){
+        let productQuantity = item.Size.find(x=>x.size === item.selectedSize);
+        if(item.Count >productQuantity.quantity){
+          this.notExist = true;
+          this.notExistMesseage =" به تعداد " + item.Count + "عدد از کالای " + item.Name+ " به سایز " + Sizes.map(productQuantity.size) +"در انبار موجود نیست  ";
+          this.proccessFaild = true;
+          return false;
+          
+        }
+      }else{
+        if(item.Count > item.Quantity){
+          this.notExist = true;
+          this.notExistMesseage ="به تعداد " + item.Count + "عدد از کالای " + item.Name+"در انبار موجود نیست";
+          this.proccessFaild = true;
+          return false;
+        }
+      }
       if (item.Quantity >= 1) {
         finalProductItems.push(item);
       }
     })
+    if(this.proccessFaild){
+      return;
+    }
     this.cartService.setFinalItems(finalProductItems);
+    this.router.navigateByUrl('/confirmcart/'+this.productIds)
+    
   }
 }

@@ -59,7 +59,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { JalaliPipe } from './pipe/jalali.pipe';
 import { SpecialOfferComponent } from './component/special-offer/special-offer.component';
 import { DeliverBoxComponent } from './component/deliver-box/deliver-box.component';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { CommentComponent } from './component/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { DeliverBoxComponent } from './component/deliver-box/deliver-box.compone
     OrderTrackingComponent,
     JalaliPipe,
     SpecialOfferComponent,
-    DeliverBoxComponent
+    DeliverBoxComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -106,6 +108,7 @@ import { DeliverBoxComponent } from './component/deliver-box/deliver-box.compone
     MatIconModule,
     MatSidenavModule,
     MatButtonModule,
+    MatTabsModule,
     MatListModule,
     MatExpansionModule,
     FlexLayoutModule,

@@ -10,7 +10,7 @@ border-radius: 5px;">
           </div>
           <div fxLayout="column" style="width: 70%;font-size: 20px;color: darkgray;">
             <div>
-              {{ item.Name }}
+              {{ item.Name }}&nbsp;{{item.selectedSizeName}}
             </div>
             <div *ngIf="item.Quantity > 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"
               style="color: #7bbcf5;font-size: 12px;">

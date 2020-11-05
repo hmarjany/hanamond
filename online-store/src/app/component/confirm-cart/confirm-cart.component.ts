@@ -51,6 +51,7 @@ export class ConfirmCartComponent implements OnInit {
         var splitPath = path.split('/');
         item.ImagePath[i] = 'assets/cartView/' + splitPath[splitPath.length - 1];
       });
+      item.selectedSizeName = Sizes.map(item.selectedSize);
     })
   }
 

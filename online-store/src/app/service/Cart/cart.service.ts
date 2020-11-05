@@ -17,22 +17,22 @@ export class CartService {
   finalItems: Array<Product> = new Array<Product>();
   itemsCountChange: Subject<number> = new Subject<number>();
 
-  getFinalItems(): Array<Product>{
+  getFinalItems(): Array<Product> {
     this.finalItems = JSON.parse(localStorage.getItem('hanamondcartfinalsatatus'));
     return this.finalItems;
   }
 
-  setFinalItems(products: Array<Product>){
-      this.finalItems = new Array<Product>();
-      this.finalItems = products;
-      localStorage.setItem('hanamondcartfinalsatatus', JSON.stringify(this.finalItems));
+  setFinalItems(products: Array<Product>) {
+    this.finalItems = new Array<Product>();
+    this.finalItems = products;
+    localStorage.setItem('hanamondcartfinalsatatus', JSON.stringify(this.finalItems));
   }
 
   getRemoveEventEmitter() {
     return this.removeEvent;
   }
 
-  setItems(products: Array<Product>){
+  setItems(products: Array<Product>) {
     this.items = [];
     products.forEach(val => this.items.push(Object.assign({}, val)));
     localStorage.setItem('hanamondcartsatatus', JSON.stringify(this.items));
@@ -40,12 +40,21 @@ export class CartService {
   }
 
   addToCart(product: Product) {
-    if (this.items.find(x => x._id === product._id) != null) {
-      (this.items.find(x => x._id === product._id).Count as number) += 1;
+    if (product.selectedSize != undefined && product.selectedSize != null) {
+      if (this.items.find(x => x._id === product._id && x.selectedSize === product.selectedSize) != null) {
+        (this.items.find(x => x._id === product._id && x.selectedSize === product.selectedSize).Count as number) += 1;
+      } else {
+        this.items.push(product);
+      }
+      localStorage.setItem('hanamondcartsatatus', JSON.stringify(this.items));
     } else {
-      this.items.push(product);
+      if (this.items.find(x => x._id === product._id) != null) {
+        (this.items.find(x => x._id === product._id).Count as number) += 1;
+      } else {
+        this.items.push(product);
+      }
+      localStorage.setItem('hanamondcartsatatus', JSON.stringify(this.items));
     }
-    localStorage.setItem('hanamondcartsatatus', JSON.stringify(this.items));
   }
 
   getItems() {
@@ -56,31 +65,48 @@ export class CartService {
     return this.items;
   }
 
-  setAuthority(authority: any){
+  setAuthority(authority: any) {
     localStorage.setItem('hanamondAuthority', JSON.stringify(authority));
   }
 
-  getAuthority(){
+  getAuthority() {
     JSON.parse(localStorage.getItem('hanamondAuthority'));
   }
 
   removeFromCart(product: Product) {
-
-    if (this.items.find(x => x._id === product._id) != null) {
-      var productCount = this.items.find(x => x._id === product._id).Count;
-      if (productCount > 1) {
-        (this.items.find(x => x._id === product._id).Count) -= 1;
+    if (product.selectedSize != undefined && product.selectedSize != null) {
+      if (this.items.find(x => x._id === product._id && x.selectedSize === product.selectedSize) != null) {
+        var productCount = this.items.find(x => x._id === product._id  && x.selectedSize === product.selectedSize).Count;
+        if (productCount > 1) {
+          (this.items.find(x => x._id === product._id  && x.selectedSize === product.selectedSize).Count) -= 1;
+        }
+        else {
+          var itemIndex = this.items.indexOf(product, 0);
+          this.items.splice(itemIndex, 1);
+        }
+      } else {
+        var itemIndex_ = this.items.indexOf(product, 0);
+        this.items.splice(itemIndex_, 1);
       }
-      else {
-        var itemIndex = this.items.indexOf(product, 0);
-        this.items.splice(itemIndex, 1);
-      }
+      var items = JSON.stringify(this.items)
+      localStorage.setItem('hanamondcartsatatus', items);
     } else {
-      var itemIndex_ = this.items.indexOf(product, 0);
-      this.items.splice(itemIndex_, 1);
+      if (this.items.find(x => x._id === product._id) != null) {
+        var productCount = this.items.find(x => x._id === product._id).Count;
+        if (productCount > 1) {
+          (this.items.find(x => x._id === product._id).Count) -= 1;
+        }
+        else {
+          var itemIndex = this.items.indexOf(product, 0);
+          this.items.splice(itemIndex, 1);
+        }
+      } else {
+        var itemIndex_ = this.items.indexOf(product, 0);
+        this.items.splice(itemIndex_, 1);
+      }
+      var items = JSON.stringify(this.items)
+      localStorage.setItem('hanamondcartsatatus', items);
     }
-    this.removeEvent.emit(product);
-    localStorage.setItem('hanamondcartsatatus', JSON.stringify(this.items));
   }
 
   removeCartExpEvent(product: Product) {
@@ -113,8 +139,8 @@ export class CartService {
     this.getItems();
     var itemlength = 0;
     if (this.items != null) {
-      this.items.forEach((item)=>{
-        itemlength += item.Count;  
+      this.items.forEach((item) => {
+        itemlength += item.Count;
       })
     }
 

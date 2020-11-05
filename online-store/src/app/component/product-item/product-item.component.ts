@@ -20,37 +20,74 @@ export class ProductItemComponent implements OnInit {
   contentAfterWidth: any;
   contentAfterPadding: any;
   contentAfterMargin: any;
-  
-  constructor(private cartService: CartService) {
-    
-   }
 
-  ngOnInit(): void { 
+  constructor(private cartService: CartService) {
+
+  }
+
+  ngOnInit(): void {
   }
 
   onValueChanged(value: number): void {
   }
 
   removeItem(product: Product) {
-    var cartProduct = this.cartService.items.find(x=> x._id === product._id);
+    let cartProduct = null;
+    if(product.Size != undefined && product.Size != null && product.Size.length > 0){
+      cartProduct = this.cartService.items.find(x => x._id === product._id && x.selectedSize === product.selectedSize);
+    }else{
+      cartProduct = this.cartService.items.find(x => x._id === product._id);
+    }
     cartProduct.Count = 1;
     this.cartService.removeFromCart(cartProduct);
     this.cartService.getItemsCount();
     this.RemoveEvent.emit(cartProduct);
   }
 
-  stepUp(product: Product){
-    product.Count += 1;
+  stepUp(product: Product) {
+    product.notExist = false;
+    if (product.selectedSize != null) {
+      let productQuantity = product.Size.find(x => x.size === product.selectedSize);
+      if (product.Count + 1 > productQuantity.quantity) {
+        product.notExist = true;
+      }
+    } else {
+      if (product.Count + 1 > product.Quantity) {
+        product.notExist = true;
+      }
+    }
+
+    let productCount = product.Count + 1;
+    
     this.cartService.addToCart(product);
+    if(product.Count != productCount){
+      product.Count += 1
+    }
     this.cartService.getItemsCount();
     this.ProductEvent.emit(product);
   }
 
-  stepDown(product: Product){
-      product.Count -= 1;
-      this.cartService.removeCartExpEvent(product);
-      this.cartService.getItemsCount();
-      this.ProductEvent.emit(product);
+  stepDown(product: Product) {
+    product.notExist = false;
+    if (product.selectedSize != null) {
+      let productQuantity = product.Size.find(x => x.size === product.selectedSize);
+      if (product.Count - 1 > productQuantity.quantity) {
+        product.notExist = true;
+      }
+    } else {
+      if (product.Count - 1 > product.Quantity) {
+        product.notExist = true;
+      }
+    }
+    
+    let productCount = product.Count - 1;
+
+    this.cartService.removeCartExpEvent(product);
+    if(product.Count != productCount){
+      product.Count -= 1
+    }
+    this.cartService.getItemsCount();
+    this.ProductEvent.emit(product);
   }
 
   customOptions: OwlOptions = {

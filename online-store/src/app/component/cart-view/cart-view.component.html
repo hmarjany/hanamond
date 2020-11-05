@@ -15,7 +15,7 @@
             
             <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px"
                 fxLayoutAlign="end center">
-
+                <div *ngIf="notExist" style="color: red;text-align: center;">{{notExistMesseage}}</div>
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
                     <div *ngIf="totalPrice>0" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
                         <h2 style="color: #ef394e;">قیمت نهایی</h2>
@@ -36,8 +36,7 @@
                                 font-size: 1.2rem;
                                 border-radius: 7px;
                                 outline: none;
-                                cursor: pointer;" (click)="endProccess()"
-                    routerLink="/confirmcart/{{productIds}}">ادامه فرآیند
+                                cursor: pointer;" (click)="endProccess()">ادامه فرآیند
                     خرید</button>
             </div>
             <div style="width: 85%;padding: 18px;" *ngIf="totalPrice<=0">
@@ -67,7 +66,7 @@
     <div fxLayout="column" fxLayoutAlign="start center"
         style="font-size: 1.2rem; border: #e4e4e4 thin solid;background-color: #f8f6f6;border-radius: 4px;width: 100%;">
         <div style="width: 85%;padding: 18px;" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="end center">
-
+            <div *ngIf="notExist" style="color: red;text-align: center;">{{notExistMesseage}}</div>
             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
                 <div *ngIf="totalPrice>0" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
                     <h2 style="color: #ef394e;">قیمت نهایی</h2>
@@ -89,8 +88,7 @@
                             border-radius: 7px;
                             outline: none;
                             cursor: pointer;" 
-                            (click)="endProccess()"
-                            routerLink="/confirmcart/{{productIds}}">ادامه فرآیند
+                            (click)="endProccess()">ادامه فرآیند
                 خرید</button>
         </div>
         <div style="width: 85%;padding: 18px;" *ngIf="totalPrice<=0">

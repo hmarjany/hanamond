@@ -7,7 +7,14 @@ import { Size } from './Size';
 import { Sizes } from './enum/Sizes';
 
 export class Product{
+
+    constructor(){
+
+        this.uniqueObjectIdentifier = Symbol();
+    }
+
     _id: any;
+    uniqueObjectIdentifier: symbol;
     Category: Category;
     CategoryName: string;
     CategoryType: CategoryType;
@@ -27,7 +34,7 @@ export class Product{
     Sepcification: String;
     AdditinalInfos: Array<AdditionalInfo>;
     Size:Array<Size>;
-    Comments: Comment;
+    Comments: Array<Comment>;
     Quantity: number;
     Count: number = 1;
     skip?: number = 0;
@@ -37,4 +44,7 @@ export class Product{
     SaleCount: number;
     CreateDate: Date;
     selectedSize: Sizes;
+    selectedSizeName: string;
+    notExist = false;
+
 }

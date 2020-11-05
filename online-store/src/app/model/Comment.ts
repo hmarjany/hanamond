@@ -1,6 +1,11 @@
 import { User } from './User';
 
 export class Comment{
-    User: User;
-    Description: String;
+    _id: any;
+    productId: any;
+    user: User;
+    description: String;
+    like: number;
+    dislike: number;
+    approved: boolean;
 }
