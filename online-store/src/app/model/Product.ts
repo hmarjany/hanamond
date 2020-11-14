@@ -46,5 +46,5 @@ export class Product{
     selectedSize: Sizes;
     selectedSizeName: string;
     notExist = false;
-
+    desc: string;
 }

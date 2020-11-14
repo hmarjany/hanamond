@@ -1,29 +1,37 @@
 <div style="margin: 10px;padding: 10px;border: lightgray solid thin;background-color: white;font-size: 16px;">
-    <div style="padding: 20px;" *ngFor="let comment of comments">
-        <div>{{comment.user.name}} :</div>
-        <div style="white-space: break-spaces;text-align: justify;padding: 10px;">از خریدش پشیمون نمیشید چون خیلی خوشگل هست و درضمن جنس و قیمتش هم عالیه قیمتش نسبت به جاهای دیگه واقعا بهتره و ارسال هم هر تعداد باشه رایگانه</div>
-        <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="end center" style="border-bottom: lightgray thick solid;border-top: lightgray thin solid;padding: 2px;">
-            <div >
-                <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center" style="cursor: pointer;font-size: 15px;color: green;">
-                    <mat-icon style="font-size: 15px;color: green;">thumb_up</mat-icon>
-                    <div>20</div>
+    <div *ngIf="isLoggedIn" style="margin: 10px;padding: 5px;" fxLayout="column" fxLayoutGap="2px"
+        fxLayoutAlign="start start">
+        <textarea style="width: 100%;padding: 5px;" placeholder="{{placeHolder}}"
+            [(ngModel)]="comment"></textarea>
+        <button (click)="sendComment(comment)" [disabled]="sendButton">ارسال</button>
+    </div>
+    <div  *ngFor="let comment of comments">
+        <div style="padding: 20px;" *ngIf="comment.approved === true">
+            <div>{{comment.userName}} :</div>
+            <div style="white-space: break-spaces;text-align: justify;padding: 10px;">{{comment.description}}</div>
+            <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="end center"
+                style="border-bottom: lightgray thick solid;border-top: lightgray thin solid;padding: 2px;">
+                <div>
+                    <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center" (click)="like(comment)"
+                        style="cursor: pointer;font-size: 15px;color: green;">
+                        <mat-icon style="font-size: 15px;color: green;">thumb_up</mat-icon>
+                        <div>{{comment.like}}</div>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center" style="cursor: pointer;font-size: 15px;color: red;">
-                    <mat-icon style="font-size: 15px;color: red;">thumb_down</mat-icon>
-                    <div>2</div>
+                <div>
+                    <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center" (click)="dislike(comment)"
+                        style="cursor: pointer;font-size: 15px;color: red;">
+                        <mat-icon style="font-size: 15px;color: red;">thumb_down</mat-icon>
+                        <div>{{comment.dislike}}</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div (click)="moreComments()" style="font-size: 12px;color: lightseagreen;cursor: pointer;text-align: inherit;" fxLayout="row" fxLayoutAlign="strat start">
+
+    <!-- <div (click)="moreComments()" style="font-size: 12px;color: lightseagreen;cursor: pointer;text-align: inherit;" fxLayout="row" fxLayoutAlign="strat start">
         <mat-icon style="font-size: 12px;color: lightseagreen;cursor: pointer;">add_circle_outline</mat-icon>
         <div>بیشتر</div>
-    </div>
-    <div *ngIf="isLoggedIn" style="margin: 10px;padding: 5px;" fxLayout="column" fxLayoutGap="2px" fxLayoutAlign="start start">
-        <textarea style="width: 100%;padding: 5px;" placeholder="دیدگاه شما .. چون مهم هستید" [(ngModel)]="comment"></textarea>
-        <button (click)="sendComment(comment)">ارسال</button>
-    </div>
+    </div> -->
+
 </div>

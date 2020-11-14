@@ -8,6 +8,8 @@ export class Zarinpal{
     Description: any; 
     Email: any; 
     Mobile: any; 
+    userName: any;
+    deliverDateDesc: any;
     Authority : any;
     userId: any;
     productInventory: Array<ProductInventory>;

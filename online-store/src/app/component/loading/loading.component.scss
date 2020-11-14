@@ -1,14 +1,13 @@
 #load {
-    position: absolute;
-    width: 100vw;
+    position: fixed;
+    width: 100%;
     /* top: 40%; */
-    overflow: visible;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     cursor: default;
-    height: 100vh;
+    height: 100%;
     background: #00000059;
     z-index: 999999999;
   }
@@ -191,7 +190,7 @@
     //position: absolute;
     //width: 100vw;
     /* top: 40%; */
-    overflow: visible;
+    
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -201,6 +200,8 @@
     height: 100%;
     background: #00000059;
     z-index: 999999999;
+    position: absolute;
+    width: 100%;
   }
   
   #loadServer div {

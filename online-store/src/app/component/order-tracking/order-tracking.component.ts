@@ -85,6 +85,7 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
             zarinpal.refId = data.refId;
             zarinpal.Authority = params.Authority;
             zarinpal.productInventory = productInventory;
+            
             this.cartService.clearCart();
             this.cartService.getItemsCount();
             this.http.post(server.serverUrl + 'purchased/updaterefid', zarinpal).subscribe(response => {

@@ -3,6 +3,28 @@
     </app-loading>
 </div>
 
+<div *ngIf="!approved" style="z-index: 2;position: absolute;left: 0;top: 0;
+background-color: gray;opacity: 0.8;width: 100%;height: 100vh;"></div>
+<div id="editForm" *ngIf="!approved" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" 
+style="background-color: white;border: thin gray solid;padding: 10px;position: absolute;top: 24%;left: 50%;
+ transform: translate(-50%, -50%);z-index: 4;overflow: auto;text-align: center;">
+    <div style="color: red;">متاستفانه در این لحظه موجودی انبار از تعداد کالاهایی که خرید کرده اید کمتر است</div>
+    <div *ngFor='let item of notavailableMerchants; index as i'>
+        <div *ngIf='item.Quantity < item.Count'>
+            <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start center">
+                <div>نام : {{item.Name}}&nbsp;</div>
+                <div>تعداد انتخابی : {{item.Count}}&nbsp;</div>
+                <div>موجودی :{{item.Quantity}}</div>
+            </div>
+        </div>
+    </div>
+    
+    <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start center">
+        <button (click)="accept()">تایید و تغییر تعداد</button>
+        <button (click)="reject()">لغو</button>
+    </div>
+</div>
+
 <div *ngIf="isDataAvailable" class="topset">
     <div fxHide fxShow.gt-xs fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="start start" style="
     margin: 15px;

@@ -2,7 +2,7 @@
 style="padding: 30px; border-left: thin solid whitesmoke;">
     <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%;">
         <pinch-zoom backgroundColor="transparent">
-            <img [src]="selectedImage" width="360" height="310" />
+            <img [src]="selectedImage" width="360" height="310" alt="{{altDesc}}"/>
         </pinch-zoom>
     </div>
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around end">
@@ -25,7 +25,7 @@ style="padding: 30px; border-left: thin solid whitesmoke;">
 <div fxHide.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
     <div fxLayout="row" fxLayoutAlign="center center">
         <pinch-zoom backgroundColor="transparent">
-            <img [src]="selectedImage" style="width: 100%;" />
+            <img [src]="selectedImage" style="width: 100%;" alt="{{altDesc}}"/>
         </pinch-zoom>
     </div>
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center">

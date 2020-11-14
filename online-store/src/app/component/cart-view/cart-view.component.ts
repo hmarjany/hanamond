@@ -56,14 +56,14 @@ export class CartViewComponent implements OnInit {
   private getListFromCach() {
     this.productList = this.cartService.getItems();
     this.productList.forEach((item, i) => {
-      if (item.ImagePath === undefined || item.ImagePath === null) {
-        item.ImagePath = new Array<String>();
-        item.ImagePath.push(this.defualtImagePath);
-      } else {
-        item.ImagePath.forEach((path, i) => {
-          item.ImagePath[i] = 'assets/' + path;
-        });
-      }
+      // if (item.ImagePath === undefined || item.ImagePath === null) {
+      //   item.ImagePath = new Array<String>();
+      //   item.ImagePath.push(this.defualtImagePath);
+      // } else {
+      //   item.ImagePath.forEach((path, i) => {
+      //     item.ImagePath[i] = 'assets/' + path;
+      //   });
+      // }
       item.selectedSizeName = Sizes.map(item.selectedSize);
       if (item.Quantity > 0) {
         this.totalPrice += item.Count * item.Price;

@@ -1,4 +1,4 @@
-<ul class="container"  *ngIf="PrdouctPage === true">
+<ul class="container" *ngIf="PrdouctPage === true">
     <li class="sectionProduct" *ngFor="let product of productList; index as i;">
         <div *ngIf="product.SpecialOffer" fxLayout="row" fxLayoutAlign="center center" class="specilaOffer">
             <div>
@@ -12,11 +12,11 @@
             </div>
         </div>
         <a class="rLink" routerLink="/productview/{{product._id}}" style="width: 100%;">
-            <div style="background-image: url({{product.ImagePath[0]}});
+            <div title="{{product.Name}}" style="background-image: url({{product.ImagePath[0]}});
             width: 100%;height: 190px;
             background-position: center;
             background-repeat: no-repeat;"></div>
-            <h2  style="margin: 0;">{{product.Name}}</h2>
+            <h2 style="margin: 0;">{{product.Name}}</h2>
         </a>
         <div>
             {{product.Sepcification}}
@@ -39,7 +39,9 @@
                 <div fxLayout="row" fxLayoutAlign="start center" style="white-space: nowrap;overflow: hidden;">
                     سایزها : &nbsp;
                     <div *ngFor="let size of product.Size; index as i;">
-                        <div style="padding: 1px; background-color: rgb(194, 194, 194);margin-left: 2px;margin-right: 2px;">{{size.sizeName}}</div>
+                        <div
+                            style="padding: 1px; background-color: rgb(194, 194, 194);margin-left: 2px;margin-right: 2px;">
+                            {{size.sizeName}}</div>
                     </div>
                 </div>
             </div>
@@ -49,7 +51,9 @@
                 <div fxLayout="row" fxLayoutAlign="start center" style="white-space: nowrap;overflow: hidden;">
                     ویژگی ها : &nbsp;
                     <div *ngFor="let info of product.AdditinalInfos; index as i;">
-                        <div style="padding: 1px; background-color: rgb(194, 194, 194);margin-left: 2px;margin-right: 2px;">{{info.value}}</div>
+                        <div
+                            style="padding: 1px; background-color: rgb(194, 194, 194);margin-left: 2px;margin-right: 2px;">
+                            {{info.value}}</div>
                     </div>
                 </div>
             </div>
@@ -59,7 +63,9 @@
                 <div fxLayout="row" fxLayoutAlign="start center" style="white-space: nowrap;overflow: hidden;">
                     ویژگی ها : &nbsp;
                     <div *ngFor="let info of product.AdditinalInfos; index as i;">
-                        <div style="padding: 1px; background-color: rgb(194, 194, 194);margin-left: 2px;margin-right: 2px;">{{info.value}}</div>
+                        <div
+                            style="padding: 1px; background-color: rgb(194, 194, 194);margin-left: 2px;margin-right: 2px;">
+                            {{info.value}}</div>
                     </div>
                 </div>
             </div>
@@ -96,10 +102,10 @@
 <div class="container" *ngIf="CartPage === true && MobileView === false">
     <section class="sectionCartProduct" *ngFor="let product of productList; index as i;">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" style="margin: 12px;"
-        [ngStyle]="product.Quantity===0?{'filter': 'blur(3px)'} : {'filter': 'none'}">
+            [ngStyle]="product.Quantity===0?{'filter': 'blur(3px)'} : {'filter': 'none'}">
             <a class="rLink" routerLink="/productview/{{product._id}}" fxLayout="column" fxLayoutGap="10px"
                 fxLayoutAlign="center start">
-                <div style="background-image: url({{product.ImagePath[0]}});
+                <div title="{{product.Name}}" style="background-image: url({{product.ImagePath[0]}});
                 width: 100%;
                 height: 190px;
                 background-position: center;
@@ -138,47 +144,48 @@
                         <input class="quantity" min="1" name="quantity" value="{{product.Count}}" type="number">
                         <button (click)="stepDown(product)"></button>
                     </div>
-                    
+
                 </div>
             </div>
 
             <div *ngIf="!ConfirmCartView" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center end"
-            style="width: 35%;">
-            <div  fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="start center"
-                        style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;"
-                        (click)="removeItem(product)">
-                        <div>
-                            حذف
-                        </div>
-                        <div>
-                            <mat-icon style="cursor: pointer;">remove_shopping_cart
-                            </mat-icon>
-                        </div>
-            </div>
-            <div *ngIf="product.Sale" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
-                <div class="discountDecoration">
-                    {{product.DiscountPrice}}
+                style="width: 35%;">
+                <div fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="start center"
+                    style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;"
+                    (click)="removeItem(product)">
+                    <div>
+                        حذف
+                    </div>
+                    <div>
+                        <mat-icon style="cursor: pointer;">remove_shopping_cart
+                        </mat-icon>
+                    </div>
                 </div>
-                <div class="discount">
-                    {{product.DiscountPercent}}%
+                <div *ngIf="product.Sale" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+                    <div class="discountDecoration">
+                        {{product.DiscountPrice}}
+                    </div>
+                    <div class="discount">
+                        {{product.DiscountPercent}}%
+                    </div>
+                </div>
+                <div *ngIf="!product.Sale" style="height: 30px;" fxLayout="row" fxLayoutGap="10px"
+                    fxLayoutAlign="end center">
+                    <div>
+                        &nbsp;
+                    </div>
+                    <div class="discount" style="background-color: transparent;">
+                        &nbsp;
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div>{{product.Price | number}}</div>
+                    <div>تومان</div>
                 </div>
             </div>
-            <div *ngIf="!product.Sale" style="height: 30px;" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
-                <div>
-                    &nbsp;
-                </div>
-                <div class="discount" style="background-color: transparent;">
-                    &nbsp;
-                </div>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <div>{{product.Price | number}}</div>
-                <div>تومان</div>
-            </div>
-        </div>
 
         </div>
-        
+
 
     </section>
 
@@ -187,16 +194,17 @@
 <!-- CartPage Mobile view -->
 <ul class="container" *ngIf="CartPage === true && MobileView === true">
     <li class="sectionCartProduct" *ngFor="let product of productList; index as i;">
-        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center"  [ngStyle]="product.Quantity===0?{'filter': 'blur(3px)'} : {'filter': 'none'}">
-            <div style="background-image: url({{product.ImagePath[0]}});
+        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center"
+            [ngStyle]="product.Quantity===0?{'filter': 'blur(3px)'} : {'filter': 'none'}">
+            <div title="{{product.Name}}" style="background-image: url({{product.ImagePath[0]}});
                 width: 100%;
                 height: 190px;
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;"></div>
-            <a class="rLink" style="width: 100%;" routerLink="/productview/{{product._id}}" fxLayout="column" fxLayoutGap="10px"
-                fxLayoutAlign="center center">
-                <h2>{{product.Name}}</h2>
+            <a class="rLink" style="width: 100%;" routerLink="/productview/{{product._id}}" fxLayout="column"
+                fxLayoutGap="10px" fxLayoutAlign="center center">
+                <h2>{{product.Name}}&nbsp;{{product.selectedSizeName}}</h2>
             </a>
             <div fxLayout="column" fxLayoutAlign="center center">
                 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
@@ -229,12 +237,13 @@
                     </div>
                 </div>
                 <div *ngIf="!ConfirmCartView" fxLayoutGap="2px" fxLayout="row" fxLayoutAlign="center center"
-                    style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;cursor: pointer;" (click)="removeItem(product)">
-                    <div >
+                    style="color: #a4a5a7;font-size: 10px;cursor: pointer;margin-top: 10px;cursor: pointer;"
+                    (click)="removeItem(product)">
+                    <div>
                         حذف
                     </div>
                     <div>
-                        <mat-icon style="cursor: pointer;" >remove_shopping_cart
+                        <mat-icon style="cursor: pointer;">remove_shopping_cart
                         </mat-icon>
                     </div>
                 </div>
@@ -251,7 +260,8 @@
                         {{product.DiscountPercent}}%
                     </div>
                 </div>
-                <div *ngIf="!product.Sale" style="height: 30px;" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+                <div *ngIf="!product.Sale" style="height: 30px;" fxLayout="row" fxLayoutGap="10px"
+                    fxLayoutAlign="end center">
                     <div>
                         &nbsp;
                     </div>
@@ -272,13 +282,32 @@
         <ng-container *ngFor="let product of productList; index as i;">
             <ng-template carouselSlide>
                 <section class="sectionNewProduct">
-                    <div style="background-image: url({{product.ImagePath[0]}});
-                    width: 100%;
-                    height: 190px;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-size: cover;"></div>
-                    <h2>{{product.Name}}</h2>
+                    <div *ngIf="product.SpecialOffer" fxLayout="row" fxLayoutAlign="center center" class="specilaOffer">
+                        <div>
+                            فروش ویژه
+                        </div>
+                    </div>
+                    <div *ngIf="!product.SpecialOffer" fxLayout="row" fxLayoutAlign="center center"
+                        style="border-bottom: none;height: 25px;" class="specilaOffer">
+                        <div>
+                            &nbsp;
+                        </div>
+                    </div>
+                    <a class="rLink" routerLink="/productview/{{product._id}}" style="width: 100%;">
+                        <div title="{{product.Name}}" style="background-image: url({{product.ImagePath[0]}});
+                        width: 100%;height: 190px;
+                        background-position: center;
+                        background-repeat: no-repeat;"></div>
+                        <h2 style="margin: 0;">{{product.Name}}</h2>
+                    </a>
+                    <div *ngIf="product.Sale" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+                        <div class="discountDecoration">
+                            {{product.DiscountPrice}}
+                        </div>
+                        <div class="discount">
+                            {{product.DiscountPercent}}%
+                        </div>
+                    </div>
                     <p>{{product.Price | number}}</p>
                 </section>
             </ng-template>

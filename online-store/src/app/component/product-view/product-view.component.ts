@@ -9,6 +9,8 @@ import { CategoryType } from 'src/app/model/enum/CategoryType';
 import { SubCategory } from 'src/app/model/enum/SubCategory';
 import { server } from 'src/app/Helper/server';
 import { Sizes } from 'src/app/model/enum/Sizes';
+import { Comment } from 'src/app/model/Comment';
+import { AuthService } from 'src/app/service/Auth/auth.service';
 
 @Component({
   selector: 'app-product-view',
@@ -28,7 +30,8 @@ export class ProductViewComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private cartService: CartService,
     private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthService,) {
 
   }
 
@@ -46,9 +49,9 @@ export class ProductViewComponent implements OnInit {
           })
         }
 
-        if(item.Size != undefined && item.Size != null){
-          item.Size.map((itemProduct,i) => {
-            if(item.Size[i].quantity > 0){
+        if (item.Size != undefined && item.Size != null) {
+          item.Size.map((itemProduct, i) => {
+            if (item.Size[i].quantity > 0) {
               item.Size[i].sizeName = Sizes.map(itemProduct.size);
             }
           })
@@ -74,13 +77,55 @@ export class ProductViewComponent implements OnInit {
     });
   }
 
-  onSizeValChange(value:Sizes){
+  sendComment(commentContent, productId) {
+    this.authService.currentUser.subscribe(x => {
+      let comment = new Comment();
+      comment.description = commentContent;
+      comment.productId = productId;
+      comment.userName = x.name;
+      comment.userId = x._id;
+      this.http.post<Comment>(server.serverUrl + 'product/saveComment', comment).subscribe(data => {
+        
+      });
+    });
+  }
+
+  like(comment: Comment){
+    this.authService.currentUser.subscribe(x => {
+      let allowed = comment.useresDlikes.filter(c=> c === x._id);
+      if(allowed.length === 0){
+        comment.useresDlikes.push(x._id);
+        comment.like += 1;
+        comment.productId = this.product._id;
+        this.http.post<Comment>(server.serverUrl + 'product/like', comment).subscribe(data => {
+          
+        });
+      }
+    })
+    
+  }
+
+  dislike(comment: Comment){
+    this.authService.currentUser.subscribe(x => {
+      let allowed = comment.useresDlikes.filter(c=> c === x._id);
+      if(allowed.length === 0){
+        comment.useresDlikes.push(x._id);
+        comment.dislike += 1;
+        comment.productId = this.product._id;
+        this.http.post<Comment>(server.serverUrl + 'product/like', comment).subscribe(data => {
+          
+        });
+      }
+    })
+  }
+
+  onSizeValChange(value: Sizes) {
     this.product.selectedSize = value;
   }
 
   addToCart(product: Product) {
-    if(this.product.Size != undefined && this.product.Size != null && this.product.Size.length >0 ){
-      if(this.product.selectedSize === undefined || this.product.selectedSize === null){
+    if (this.product.Size != undefined && this.product.Size != null && this.product.Size.length > 0) {
+      if (this.product.selectedSize === undefined || this.product.selectedSize === null) {
         this.selectSize = true;
         return;
       }

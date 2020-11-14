@@ -9,7 +9,7 @@
     border: thin solid #e8e4e4;
     padding: 5px;
     min-width: 950px;">
-        <app-product-view-image [imagePaths]="imagePaths" style="width: 33%;"></app-product-view-image>
+        <app-product-view-image [imagePaths]="imagePaths"  [altDesc]="product.Name" style="width: 33%;"></app-product-view-image>
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 33%;">
             <section class="fieldset">
                 <h1>{{product.Name}}</h1>
@@ -133,11 +133,14 @@
         <mat-tab-group mat-align-tabs="start">
             <mat-tab label="توضیحات">
                 <div style="margin: 10px;padding: 10px;border: lightgray solid thin;background-color: white;font-size: 16px;">
-                    برای نی نی شما عالیه این محصول
+                    {{product.desc}}
                 </div>
             </mat-tab>
             <mat-tab label="نظرات">
-                <app-comment></app-comment>
+                <app-comment (dislikeEvent)="dislike($event)" 
+                (likeEvent)="like($event)"
+                (sendCommentEvent)="sendComment($event,product._id)" 
+                [comments]="product.Comments"></app-comment>
             </mat-tab>
           </mat-tab-group>
     </div> 
@@ -150,7 +153,7 @@
 
             <section class="fieldset" style="height: 100%;">
                 <h1>{{product.Name}}</h1>
-                <app-product-view-image [imagePaths]="imagePaths"></app-product-view-image>
+                <app-product-view-image [imagePaths]="imagePaths" [altDesc]="product.Name"></app-product-view-image>
                 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start" style="width: 100%;">
                     <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start"
                         style="font-size: 18px; padding: 5px;width: 100%;">
@@ -256,9 +259,13 @@
                 </div>
                 <div>
                     <mat-tab-group mat-align-tabs="start">
-                        <mat-tab label="توضیحات">Content 1</mat-tab>
+                        <mat-tab label="توضیحات">
+                            <div style="margin: 10px;padding: 10px;border: lightgray solid thin;background-color: white;font-size: 16px;">
+                                {{product.desc}}
+                            </div>
+                        </mat-tab>
                         <mat-tab label="نظرات">
-                            <app-comment></app-comment>
+                            <app-comment ></app-comment>
                         </mat-tab>
                       </mat-tab-group>
                 </div>

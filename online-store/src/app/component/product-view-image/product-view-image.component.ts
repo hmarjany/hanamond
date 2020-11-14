@@ -8,6 +8,8 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 export class ProductViewImageComponent implements OnInit {
 
   @Input() imagePaths: Array<String> = new Array<String>();
+  @Input() altDesc: string;
+  
   selectedImage:String;
   
   constructor() { 

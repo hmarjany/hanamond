@@ -35,12 +35,14 @@ export class ConfirmCartComponent implements OnInit {
   deliverDate: Date = null;
   deliverTime: DeliverTime = null;
   selectDate: boolean = false;
+  notavailableMerchants : Array<Product>;
+  approved = true;
 
   constructor(private route: ActivatedRoute,
     private http: HttpClient,
     private cartService: CartService,
     private router: Router,
-    private loaderService: LoaderService) {  }
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
     this.loadAddress();
@@ -126,90 +128,138 @@ export class ConfirmCartComponent implements OnInit {
     this.editAddress = false;
   }
 
-  deliverTimeChange(deliverTime){
+  deliverTimeChange(deliverTime) {
     this.deliverTime = deliverTime;
   }
 
-  dateChange(deliverDate: Date){
+  dateChange(deliverDate: Date) {
     this.deliverDate = deliverDate;
   }
-  
+
+  accept(){
+    this.approved = true;
+    this.cartService.clearCart();
+    this.cartService.getItemsCount();
+    this.notavailableMerchants.forEach(item=>{
+      if(item.Quantity < item.Count ){
+        item.Count = item.Quantity;
+      }
+    })
+    let productIds = new Array<any>();
+    this.notavailableMerchants.forEach(item => {
+      productIds.push(item._id);
+    });
+    this.cartService.setItems(this.notavailableMerchants);
+    this.router.navigateByUrl('/cartview/'+ productIds)
+  }
+
+  reject(){
+    this.approved = true;
+  }
+
   payment() {
-    if(this.deliverDate === null || this.deliverTime === null){
+    if (this.deliverDate === null || this.deliverTime === null) {
       this.selectDate = true;
       return;
-    }else{
+    } else {
       this.selectDate = false;
     }
 
     var order = new Order();
     var purchasedItems = new Array<PurchasedItem>();
+    var lastCheck = new Array<Product>();
     this.productList.forEach(item => {
       var purchasedItem = new PurchasedItem();
       purchasedItem.count = item.Count;
       let size = '';
-      if(item.selectedSize != undefined && item.selectedSize != null ){
+      if (item.selectedSize != undefined && item.selectedSize != null) {
         size = Sizes.map(item.selectedSize);
+        purchasedItem.selectedSize = item.selectedSize;
       }
       purchasedItem.name = item.Name.toString() + ' ' + size;
       purchasedItem.productId = item._id;
       purchasedItems.push(purchasedItem);
+      let product = new Product();
+      product._id = item._id;
+      lastCheck.push(product);
     })
 
-    order.purchasedItem = purchasedItems;
-    order.totalPrice = this.totalPrice;
-    order.deliverDate = this.deliverDate;
-    order.deliverTime = this.deliverTime;
+    this.http.post<Array<Product>>(server.serverUrl + 'purchased/lastCheck', lastCheck).subscribe(responsePurchasedItem => {
 
-    var purchased = new Purchased();
-    purchased.address = this.selectedAddress;
-    purchased.deliver = false;
-    purchased.deliverTo = this.selectedAddressDeliverTo;
-    purchased.deliverToPhone = this.selectedAddressPhone;
-    //todo
-    purchased.payOnline = true;
-    purchased.purchaseDate = new Date();
-    purchased.purchasedItem = purchasedItems;
-    purchased.userId = this.currentUser._id;
-    purchased.userName = this.currentUser.name.toString();
-    purchased.userNamePhone = this.currentUser.phoneNumber.toString();
+      this.notavailableMerchants = new Array<Product>();
+      
+      responsePurchasedItem.forEach(purchasedElement=>{
+          var purchased = purchasedItems.find(x=>x.productId === purchasedElement._id);
+          purchasedElement.Count = purchased.count;
+          purchasedElement.Name = purchased.name;
+          if(purchased.selectedSize != undefined && purchased.selectedSize != null){
+            purchasedElement.Quantity = purchasedElement.Size.find(x=>x.size === purchased.selectedSize).quantity;
+          }
+          if(purchasedElement.Quantity < purchasedElement.Count){
+            this.approved = false;
+          }
+          
+          this.notavailableMerchants.push(purchasedElement);
+      })
 
-    order.address = this.selectedAddress;
-    order.deliverTo = this.selectedAddressDeliverTo;
-    order.deliverToPhone = this.selectedAddressPhone;
-
-    
-
-    let zarinpal = new Zarinpal();
-
-    let desc = '';
-    purchasedItems.map(item =>{
-      desc = item.count + ' ' + item.name + ' ';
-    })
-
-    zarinpal.Amount = order.totalPrice;
-    zarinpal.Description = desc;
-    zarinpal.Email =  this.currentUser.email;
-    zarinpal.Mobile = this.currentUser.phoneNumber;
-    
-    this.http.post<Zarinpal>(server.serverUrl + 'zarinpal/paymentrequest', zarinpal)
-    .subscribe(data => {
-      order.athority = data.Authority;
-      order.zarinStatus = data.status;
-      purchased.athority = data.Authority;
-      purchased.zarinStatus = data.status;
-      order.purchasedUserDetails = purchased;
-      if(data.status!=100){
+      if(!this.approved){
         return;
       }
-      
-      this.http.post<Order>(server.serverUrl + 'purchased/save', order).subscribe(orderResponse => {
-        this.loaderService.show();
-        this.deliverDate = null;
-        this.deliverTime = null;
-        window.location.href = data.result;
-      });
+
+      order.purchasedItem = purchasedItems;
+      order.totalPrice = this.totalPrice;
+      order.deliverDate = this.deliverDate;
+      order.deliverTime = this.deliverTime;
+
+      var purchased = new Purchased();
+      purchased.address = this.selectedAddress;
+      purchased.deliver = false;
+      purchased.deliverTo = this.selectedAddressDeliverTo;
+      purchased.deliverToPhone = this.selectedAddressPhone;
+      //todo
+      purchased.payOnline = true;
+      purchased.purchaseDate = new Date();
+      purchased.purchasedItem = purchasedItems;
+      purchased.userId = this.currentUser._id;
+      purchased.userName = this.currentUser.name.toString();
+      purchased.userNamePhone = this.currentUser.phoneNumber.toString();
+
+      order.address = this.selectedAddress;
+      order.deliverTo = this.selectedAddressDeliverTo;
+      order.deliverToPhone = this.selectedAddressPhone;
+
+
+
+      let zarinpal = new Zarinpal();
+
+      let desc = '';
+      purchasedItems.map(item => {
+        desc = item.count + ' ' + item.name + ' ';
+      })
+
+      zarinpal.Amount = order.totalPrice;
+      zarinpal.Description = desc;
+      zarinpal.Email = this.currentUser.email;
+      zarinpal.Mobile = this.currentUser.phoneNumber;
+
+      this.http.post<Zarinpal>(server.serverUrl + 'zarinpal/paymentrequest', zarinpal)
+        .subscribe(data => {
+          order.athority = data.Authority;
+          order.zarinStatus = data.status;
+          purchased.athority = data.Authority;
+          purchased.zarinStatus = data.status;
+          order.purchasedUserDetails = purchased;
+          if (data.status != 100) {
+            return;
+          }
+
+          this.http.post<Order>(server.serverUrl + 'purchased/save', order).subscribe(orderResponse => {
+            this.loaderService.show();
+            this.deliverDate = null;
+            this.deliverTime = null;
+            window.location.href = data.result;
+          });
+        });
     });
-    
   }
 }
