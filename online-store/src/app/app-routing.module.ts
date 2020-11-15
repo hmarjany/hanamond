@@ -37,7 +37,7 @@ const routes: Routes = [
   }
   ,
   {
-    path: 'productview/:productId', component: ProductViewComponent
+    path: 'productview/:productId', component: ProductViewComponent, runGuardsAndResolvers: 'always'
   },
   {
     path: 'cartview/:productIds', component: CartViewComponent, data:{Product:'product'}
@@ -55,7 +55,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{useHash: true})],
+  imports: [RouterModule.forRoot(routes,{useHash: true,onSameUrlNavigation:'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

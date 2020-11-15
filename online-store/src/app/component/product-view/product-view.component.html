@@ -266,7 +266,10 @@
                             </div>
                         </mat-tab>
                         <mat-tab label="نظرات">
-                            <app-comment ></app-comment>
+                            <app-comment (dislikeEvent)="dislike($event)" 
+                            (likeEvent)="like($event)"
+                            (sendCommentEvent)="sendComment($event,product._id)" 
+                            [comments]="product.Comments"></app-comment>
                         </mat-tab>
                       </mat-tab-group>
                 </div>

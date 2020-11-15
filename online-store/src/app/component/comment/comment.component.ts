@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Comment } from 'src/app/model/Comment';
 import { User } from 'src/app/model/User';
 import { AuthService } from 'src/app/service/Auth/auth.service';
@@ -8,8 +9,9 @@ import { AuthService } from 'src/app/service/Auth/auth.service';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit ,OnDestroy{
 
+  navigationSubscription;
   isLoggedIn: String;
   comment: string;
   currentUser: User;
@@ -21,9 +23,27 @@ export class CommentComponent implements OnInit {
   @Output() moreCommentEvent = new EventEmitter();
   @Input() comments: Array<Comment>;
 
-  constructor(private authenticationService: AuthService) { 
+  constructor(private authenticationService: AuthService,
+    private router: Router,) { 
     this.currentUser = this.authenticationService.currentUserValue;
     this.isLoggedIn = this.currentUser && this.currentUser.token;
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if (e instanceof NavigationEnd) {
+        this.initialiseInvites();
+      }
+    });
+  }
+
+  
+  initialiseInvites() {
+    this.placeHolder = "دیدگاه شما .. چون مهم هستید";
+    this.sendButton = false;
+  }
+
+  ngOnDestroy(): void {
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
   }
 
   like(comment: Comment){
@@ -40,6 +60,7 @@ export class CommentComponent implements OnInit {
     this.dislikeEvent.emit(comment);
   }
   ngOnInit(): void {
+    
     if(this.comments != undefined && this.comments != null && this.comments.length > 0){
       this.comments.forEach(item =>{
         if(item.like === undefined || item.like === null){

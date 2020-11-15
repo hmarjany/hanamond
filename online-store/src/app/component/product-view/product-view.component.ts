@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { CartService } from 'src/app/service/Cart/cart.service';
 import { Product } from 'src/app/model/Product';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -17,7 +17,9 @@ import { AuthService } from 'src/app/service/Auth/auth.service';
   templateUrl: './product-view.component.html',
   styleUrls: ['./product-view.component.scss']
 })
-export class ProductViewComponent implements OnInit {
+export class ProductViewComponent implements OnInit ,OnDestroy{
+
+  navigationSubscription;
 
   product: Product;
   defualtImagePath = 'assets/carousel-1bg.png'
@@ -32,7 +34,20 @@ export class ProductViewComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private authService: AuthService,) {
+   this.navigationSubscription = this.router.events.subscribe((e: any) => {
+    if (e instanceof NavigationEnd) {
+      this.initialiseInvites();
+    }
+  });
+  }
 
+  initialiseInvites() {
+  }
+
+  ngOnDestroy(): void {
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
   }
 
   ngOnInit(): void {
