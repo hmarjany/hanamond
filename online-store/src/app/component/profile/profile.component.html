@@ -2,7 +2,7 @@
   <app-loading [strictLoading]="!isDataAvailable">
   </app-loading>
 </div>
-
+<div style="width: 100vw;height: 100vh;" *ngIf="!isDataAvailable"></div>
 <div *ngIf="isDataAvailable" class="profileTopset">
   <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="start start" class="saveContainer">
     <div fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="center center">

@@ -14,7 +14,7 @@ import { Size } from 'src/app/model/Size';
 })
 export class CartViewComponent implements OnInit {
 
-  productList: Array<Product> ;
+  productList: Array<Product>;
   defualtImagePath = 'assets/carousel-1bg.png';
   userId: any;
   totalPrice: number = 0;
@@ -33,7 +33,7 @@ export class CartViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListFromCach();
-  
+
     this.cartService.getRemoveEventEmitter().subscribe((item: Product) => {
       var productItem = this.productList.find(x => x._id === item._id);
       if (productItem === undefined || productItem === null) {
@@ -75,7 +75,7 @@ export class CartViewComponent implements OnInit {
     this.getListFromCach();
     this.totalPrice = 0;
     this.productList.forEach(item => {
-      if(item.Quantity > 0){
+      if (item.Quantity > 0) {
         this.totalPrice += item.Count * item.Price;
       }
     })
@@ -83,12 +83,18 @@ export class CartViewComponent implements OnInit {
 
   OnProductChange(product: Product) {
     let productItem = null;
-    if(product.Size != undefined && product.Size != null && product.Size.length > 0){
+    if (product.Size != undefined && product.Size != null && product.Size.length > 0) {
       productItem = this.productList.find(x => x._id === product._id && x.selectedSize === product.selectedSize);
-    }else{
+    } else {
       productItem = this.productList.find(x => x._id === product._id);
     }
     if (productItem === undefined || productItem === null) {
+      this.totalPrice = 0;
+      this.productList.forEach(item => {
+        if (item.Quantity > 0) {
+          this.totalPrice += item.Count * item.Price;
+        }
+      })
       return;
     }
 
@@ -100,11 +106,11 @@ export class CartViewComponent implements OnInit {
 
     this.totalPrice = 0;
     this.productList.forEach(item => {
-      if(item.Quantity > 0){
+      if (item.Quantity > 0) {
         this.totalPrice += item.Count * item.Price;
       }
     })
-    
+
     this.cartService.setItems(this.productList);
   }
 
@@ -113,19 +119,19 @@ export class CartViewComponent implements OnInit {
     this.proccessFaild = false;
     var finalProductItems = new Array<Product>();
     this.productList.forEach((item, i) => {
-      if(item.selectedSize != null){
-        let productQuantity = item.Size.find(x=>x.size === item.selectedSize);
-        if(item.Count >productQuantity.quantity){
+      if (item.selectedSize != null) {
+        let productQuantity = item.Size.find(x => x.size === item.selectedSize);
+        if (item.Count > productQuantity.quantity) {
           this.notExist = true;
-          this.notExistMesseage =" به تعداد " + item.Count + "عدد از کالای " + item.Name+ " به سایز " + Sizes.map(productQuantity.size) +"در انبار موجود نیست  ";
+          this.notExistMesseage = " به تعداد " + item.Count + "عدد از کالای " + item.Name + " به سایز " + Sizes.map(productQuantity.size) + "در انبار موجود نیست  ";
           this.proccessFaild = true;
           return false;
-          
+
         }
-      }else{
-        if(item.Count > item.Quantity){
+      } else {
+        if (item.Count > item.Quantity) {
           this.notExist = true;
-          this.notExistMesseage ="به تعداد " + item.Count + "عدد از کالای " + item.Name+"در انبار موجود نیست";
+          this.notExistMesseage = "به تعداد " + item.Count + "عدد از کالای " + item.Name + "در انبار موجود نیست";
           this.proccessFaild = true;
           return false;
         }
@@ -134,11 +140,11 @@ export class CartViewComponent implements OnInit {
         finalProductItems.push(item);
       }
     })
-    if(this.proccessFaild){
+    if (this.proccessFaild) {
       return;
     }
     this.cartService.setFinalItems(finalProductItems);
-    this.router.navigateByUrl('/confirmcart/'+this.productIds)
-    
+    this.router.navigateByUrl('/confirmcart/' + this.productIds)
+
   }
 }

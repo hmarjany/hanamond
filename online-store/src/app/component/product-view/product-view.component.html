@@ -2,6 +2,7 @@
     <app-loading [strictLoading]="!isDataAvailable">
     </app-loading>
 </div>
+<div style="width: 100vw;height: 100vh;" *ngIf="!isDataAvailable"></div>
 <div class="topset" *ngIf="isDataAvailable">
     <app-navigation-bar [product]="product" [productView]="true"></app-navigation-bar>
 

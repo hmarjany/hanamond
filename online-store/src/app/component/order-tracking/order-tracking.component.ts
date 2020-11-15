@@ -14,6 +14,7 @@ import { Size } from 'src/app/model/Size';
 import { PurchasedItem } from 'src/app/model/PurchasedItem';
 import { Reject } from 'src/app/model/Reject';
 import { DeliverTime } from 'src/app/model/enum/DeliverTime';
+import { AuthService } from 'src/app/service/Auth/auth.service';
 
 @Component({
   selector: 'app-order-tracking',
@@ -43,7 +44,8 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
   constructor(private http: HttpClient,
     private cartService: CartService,
     private route: ActivatedRoute,
-    private changeDetectorRef: ChangeDetectorRef,) {}
+    private changeDetectorRef: ChangeDetectorRef,
+    private authenticationService: AuthService) {}
   ngAfterViewInit(): void {
 
   }
@@ -85,7 +87,7 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
             zarinpal.refId = data.refId;
             zarinpal.Authority = params.Authority;
             zarinpal.productInventory = productInventory;
-            
+            zarinpal.Mobile = this.authenticationService.currentUserValue.phoneNumber;
             this.cartService.clearCart();
             this.cartService.getItemsCount();
             this.http.post(server.serverUrl + 'purchased/updaterefid', zarinpal).subscribe(response => {
@@ -141,6 +143,8 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
           let purchaseDate = new Date(item.purchaseDate);
           let rejectDate = new Date();
           rejectDate.setDate(purchaseDate.getDate() + 5);
+          rejectDate.setMonth(purchaseDate.getMonth());
+          rejectDate.setFullYear(purchaseDate.getFullYear());
           item.rejectDate = rejectDate;
         })
       }
@@ -206,6 +210,7 @@ export class OrderTrackingComponent implements OnInit, AfterViewInit {
     }
     this.rejectInstance.deliverDate = this.deliverDate;
     this.rejectInstance.deliverTime = this.deliverTime;
+    this.rejectInstance.mobile = this.authenticationService.currentUserValue.phoneNumber;
     this.rejectInstance.rejected = true;
     
     this.http.post(server.serverUrl + 'order/saveReject', this.rejectInstance).subscribe(response => {

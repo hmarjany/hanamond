@@ -2,7 +2,8 @@
     <app-loading [strictLoading]="!isDataAvailable">
     </app-loading>
 </div>
-<div *ngIf="showReject" style="z-index: 2;position: absolute;left: 0;top: 0;
+<div style="width: 100vw;height: 100vh;" *ngIf="!isDataAvailable"></div>
+<div *ngIf="showReject" style="z-index: 2;position: fixed;left: 0;top: 0;
 background-color: gray;opacity: 0.8;width: 100%;height: 100vh;"></div>
 <div id="editForm" *ngIf="showReject" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" style="background-color: white;border: thin gray solid;padding: 10px;position: absolute;top: 24%;left: 50%;
  transform: translate(-50%, -50%);z-index: 4;overflow: auto;text-align: center;">

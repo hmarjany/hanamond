@@ -2,6 +2,7 @@
     <app-loading [strictLoading]="!isDataAvailable">
     </app-loading>
 </div>
+<div style="width: 100vw;height: 100vh;" *ngIf="!isDataAvailable"></div>
 <div *ngIf="isDataAvailable" class="mainContainer">
     <app-navigation-bar [product]="product"></app-navigation-bar>
     <div class="secondContainer">

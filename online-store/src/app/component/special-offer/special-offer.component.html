@@ -2,6 +2,7 @@
     <app-loading [strictLoading]="!isDataAvailable">
     </app-loading>
 </div>
+<div style="width: 100vw;height: 100vh;" *ngIf="!isDataAvailable"></div>
 <div *ngIf="isDataAvailable" class="mainContainer">
     <div style="padding: 5px;color: red;font-size: 20px;">فروش ویژه</div>
     <div class="secondContainer">

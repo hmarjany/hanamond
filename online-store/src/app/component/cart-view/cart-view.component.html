@@ -2,6 +2,7 @@
     <app-loading [strictLoading]="!isDataAvailable">
     </app-loading>
 </div>
+<div style="width: 100vw;height: 100vh;" *ngIf="!isDataAvailable"></div>
 <div *ngIf="isDataAvailable" class="topset">
     <div fxHide fxShow.gt-xs fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="start start" style="
     margin: 15px;

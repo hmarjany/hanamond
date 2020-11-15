@@ -10,5 +10,6 @@ export class Reject{
     ProductName: string;
     deliverDate: Date;
     deliverTime: DeliverTime;
+    mobile: any;
     rejected:boolean;
 }
