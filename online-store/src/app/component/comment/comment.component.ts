@@ -74,6 +74,9 @@ export class CommentComponent implements OnInit ,OnDestroy{
   }
 
   sendComment(comment: string){
+    if(comment === '' || comment === null || comment === undefined){
+      return;
+    }
     this.sendCommentEvent.emit(comment);
     this.comment = '';
     this.placeHolder = "دیدگاه شما ارسال شد";

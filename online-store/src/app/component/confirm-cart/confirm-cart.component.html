@@ -30,7 +30,7 @@ style="background-color: white;border: thin gray solid;padding: 10px;position: a
     margin: 15px;
     min-width: 950px;">
         <div style="width: 70%;">
-            <section class="sectionَSelectedAddress" *ngIf="!editAddress">
+            <section class="secttionSelectionAddres" *ngIf="!editAddress">
                 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
                     <div>
                         <h2>
@@ -74,7 +74,7 @@ style="background-color: white;border: thin gray solid;padding: 10px;position: a
                     (selectAddressChangeEvent)="onAddressChange($event)"></app-address>
             </div>
 
-            <section class="sectionَSelectedAddress" *ngIf="!editAddress">
+            <section class="secttionSelectionAddres" *ngIf="!editAddress">
                 <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
                     <div>
                         <h2>
@@ -159,7 +159,7 @@ style="background-color: white;border: thin gray solid;padding: 10px;position: a
 <!-- Mobile view -->
 <div *ngIf="isDataAvailable" fxHide.gt-xs fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start"
     style="margin: 15px;">
-    <section class="sectionَSelectedAddress" *ngIf="!editAddress">
+    <section *ngIf="!editAddress">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
             <div>
                 <h2>
@@ -203,7 +203,7 @@ style="background-color: white;border: thin gray solid;padding: 10px;position: a
         </app-address>
     </div>
 
-    <section class="sectionَSelectedAddress" *ngIf="!editAddress">
+    <section *ngIf="!editAddress">
         <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start">
             <div>
                 <h2>
